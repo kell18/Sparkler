@@ -4,7 +4,7 @@ cmake_minimum_required(VERSION 2.8.4)
 project(Raytracer)
 set (APP_NAME Raytracer)
 
-### Standart
+### C++ Standart
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11")
 
 ### Sources directory
@@ -26,13 +26,15 @@ FOREACH(_FILE ${SRC})
 ENDFOREACH()
 add_executable ( ${APP_NAME} ${SRC} )
 
-### Libs dirs
-#link_directories ( /path/to/lib_1 )
-#link_directories ( ${PROJECT_SOURCE_DIR}/libs/FreeImage/FreeImage )
+# Libs dirs
+## Example: # link_directories ( ${PROJECT_SOURCE_DIR}/libs/freeimage )
+link_directories ( ${PROJECT_SOURCE_DIR}/libs/glm/glm )
 
-### Libs names
-#target_link_libraries( ${APP_NAME} name_1 )
-#target_link_libraries( ${APP_NAME} FreeImage )
+# Libs names
+## Example: # target_link_libraries( ${APP_NAME} ${PROJECT_SOURCE_DIR}/libs/freeimage/libfreeimage.a)
+### FreeImage
+target_link_libraries( ${APP_NAME} freeimage )
+target_link_libraries( ${APP_NAME} freeimageplus )
 
 
 ######### External packeges #########
