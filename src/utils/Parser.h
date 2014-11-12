@@ -2,7 +2,7 @@
 #define PARSER_H
 
 #include <glm/vec3.hpp>
-#include "../core/DisplayObject.h"
+#include "../geometry/Primitive.h"
 #include "../core/Scene.h"
 
 using namespace glm;

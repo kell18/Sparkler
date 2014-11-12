@@ -10,6 +10,7 @@ namespace raytracer {
 
     class Scene;
 
+    // TODO: May be remove this class?
     class ITracer {
     public:
         /**
@@ -18,7 +19,7 @@ namespace raytracer {
         * @param depth - recursion depth.
         * @returns Color in RGBA format.
         */
-        virtual vec4        trace(Scene* scene, int depth) = 0;
+        virtual vec4*       trace(Scene* scene, int depth) = 0;
 
         virtual             ~ITracer() {}
     };

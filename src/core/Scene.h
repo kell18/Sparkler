@@ -5,8 +5,11 @@
 #include <FreeImage.h>
 #include <FreeImagePlus.h>
 #include <glm/vec3.hpp>
-#include "DisplayObject.h"
+#include <omp.h>
+#include "../geometry/Primitive.h"
+#include "../geometry/Ray.h"
 #include "Camera.h"
+#include "Film.h"
 
 using namespace std;
 using namespace glm;
@@ -14,20 +17,21 @@ using namespace glm;
 namespace raytracer {
 
     class Camera;
+    class Ray;
+    class Primitive;
 
     class Scene{
     private:
         int fragmentsPerPixel;
         Camera* _camera;
-        vector<DisplayObject> _objects;
-    public:
-        void            addPrimitive(DisplayObject primitive);
-        void            render();
-                        Scene(Camera* camera, vector<DisplayObject>& objects, int fragmentsPerPixel);
-                        ~Scene();
+        vector<Primitive*> *_objects;
 
-    private:
-        RGBQUAD vec4ToRgbaquad(vec4 vColor);
+    public:
+        void                    render();
+        vector<Primitive*>*     getNearestPrimitives(Ray *ray);
+        void                    addPrimitive(Primitive *object);
+                                Scene(Camera* camera, vector<Primitive*>* objects, int fragmentsPerPixel);
+                                ~Scene();
     };
 
 }

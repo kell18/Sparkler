@@ -17,7 +17,7 @@ namespace raytracer {
         unsigned width, height;
         vec3 eye, u, v, w;
 
-        Ray*            CreateRay(unsigned xCoord, unsigned yCoord);
+        Ray*            CreateRayTracer(unsigned xCoord, unsigned yCoord);
                         Camera(const vec3& eye, const vec3& center, const vec3& up,
                         unsigned width, unsigned height, int fovx, int fovy);
     };

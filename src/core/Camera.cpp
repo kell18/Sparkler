@@ -2,7 +2,7 @@
 
 namespace raytracer {
 
-    Ray* Camera::CreateRay(unsigned xCoord, unsigned yCoord) {
+    Ray* Camera::CreateRayTracer(unsigned xCoord, unsigned yCoord) {
         return new Ray(xCoord, yCoord, this);
     }
 

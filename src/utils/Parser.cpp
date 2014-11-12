@@ -9,8 +9,8 @@ namespace raytracer {
              center (0.0, 0.0, 1.0),
              up(0.0, 1.0, 0.0);
 
-        Camera* camera = new Camera(eye, center, up, 400, 300, 2, 2);
-        vector<DisplayObject> objects;
+        Camera* camera = new Camera(eye, center, up, 800, 600, 2, 2);
+        auto objects = new vector<Primitive *>();
         return new Scene(camera, objects, 1);
     }
 
