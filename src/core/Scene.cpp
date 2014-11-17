@@ -3,19 +3,18 @@
 namespace raytracer {
 
     void Scene::render() {
-        Film film(_camera->width, _camera->height, 24, 1);
-        unsigned i;
+        Film film(camera->width, camera->height, 24, 1);
         // #pragma omp parallel private(i)
-        for (i = 0; i < _camera->width; ++i) {
-            for (unsigned j = 0, h = _camera->height; j < h; ++j) {
-                Ray *rayTracer = _camera->CreateRayTracer(i, j);
+        for (unsigned i = 0; i < camera->width; ++i) {
+            for (unsigned j = 0, h = camera->height; j < h; ++j) {
+                Ray *rayTracer = camera->CreateRayTracer(i, j);
                 film.commitFragment(i, j, rayTracer->trace(this, 2));
             }
         }
-        film.writeToImage("../resources/out.png");
+        film.writeToImage("../resources/imgs/out.png");
     }
 
-    vector<Primitive*>* Scene::getNearestPrimitives(Ray *ray) {
+    list<Primitive*>* Scene::getNearestPrimitives(Ray *ray) {
         return _objects;
     }
 
@@ -23,9 +22,7 @@ namespace raytracer {
         _objects->push_back(object);
     }
 
-    Scene::Scene(Camera* _camera, vector<Primitive*>* objects, int fragmentsPerPixel) :
-            _camera(_camera), _objects(objects), fragmentsPerPixel(fragmentsPerPixel) {
+    Scene::Scene(Camera *camera, list<Primitive*>* objects, list<Light*> *lights, int fragmentsPerPixel) :
+            camera(camera), _objects(objects), lights(lights), fragmentsPerPixel(fragmentsPerPixel) {
     }
-
-    Scene::~Scene() {}
 }

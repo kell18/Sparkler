@@ -1,13 +1,11 @@
-#ifndef Primitive_H
-#define Primitive_H
+#ifndef PRIMITIVE_H
+#define PRIMITIVE_H
 
-#define GLM_SWIZZLE GLM_SWIZZLE_XYZW
-#include <glm/glm.hpp>
-
-//#include <glm/mat4x4.hpp>
-//#include <glm/vec4.hpp>
+#include <glm/mat4x4.hpp>
+#include <glm/vec4.hpp>
 #include "Ray.h"
 #include "Collision.h"
+#include "../core/Material.h"
 
 using namespace glm;
 
@@ -17,12 +15,20 @@ namespace raytracer {
 
     class Primitive {
     public:
-        vec4 *position;
+        vec4 position;
+        mat4 transforms;
+        Material material;
 
         virtual Collision*      computeCollisionWith(Ray *ray) = 0;
         // void                 addTransform(mat4 transform);
         // Shape                getShape();
+
+//        Primitive&              operator =(const Primitive &copiedPrimitive);
+//                                Primitive();
+//                                Primitive(const Primitive &copiedPrimitive);
+        virtual                 ~Primitive();
     };
+
 }
 
 #endif

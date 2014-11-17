@@ -1,18 +1,17 @@
 #ifndef RAY_H
 #define RAY_H
 
-#define GLM_SWIZZLE_XYZW
-
 #include <math.h>
-#include <glm/glm.hpp>
-#include "ITracer.h"
+#include <glm/vec4.hpp>
 #include "../core/Camera.h"
+#include "../core/Scene.h"
 
 namespace raytracer {
 
     class Camera;
+    class Scene;
 
-    class Ray : public ITracer {
+    class Ray {
     private:
         Camera* _cam;
         
@@ -21,8 +20,8 @@ namespace raytracer {
         int x, y;
 
 
-        virtual vec4*   trace(Scene* scene, int depth) override;
-                        Ray(unsigned x, unsigned y, Camera* camera);
+        vec4*           trace(Scene* scene, int depth) ;
+                        Ray(int x, int y, Camera* camera);
     };
 
 }

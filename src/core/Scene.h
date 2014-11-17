@@ -6,10 +6,13 @@
 #include <FreeImagePlus.h>
 #include <glm/vec3.hpp>
 #include <omp.h>
+#include <iostream>
+#include <list>
 #include "../geometry/Primitive.h"
 #include "../geometry/Ray.h"
 #include "Camera.h"
 #include "Film.h"
+#include "Light.h"
 
 using namespace std;
 using namespace glm;
@@ -19,19 +22,22 @@ namespace raytracer {
     class Camera;
     class Ray;
     class Primitive;
+    class Light;
 
     class Scene{
     private:
         int fragmentsPerPixel;
-        Camera* _camera;
-        vector<Primitive*> *_objects;
+        list<Primitive*> *_objects;
 
     public:
+        Camera *camera;
+        list<Light*> *lights;
+
         void                    render();
-        vector<Primitive*>*     getNearestPrimitives(Ray *ray);
+        list<Primitive*>*       getNearestPrimitives(Ray *ray);
         void                    addPrimitive(Primitive *object);
-                                Scene(Camera* camera, vector<Primitive*>* objects, int fragmentsPerPixel);
-                                ~Scene();
+                                Scene(Camera* camera, list<Primitive*>* objects,
+                                        list<Light*> *lights, int fragmentsPerPixel = 1);
     };
 
 }

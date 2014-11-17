@@ -5,7 +5,7 @@ namespace raytracer {
     Collision* Sphere::computeCollisionWith(Ray *ray) {
         Collision* collision = new Collision();
         float A = dot(ray->direction, ray->direction);
-        vec4 EyeMinusPos = ray->eye - (*position);
+        vec4 EyeMinusPos = ray->eye - (position);
         float B = 2 * (dot(ray->direction, EyeMinusPos));
         float C = dot(EyeMinusPos, EyeMinusPos) - radius * radius;
         float D = B * B - 4 * A * C;
@@ -18,11 +18,10 @@ namespace raytracer {
             if (x1 != x2) {
                 t = x1 > x2 ? x1 : x2;
             } else {
-                t = tan(x1);
+                t = x1; // tan(x1);
             }
-            vec4 wholeRay = ray->eye + ray->direction;
-            collision->point = wholeRay * t;
-            collision->normal = vec3(normalize(wholeRay));
+            collision->point = ray->eye + ray->direction * t;
+            collision->normal = vec3(normalize(ray->eye + ray->direction));
         } else {
             collision->isFind = false;
         }
@@ -30,8 +29,13 @@ namespace raytracer {
         return collision;
     }
 
-    Sphere::Sphere(vec4 *centerPosition, float radius) : radius(radius) {
-        position = centerPosition;
+    Sphere::Sphere(vec4 position, float radius, mat4 transforms, Material material) : radius(radius) {
+        this->position = position;
+        this->transforms = transforms;
+        this->material = material;
+    }
+
+    Sphere::~Sphere() {
     }
 
 }

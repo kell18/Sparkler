@@ -7,12 +7,13 @@
 namespace raytracer {
 
     class Sphere : public Primitive {
-
     public:
         float radius;
 
         virtual Collision*      computeCollisionWith(Ray *ray) override;
-                                Sphere(vec4* centerPosition, float radius);
+
+                                Sphere(vec4 position, float radius, mat4 transforms, Material material);
+        virtual                 ~Sphere();
     };
 
 }
