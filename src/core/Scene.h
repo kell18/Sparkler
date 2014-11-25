@@ -27,17 +27,21 @@ namespace raytracer {
     class Scene{
     private:
         int fragmentsPerPixel;
-        list<Primitive*> *_objects;
+        list<Primitive*> *_primitives;
 
     public:
         Camera *camera;
         list<Light*> *lights;
 
         void                    render();
-        list<Primitive*>*       getNearestPrimitives(Ray *ray);
-        void                    addPrimitive(Primitive *object);
+
+        list<Primitive*>*       getNearestPrimitives(Ray *ray) const;
+        void                    addPrimitive(Primitive *primitive);
+
+
                                 Scene(Camera* camera, list<Primitive*>* objects,
                                         list<Light*> *lights, int fragmentsPerPixel = 1);
+                                ~Scene();
     };
 
 }

@@ -2,30 +2,35 @@
 
 namespace raytracer {
 
-    vec4* Ray::trace(Scene *scene, int depth) {
-        auto nearestObjects = scene->getNearestPrimitives(this);
-        size_t len = nearestObjects->size();
-        vec4 *color = new vec4();
+    vec4 Ray::trace(const Scene& scene, int depth) {
+        auto nearestPrimitives = scene.getNearestPrimitives(this);
+        size_t len = nearestPrimitives->size();
+        vec4 color;
 
-        auto object = nearestObjects->begin();
-        while (object != nearestObjects->end()) {
-            Collision *collision = (*object)->computeCollisionWith(this);
+        auto primitive = nearestPrimitives->begin();
+        while (primitive != nearestPrimitives->end()) {
+            Collision *collision = (*primitive)->computeCollisionWith(this);
             if (collision->isFind) {
-                color->g = 100;
-                color->b = 100;
+                color.g = 100;
+                color.b = 100;
             }
-            object++;
+            primitive++;
         }
 
         return color;
     }
 
-    Ray::Ray(int x, int y, Camera* camera) : x(x), y(y), _cam(camera) {
-        float alpha = (float) (tan(_cam->fovx/2.0) * ((x - _cam->width/2.0) / (_cam->width/2.0)));
-        float beta  = (float) (tan(_cam->fovy/2.0) * ((_cam->height/2.0 - y) / (_cam->height/2.0)));
-        vec3& camEye = _cam->eye;
+    Ray::Ray(int x, int y, const Camera& camera) : x(x), y(y) {
+        float alpha = (float) (tan(camera.getFieldOfView().x/2.0) *
+                ((x - camera.width/2.0) / (camera.width/2.0)));
+        float beta  = (float) (tan(camera.getFieldOfView().y/2.0) *
+                ((camera.height/2.0 - y) / (camera.height/2.0)));
+
+        vec3 camEye = camera.getEye();
         eye = vec4(camEye.x, camEye.y, camEye.z, 1);
-        vec3 dir = normalize(alpha * _cam->u + beta * _cam->v - _cam->w);
+
+        CoordinateSystem cameraFrame = camera.getCoordinateSystem();
+        vec3 dir = normalize(alpha * cameraFrame.X + beta * cameraFrame.Y - cameraFrame.Z);
         direction = vec4(dir.x, dir.y, dir.z, 0);
     }
 }

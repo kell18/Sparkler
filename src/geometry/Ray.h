@@ -5,6 +5,7 @@
 #include <glm/vec4.hpp>
 #include "../core/Camera.h"
 #include "../core/Scene.h"
+#include "../geometry/CoordinateSystem.h"
 
 namespace raytracer {
 
@@ -12,16 +13,13 @@ namespace raytracer {
     class Scene;
 
     class Ray {
-    private:
-        Camera* _cam;
-        
     public:
         vec4 eye, direction;
         int x, y;
 
+        vec4            trace(const Scene& scene, int depth) ;
 
-        vec4*           trace(Scene* scene, int depth) ;
-                        Ray(int x, int y, Camera* camera);
+                        Ray(int x, int y, const Camera& camera);
     };
 
 }

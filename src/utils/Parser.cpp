@@ -3,29 +3,22 @@
 namespace raytracer {
 
     Scene* Parser::createSceneFromFile(const char *fileName) {
-        unsigned width = 500,
-                 height = 400;
+        unsigned width = 1800,
+                 height = 1500;
 
-        Camera *camera = new Camera(
-                vec3(-4, -4, 4),
-                vec3(1, 0, 0),
-                vec3(0, 1, 0),
-                width,
-                height,
-                150, // TODO: Care
-                150
-        );
+        Camera *camera = new Camera(width, height, 30);
+        camera->lookAt(vec3(-4, -4, 4), vec3(1, 0, 0), vec3(0, 1, 0));
 
         list<Primitive*> *primitives = new list<Primitive*>;
         list<Light*> *lights = new list<Light*>;
 
-        vec4 pos = vec4(1, 0, 0, 1);
-        float radius = 2.15;
+        vec4 position = vec4(1, 0, 0, 1);
+        float radius = 0.3;
         mat4 topTransform;
         Material material;
 
         Primitive *sphere = new Sphere(
-                pos,
+                position,
                 radius,
                 topTransform,
                 material
