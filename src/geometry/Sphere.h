@@ -4,15 +4,17 @@
 #include <glm/glm.hpp>
 #include "Primitive.h"
 
+using namespace std;
+
 namespace raytracer {
 
     class Sphere : public Primitive {
     public:
         float radius;
 
-        virtual Collision*      computeCollisionWith(Ray *ray) override;
+        virtual Collision       computeCollisionWith(const Ray &ray) override;
 
-                                Sphere(vec4 position, float radius, mat4 transforms, Material material);
+                                Sphere(vec3 position, Material material, float radius, mat4 transforms = mat4());
         virtual                 ~Sphere();
     };
 

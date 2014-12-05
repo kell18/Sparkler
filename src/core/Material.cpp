@@ -13,10 +13,11 @@ namespace raytracer {
     }
 
     Material::Material() {
-        ambient = vec4();
-        diffuse = vec4();
-        emissive = vec4();
-        specular = vec4();
+        // TODO: Try to use without init
+        ambient = vec3();
+        diffuse = vec3();
+        emissive = vec3();
+        specular = vec3();
         shininess = 1;
     }
 }

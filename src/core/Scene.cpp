@@ -7,16 +7,16 @@ namespace raytracer {
         // #pragma omp parallel for
         for (unsigned i = 0; i < camera->width; ++i) {
             for (unsigned j = 0, h = camera->height; j < h; ++j) {
-                Ray* ray = camera->CreateRayTracer(i, j);
-                vec4 color = ray->trace(*this, 2);
-                film.commitFragment(i, j, color);
+                Ray* ray = camera->CreateRayTracer(i, j, *this);
+                vec3 color = ray->trace(2);
+                film.commitFragment(i, j, vec4(color, 1));
                 delete ray;
             }
         }
         film.writeToImage("../resources/imgs/out.png");
     }
 
-    list<Primitive*>* Scene::getNearestPrimitives(Ray *ray) const {
+    list<Primitive*>* Scene::getNearestPrimitives(const Ray &ray) const {
         return _primitives;
     }
 
@@ -24,8 +24,16 @@ namespace raytracer {
         _primitives->push_back(primitive);
     }
 
+    list<Light *> *Scene::getLights() const {
+        return _lights;
+    }
+
+    void Scene::addLight(Light *light) {
+        _lights->push_back(light);
+    }
+
     Scene::Scene(Camera *camera, list<Primitive*>* objects, list<Light*> *lights, int fragmentsPerPixel) :
-            camera(camera), _primitives(objects), lights(lights), fragmentsPerPixel(fragmentsPerPixel) {
+            camera(camera), _primitives(objects), _lights(lights), fragmentsPerPixel(fragmentsPerPixel) {
     }
 
     Scene::~Scene() {
@@ -35,11 +43,11 @@ namespace raytracer {
         _primitives->clear();
         delete _primitives;
 
-        for(auto iterL = lights->begin(); iterL != lights->end(); iterL++) {
+        for(auto iterL = _lights->begin(); iterL != _lights->end(); iterL++) {
             delete *iterL;
         }
-        lights->clear();
-        delete lights;
+        _lights->clear();
+        delete _lights;
 
         delete camera;
     }

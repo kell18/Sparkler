@@ -28,15 +28,18 @@ namespace raytracer {
     private:
         int fragmentsPerPixel;
         list<Primitive*> *_primitives;
+        list<Light*>* _lights;
 
     public:
         Camera *camera;
-        list<Light*> *lights;
 
         void                    render();
 
-        list<Primitive*>*       getNearestPrimitives(Ray *ray) const;
+        list<Primitive*>*       getNearestPrimitives(const Ray &ray) const;
         void                    addPrimitive(Primitive *primitive);
+
+        list<Light*>*           getLights() const;
+        void                    addLight(Light* light);
 
 
                                 Scene(Camera* camera, list<Primitive*>* objects,

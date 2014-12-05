@@ -6,6 +6,7 @@
 #include "../core/Camera.h"
 #include "../core/Scene.h"
 #include "../geometry/CoordinateSystem.h"
+#include "../geometry/Collision.h"
 
 namespace raytracer {
 
@@ -14,12 +15,19 @@ namespace raytracer {
 
     class Ray {
     public:
-        vec4 eye, direction;
-        int x, y;
+        const Scene& scene;
+        vec3 eye, direction;
+        float tMin;
+        float tMax;
 
-        vec4            trace(const Scene& scene, int depth) ;
+        vec3            trace(int depth, vec3 color = vec3());
+        Collision       findNearestCollision() const;
 
-                        Ray(int x, int y, const Camera& camera);
+        vec3            computeColor(Collision collision, vec3& color) const;
+
+//        static Ray      createReflectRay(Ray directRay, Collision collision);
+
+                        Ray(const Scene& scene, vec3 eye, vec3 direction, float tMin = 0.1f, float tMax = 1000.0f);
     };
 
 }

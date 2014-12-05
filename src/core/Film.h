@@ -1,6 +1,7 @@
 #ifndef FILM_H
 #define FILM_H
 
+#include <glm/glm.hpp>
 #include <glm/vec4.hpp>
 #include <FreeImage.h>
 #include <stdio.h>
@@ -31,7 +32,7 @@ namespace raytracer {
             qColor.rgbRed = (BYTE) vColor.r;
             qColor.rgbGreen = (BYTE) vColor.g;
             qColor.rgbBlue = (BYTE) vColor.b;
-            qColor.rgbReserved = (BYTE) vColor.a;
+            qColor.rgbReserved = (BYTE) 1.0f; //(BYTE) vColor.a;
             return qColor;
         }
     };

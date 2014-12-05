@@ -15,17 +15,14 @@ namespace raytracer {
 
     class Primitive {
     public:
-        vec4 position;
-        mat4 transforms;
+        vec3 position;
         Material material;
+        mat4 transforms;
 
-        virtual Collision*      computeCollisionWith(Ray *ray) = 0;
+        virtual Collision       computeCollisionWith(const Ray &ray) = 0;
         // void                 addTransform(mat4 transform);
-        // Shape                getShape();
 
-//        Primitive&              operator =(const Primitive &copiedPrimitive);
-//                                Primitive();
-//                                Primitive(const Primitive &copiedPrimitive);
+                                Primitive(vec3 position, Material material, mat4 transforms = mat4());
         virtual                 ~Primitive();
     };
 

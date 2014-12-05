@@ -4,6 +4,7 @@
 #include <vector>
 #include <glm/vec3.hpp>
 #include <glm/vec4.hpp>
+#include "../core/Material.h"
 
 using namespace glm;
 
@@ -11,8 +12,12 @@ namespace raytracer {
 
     struct Collision {
         bool isFind;
-        vec4 point;
+        vec3 point;
         vec3 normal;
+        Material material;
+        float distance;
+
+        Collision() : isFind(false), distance(-1) {}
     };
 
 }

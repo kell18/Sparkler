@@ -1,24 +1,34 @@
 #ifndef TRIANGLE_H
 #define TRIANGLE_H
 
+#define GLM_FORCE_RADIANS
+
 #include <glm/glm.hpp>
+#include <glm/gtx/epsilon.hpp>
+#include <glm/gtx/intersect.hpp>
 #include <glm/vec3.hpp>
+#include <glm/vec4.hpp>
 #include "Primitive.h"
 #include "Collision.h"
+
+using namespace glm;
 
 namespace raytracer {
 
     class Triangle : public Primitive {
     private:
-        vec3 vertex1, vertex2, vertex3,
-             vec1x2, vec1x3, normal;
+        vec3 vertices[3];
+        vec3 side1x2, side1x3, normal;
 
 
     public:
-        virtual             Collision *computeCollisionWith(Ray *ray) override;
+        virtual Collision       computeCollisionWith(const Ray &ray) override;
 
-                            Triangle(vec3 vertex1, vec3 vertex2, vec3 vertex3);
-        virtual             ~Triangle();
+
+                                Triangle(Material material, vec3 vertices[3], mat4 transforms = mat4());
+
+        virtual                 ~Triangle();
+
     };
 
 }
