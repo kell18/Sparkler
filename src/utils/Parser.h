@@ -10,9 +10,9 @@
 #include <stack>
 #include <glm/vec3.hpp>
 #include <glm/vec4.hpp>
-#include "../geometry/Primitive.h"
-#include "../geometry/Triangle.h"
-#include "../geometry/Sphere.h"
+#include "../geometry/primitives/Primitive.h"
+#include "../geometry/primitives/Triangle.h"
+#include "../geometry/primitives/Sphere.h"
 #include "../core/Scene.h"
 
 using namespace glm;

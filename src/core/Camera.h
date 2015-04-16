@@ -9,7 +9,7 @@
 #include <glm/vec2.hpp>
 #include <glm/mat4x4.hpp>
 #include "Scene.h"
-#include "../geometry/Ray.h"
+#include "../geometry/primitives/Ray.h"
 #include "../geometry/CoordinateSystem.h"
 
 using namespace glm;
@@ -28,7 +28,7 @@ namespace raytracer {
     public:
         const unsigned width, height;
 
-        Ray*                        CreateRayTracer(int xCoord, int yCoord, const Scene &scene) const;
+        Ray                         CreateRayThroughPixel(int xCoord, int yCoord) const;
 
         const mat4&                 lookAt(vec3 eye, vec3 center, vec3 up);
 

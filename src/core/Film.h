@@ -5,8 +5,10 @@
 #include <glm/vec4.hpp>
 #include <FreeImage.h>
 #include <stdio.h>
+#include <vector>
 
 using namespace glm;
+using namespace std;
 
 namespace raytracer {
 
@@ -14,27 +16,24 @@ namespace raytracer {
     private:
         unsigned _width, _height;
         unsigned _bitsPerPixel, _fragmentsPerPixel;
+        vector<vec4> _imageFragments;
         FIBITMAP* _imageBitmap;
+        vec4 _maxBrightness;
 
     public:
-        void            writeToImage(const char* pngImgPathAndName);
+        void                commitFragment(unsigned x, unsigned y, vec4 color);
 
-        inline void     commitFragment(unsigned x, unsigned y, const vec4& color) {
-            RGBQUAD rgbaquad = vec4ToRgbaquad(color);
-            FreeImage_SetPixelColor(_imageBitmap, x, y, &rgbaquad);
-        };
+        void                writeToImage(const char* pngImgPathAndName);
 
-                        Film(unsigned width, unsigned height, unsigned bitsPerPixel, unsigned fragmentsPerPixel);
-                        ~Film();
+                            Film(unsigned width, unsigned height,
+                                    vec4 maxBrightness = vec4(255.0f, 255.0f, 255.0f, 1.0f),
+                                    unsigned bitsPerPixel = 24, unsigned fragmentsPerPixel = 1);
+
+                            ~Film();
     private:
-        inline RGBQUAD vec4ToRgbaquad(const vec4& vColor) {
-            RGBQUAD qColor;
-            qColor.rgbRed = (BYTE) vColor.r;
-            qColor.rgbGreen = (BYTE) vColor.g;
-            qColor.rgbBlue = (BYTE) vColor.b;
-            qColor.rgbReserved = (BYTE) 1.0f; //(BYTE) vColor.a;
-            return qColor;
-        }
+        void                computeImageBitmap();
+
+        RGBQUAD             rearrangeFragment(unsigned i, unsigned j);
     };
 
 }

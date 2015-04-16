@@ -3,20 +3,20 @@
 namespace raytracer {
 
     void Scene::render() {
-        Film film(camera->width, camera->height, 24, 1);
+        Film film(camera->width, camera->height, vec4(1000.0f, 1000.0f, 1000.0f, 1.0f));
+        Raytracer raytracer(*this);
         // #pragma omp parallel for
         for (unsigned i = 0; i < camera->width; ++i) {
             for (unsigned j = 0, h = camera->height; j < h; ++j) {
-                Ray* ray = camera->CreateRayTracer(i, j, *this);
-                vec3 color = ray->trace(2);
+                Ray ray = camera->CreateRayThroughPixel(i, j);
+                vec3 color = raytracer.trace(ray, 1);
                 film.commitFragment(i, j, vec4(color, 1));
-                delete ray;
             }
         }
         film.writeToImage("../resources/imgs/out.png");
     }
 
-    list<Primitive*>* Scene::getNearestPrimitives(const Ray &ray) const {
+    list<Primitive*>* Scene::getNearestPrimitivesTo(const Ray &ray) const {
         return _primitives;
     }
 

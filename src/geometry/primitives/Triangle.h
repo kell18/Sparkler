@@ -9,7 +9,7 @@
 #include <glm/vec3.hpp>
 #include <glm/vec4.hpp>
 #include "Primitive.h"
-#include "Collision.h"
+#include "../Collision.h"
 
 using namespace glm;
 

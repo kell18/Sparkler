@@ -4,8 +4,8 @@
 #include <glm/mat4x4.hpp>
 #include <glm/vec4.hpp>
 #include "Ray.h"
-#include "Collision.h"
-#include "../core/Material.h"
+#include "../Collision.h"
+#include "../Material.h"
 
 using namespace glm;
 

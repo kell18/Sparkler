@@ -8,11 +8,12 @@
 #include <omp.h>
 #include <iostream>
 #include <list>
-#include "../geometry/Primitive.h"
-#include "../geometry/Ray.h"
+#include "../geometry/primitives/Primitive.h"
+#include "../geometry/primitives/Ray.h"
+#include "../geometry/Light.h"
+#include "Raytracer.h"
 #include "Camera.h"
 #include "Film.h"
-#include "Light.h"
 
 using namespace std;
 using namespace glm;
@@ -35,7 +36,7 @@ namespace raytracer {
 
         void                    render();
 
-        list<Primitive*>*       getNearestPrimitives(const Ray &ray) const;
+        list<Primitive*>*       getNearestPrimitivesTo(const Ray &ray) const;
         void                    addPrimitive(Primitive *primitive);
 
         list<Light*>*           getLights() const;
