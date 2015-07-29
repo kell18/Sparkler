@@ -57,36 +57,17 @@ namespace raytracer
 
 	Color Sphere::getTexelColor(const vec3 &pointNormal) const
 	{
-		float u, v;
-
-		float theta = atan2f(-pointNormal.z, pointNormal.x);
-		u = (theta + pi<float>()) / (2.f * pi<float>());
-
-		float phi = acosf(-pointNormal.y / radius);
-
-		// v = phi / pi<float>();
-
-		phi = acosf(pointNormal.y);
-		v = 1.f - phi / pi<float>();
-
+		float phi = atan2f(-pointNormal.x, pointNormal.y);
+		float u	  = (phi + pi<float>()) * one_over_two_pi<float>();
+		float theta = acosf(pointNormal.z);
+		float v		= 1.f - theta * one_over_pi<float>();
 		assert(u >= 0.f && v >= 0.f && u < 1.0001f && v < 1.0001f);
 
 		int x = (textureWidth - 1) * u;
 		int y = (textureHeight - 1) * v;
-
-		/*y += textureHeight / 4;
-		y %= textureHeight;*/
-
-		assert(x >= 0 && y >= 0 && x < textureWidth && y < textureHeight);
-
-		// x = x % textureWidth;
-		// y = y % textureHeight;
-
-		// cout << "\n X = " << u << "   Y = ";
-
 		RGBQUAD rgbquad;
 		FreeImage_GetPixelColor(texture, x, y, &rgbquad);
-		return Color(rgbquad.rgbRed / 255.f, rgbquad.rgbGreen / 255.f, rgbquad.rgbBlue / 255.f); // (v, 0, 0);  // x / ((float)textureWidth-1.f)
+		return Color(rgbquad.rgbRed / 255.f, rgbquad.rgbGreen / 255.f, rgbquad.rgbBlue / 255.f); 
 	}
 
 	Sphere::Sphere(vec3 position, float radius, Material material)

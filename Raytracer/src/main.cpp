@@ -50,7 +50,7 @@ int main()
 	s2.shininess = 200.f;
 	Material s3 = { ambient, diffuse+0.6f, emission, emission };
 	s3.shininess = 35.f;
-	s3.isMirroring = true;
+	s3.isMirroring = false;
 
 	Material pl1 = { ambient, red };
 	pl1.shininess = 10.f;
