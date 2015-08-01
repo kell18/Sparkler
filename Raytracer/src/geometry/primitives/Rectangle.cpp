@@ -35,7 +35,7 @@ namespace raytracer
 			collision.isFind   = true;
 			collision.distance = t;
 			collision.material = material;
-			collision.texel	   = isTextured ? getTexelColor(cPoint) : Color(0.f);
+			collision.texel	   = isTextured ? getTexelColor(cPoint) :  Color(1.f);
 			if (isTransformed) {
 				collision.point  = vec3(transforms * vec4(cPoint, 1.f));
 				collision.normal = normalize(mat3(invTranspTransforms) * normal);

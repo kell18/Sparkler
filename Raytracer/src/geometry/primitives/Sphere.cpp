@@ -31,7 +31,7 @@ namespace raytracer
 		float t1 = s1 + s2;
 		float t2 = s1 - s2;
 		float t = 0.f;
-		if (t1 > 0 && t2 > 0) {
+		if (t1 > 0.f && t2 > 0.f) {
 			t = t1 < t2 ? t1 : t2;
 		} else {
 			t = t1 > t2 ? t1 : t2;
@@ -50,7 +50,7 @@ namespace raytracer
 				collision.normal = normalize(cPoint - position);
 			}
 			collision.primitivePos = position;
-			collision.texel	       = isTextured ? getTexelColor(collision.normal) : Color(0.f);
+			collision.texel	       = isTextured ? getTexelColor(collision.normal) : Color(1.f);
 		}
 		return collision;
 	}
@@ -58,10 +58,14 @@ namespace raytracer
 	Color Sphere::getTexelColor(const vec3 &pointNormal) const
 	{
 		float phi = atan2f(-pointNormal.x, pointNormal.y);
-		float u	  = (phi + pi<float>()) * one_over_two_pi<float>();
+		if (phi < 0.f) {
+			phi += two_pi<float>();
+		}
+		float u	  = (phi) * one_over_two_pi<float>();
+
 		float theta = acosf(pointNormal.z);
-		float v		= 1.f - theta * one_over_pi<float>();
-		assert(u >= 0.f && v >= 0.f && u < 1.0001f && v < 1.0001f);
+		float v		= (pi<float>() - theta) * one_over_pi<float>();
+		assert(u >= 0.f && v >= 0.f && u < 1.00001f && v < 1.00001f);
 
 		int x = (textureWidth - 1) * u;
 		int y = (textureHeight - 1) * v;

@@ -40,9 +40,10 @@ namespace raytracer
 		float b		= (v1_v2 * w_v1 - v1_v1 * w_v2) / denom;
 
 		if (a > 0.f && b > 0.f && a + b <= 1.f) { // ...
-			collision.isFind	= true;
-			collision.distance  = t;
-			collision.material  = material;
+			collision.isFind   = true;
+			collision.distance = t;
+			collision.material = material;
+			collision.texel	   =  Color(1.f);
 			if (isTransformed) {
 				collision.point  = vec3(transforms * vec4(cPoint, 1.f));
 				collision.normal = normalize(mat3(invTranspTransforms) * normal);

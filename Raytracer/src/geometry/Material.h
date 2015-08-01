@@ -14,6 +14,9 @@ namespace raytracer
 		Color specular;
 		Color emissive;
 		float shininess;
-		bool isMirroring;
+		// @note: reflectRate + transmitRate <= 1
+		float reflectRate;
+		float transmitRate;
+		float refractInd;
 	};
 }

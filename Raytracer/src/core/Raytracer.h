@@ -24,7 +24,7 @@ namespace raytracer
 		const vector<Light*> &lights;
 
 	public:
-		Color		trace(const Ray &ray, int recursionDepth = 3) const; 
+		Color		trace(const Ray &ray, int recursionDepth = 3, float indOfRefraction = 1.0f) const;
 		Collision	cast(const Ray &ray) const;
 
 		bool		isInShadow(vec3 point, vec3 toLightDir, float distToLight) const;

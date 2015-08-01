@@ -27,6 +27,7 @@ namespace raytracer
 			c.isFind	= true;
 			c.distance  = t;
 			c.material  = material;
+			c.texel		=  Color(1.f);
 			if (isTransformed) {
 				c.point  = vec3(transforms * vec4(cPoint, 1.f));
 				c.normal = normalize(mat3(invTranspTransforms) * normal);
