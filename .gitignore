@@ -258,9 +258,9 @@ _Pvt_Extensions
 *.pch
 
 # Compiled Dynamic libraries
-*.so
-*.dylib
-*.dll
+# *.so
+# *.dylib
+# *.dll
 
 # Fortran module files
 *.mod
@@ -268,8 +268,8 @@ _Pvt_Extensions
 # Compiled Static libraries
 *.lai
 *.la
-*.a
-*.lib
+.a
+.lib
 
 # Executables
 *.exe

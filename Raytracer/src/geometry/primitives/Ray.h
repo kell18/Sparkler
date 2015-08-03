@@ -3,6 +3,9 @@
 #include "glm/glm.hpp"
 #include "FreeImage.h"
 
+#define T_MIN 1e-4f
+#define T_MAX 1000000.0f
+
 using namespace glm;
 
 namespace raytracer
@@ -15,7 +18,7 @@ namespace raytracer
 
 		vec3	getPoint(float t) const;
 
-				Ray(vec3 eye, vec3 dir, float tMin = 1e-4f, float tMax = 1000000.0f);
+				Ray(vec3 eye, vec3 dir, float tMin = T_MIN, float tMax = T_MAX);
 	};
 }
 

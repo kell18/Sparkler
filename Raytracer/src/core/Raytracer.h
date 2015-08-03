@@ -7,7 +7,7 @@
 #include "../geometry/primitives/Primitive.h"
 #include "../geometry/primitives/Ray.h"
 #include "../geometry/Collision.h"
-#include "Light.h"
+#include "Light/Light.h"
 #include "Film.h"
 #include "Scene.h"
 
@@ -16,6 +16,7 @@ using namespace std;
 namespace raytracer
 {
 	class Scene;
+	class Light;
 
 	class Raytracer
 	{
@@ -24,11 +25,10 @@ namespace raytracer
 		const vector<Light*> &lights;
 
 	public:
-		Color		trace(const Ray &ray, int recursionDepth = 3, float indOfRefraction = 1.0f) const;
-		Collision	cast(const Ray &ray) const;
+		Color		findColor(const Ray &ray, int recursionDepth = 3, float indOfRefraction = 1.0f) const;
 
-		bool		isInShadow(vec3 point, vec3 toLightDir, float distToLight) const;
-		float		countAmountOfLight(vec3 point, vec3 toLightDir, float distToLight) const;
+		Collision	findNearestCollision(const Ray &ray) const;
+		Collision	findAnyCollision(const Ray &ray) const;
 
 					Raytracer(const Scene *scene);
 					~Raytracer();

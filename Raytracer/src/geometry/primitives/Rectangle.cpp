@@ -43,19 +43,24 @@ namespace raytracer
 				collision.point  = cPoint;
 				collision.normal = normal;
 			}
-			collision.primitivePos = position;
 		}
 		return collision;
 	}
 
 	Color Rectangle::getTexelColor(const vec3 &point) const
 	{
-		vec3 p = (point - position);
+		vec3 p = (point - (position));
+		float al = length(aNorm);
+		float bl = length(bNorm);
+		float pl = length(p);
+		float c = dot(p, aNorm);
+		float d = dot(p, bNorm);
 		float u = dot(p, aNorm) / aLength;
 		float v = dot(p, bNorm) / bLength;
-		assert(u > 0.f && v > 0.f && u < 1.0001f && v < 1.0001f);
+		// assert(dot(p, aNorm) > 0.0f && dot(p, bNorm) > 0.0f);
+		// assert(u > 0.f && v > 0.f && u < 1.0001f && v < 1.0001f);
 		float x = (textureWidth - 1) * u;
-		float y = (textureHeight - 1) * v;
+		float y = (textureHeight - 1) * (1.0f - v);
 
 		RGBQUAD rgbquad;
 		FreeImage_GetPixelColor(texture, x, y, &rgbquad);

@@ -35,7 +35,6 @@ namespace raytracer
 				c.point  = cPoint;
 				c.normal = normal;
 			}
-			c.primitivePos = position;
 		}
 		return c;
 	}

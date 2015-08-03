@@ -5,7 +5,7 @@
 
 #include "FreeImage.h"
 #include "../geometry/primitives/Primitive.h"
-#include "Light.h"
+#include "Light/Light.h"
 #include "Camera.h"
 #include "Film.h"
 #include "Raytracer.h"
@@ -15,6 +15,7 @@ using namespace std;
 namespace raytracer
 {
 	class Raytracer;
+	class Light;
 
 	class Scene
 	{

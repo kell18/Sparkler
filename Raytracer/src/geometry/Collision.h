@@ -1,6 +1,7 @@
 #pragma once
 
 #include "Material.h"
+#include "primitives/Ray.h"
 
 namespace raytracer
 {
@@ -8,10 +9,11 @@ namespace raytracer
 	{
 		bool isFind;
 		float distance;
+
 		vec3 point;
 		vec3 normal;
+
 		Material material;
 		Color texel;
-		vec3 primitivePos;
 	};
 }

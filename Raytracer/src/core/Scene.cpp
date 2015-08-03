@@ -13,7 +13,7 @@ namespace raytracer
 				for (int f = 0; f < fragsPerPixel; ++f)
 				{
 					Ray ray	= camera.rayThroughPixel(x + shift * f, y + shift * f);
-					color	+= raytracer.trace(ray, recursionDepth);
+					color	+= raytracer.findColor(ray, recursionDepth);
 				}
 				color /= fragsPerPixel;
 				film.commitFragment(x, y, color);

@@ -127,10 +127,12 @@
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\core\Light\DirectionalLight.cpp" />
+    <ClCompile Include="src\core\Light\PointLight.cpp" />
     <ClCompile Include="src\geometry\primitives\Rectangle.cpp" />
     <ClCompile Include="src\geometry\TexturedObject.cpp" />
     <ClCompile Include="src\utils\ShittyParser.cpp" />
-    <ClCompile Include="src\core\Light.cpp" />
+    <ClCompile Include="src\core\Light\Light.cpp" />
     <ClCompile Include="src\core\Raytracer.cpp" />
     <ClCompile Include="src\geometry\primitives\Plane.cpp" />
     <ClCompile Include="src\core\Film.cpp" />
@@ -144,11 +146,13 @@
     <ClCompile Include="src\geometry\primitives\Triangle.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\core\Light\DirectionalLight.h" />
+    <ClInclude Include="src\core\Light\PointLight.h" />
     <ClInclude Include="src\geometry\primitives\Rectangle.h" />
     <ClInclude Include="src\geometry\TexturedObject.h" />
     <ClInclude Include="src\utils\Constants.h" />
     <ClInclude Include="src\utils\ShittyParser.h" />
-    <ClInclude Include="src\core\Light.h" />
+    <ClInclude Include="src\core\Light\Light.h" />
     <ClInclude Include="src\core\Raytracer.h" />
     <ClInclude Include="src\geometry\primitives\Plane.h" />
     <ClInclude Include="src\core\Film.h" />
