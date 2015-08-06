@@ -11,4 +11,9 @@ namespace raytracer
 		: eye(eye), dir(dir), tMin(tMin), tMax(tMax)
 	{
 	}
+
+	Ray::Ray()
+		: tMin(T_MIN), tMax(T_MAX)
+	{
+	}
 }

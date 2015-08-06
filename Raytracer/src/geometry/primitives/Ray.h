@@ -19,6 +19,7 @@ namespace raytracer
 		vec3	getPoint(float t) const;
 
 				Ray(vec3 eye, vec3 dir, float tMin = T_MIN, float tMax = T_MAX);
+				Ray();
 	};
 }
 

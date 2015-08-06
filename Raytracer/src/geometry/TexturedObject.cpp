@@ -9,6 +9,7 @@ namespace raytracer
 		textureWidth  = FreeImage_GetWidth(texture);
 		textureHeight = FreeImage_GetHeight(texture);
 		isTextured	  = true;
+		// if (texture == NULL) cout << "Error: texture was not loaded: " << pathAndName
 		return texture != NULL;
 	}
 

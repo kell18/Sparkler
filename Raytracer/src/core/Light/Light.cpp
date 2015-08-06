@@ -13,7 +13,7 @@ namespace raytracer
 
 		Collision sunshade = tracer->findAnyCollision(Ray(cpoint, ldir, T_MIN, ldist));
 		if (sunshade.isFind) { 
-			return Color(0.f);
+			return Colors::BLACK;
 		}
 
 		Color diffuse  = m.diffuse * max(cos, 0.f);
@@ -26,7 +26,8 @@ namespace raytracer
 
 	float Light::computeAttenuation(float dist) const
 	{
-		return power / (_constAttenCoef + _linearAttenCoef * dist + _quadAttenCoef * dist * dist); // std::pow(dist + deadDist, fallof);
+		return power / (_constAttenCoef + _linearAttenCoef * dist + _quadAttenCoef * dist * dist);
+		// some variations: std::pow(dist + deadDist, fallof);
 	}
 	
 	Light::Light(Color color, float power)

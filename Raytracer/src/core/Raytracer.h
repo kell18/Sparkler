@@ -7,6 +7,7 @@
 #include "../geometry/primitives/Primitive.h"
 #include "../geometry/primitives/Ray.h"
 #include "../geometry/Collision.h"
+#include "../utils/Mathf.h"
 #include "Light/Light.h"
 #include "Film.h"
 #include "Scene.h"
@@ -25,7 +26,7 @@ namespace raytracer
 		const vector<Light*> &lights;
 
 	public:
-		Color		findColor(const Ray &ray, int recursionDepth = 3, float indOfRefraction = 1.0f) const;
+		Color		findColor(const Ray &ray, int recursionDepth = 3, float refractInd = 1.0f) const;
 
 		Collision	findNearestCollision(const Ray &ray) const;
 		Collision	findAnyCollision(const Ray &ray) const;

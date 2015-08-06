@@ -33,7 +33,7 @@ namespace raytracer
 		void				addPrimitive(Primitive* primitive);
 
 							Scene(Camera camera, vector<Primitive*> primitives, vector<Light*> lights,
-								  int fragmentsPerPixel = 2, Color bgColor = Color());
+								  int fragmentsPerPixel = 2, Color bgColor = Colors::BLACK);
 							~Scene();
 
 							Scene(const Scene&) = delete;

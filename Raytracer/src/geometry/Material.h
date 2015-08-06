@@ -14,6 +14,7 @@ namespace raytracer
 		Color specular;
 		Color emissive;
 		float shininess;
+
 		// @note: reflectRate + transmitRate <= 1
 		float reflectRate;
 		float transmitRate;

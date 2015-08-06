@@ -35,7 +35,7 @@ namespace raytracer
 			collision.isFind   = true;
 			collision.distance = t;
 			collision.material = material;
-			collision.texel	   = isTextured ? getTexelColor(cPoint) :  Color(1.f);
+			collision.texel	   = isTextured ? getTexelColor(cPoint) :  Colors::WHITE;
 			if (isTransformed) {
 				collision.point  = vec3(transforms * vec4(cPoint, 1.f));
 				collision.normal = normalize(mat3(invTranspTransforms) * normal);
@@ -50,11 +50,6 @@ namespace raytracer
 	Color Rectangle::getTexelColor(const vec3 &point) const
 	{
 		vec3 p = (point - (position));
-		float al = length(aNorm);
-		float bl = length(bNorm);
-		float pl = length(p);
-		float c = dot(p, aNorm);
-		float d = dot(p, bNorm);
 		float u = dot(p, aNorm) / aLength;
 		float v = dot(p, bNorm) / bLength;
 		// assert(dot(p, aNorm) > 0.0f && dot(p, bNorm) > 0.0f);

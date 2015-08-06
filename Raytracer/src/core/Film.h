@@ -7,12 +7,13 @@
 #include <vector>
 #include <iostream>
 
+#include "Color.h"
+
 using namespace glm;
 using namespace std;
 
 namespace raytracer 
 {
-	typedef vec3 Color;
 
 	class Film {
 	private:

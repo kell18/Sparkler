@@ -2,69 +2,59 @@
 
 namespace raytracer
 {
-	Color Raytracer::findColor(const Ray &ray, int depth, float ior) const
+	Color Raytracer::findColor(const Ray &ray, int depth, float refractInd) const
 	{
-		Collision collision = findNearestCollision(ray);
-		if (!collision.isFind) {
+		Collision c = findNearestCollision(ray);
+		if (!c.isFind) {
 			return scene->bgColor;
 		}
 
-		Material material  = collision.material;
-		vec3 cnormal	   = collision.normal;
-		vec3 cpoint		   = collision.point;
-		Color color		   = material.ambient + material.emissive;
-		float reflectRate  = material.reflectRate;
-		float transmitRate = material.transmitRate;
-		float refractInd   = ior / material.refractInd;
+		Material &m		   = c.material;
+		Color color		   = m.ambient;
+		float reflectRate  = m.reflectRate;
+		float transmitRate = m.transmitRate;
+		vec3 specularity   = m.specular;
 
 		for (size_t i = 0, len = lights.size(); i < len; ++i) {
-			color += lights[i]->computeShadeColor(ray.dir, collision, this);
+			color += lights[i]->computeShadeColor(ray.dir, c, this);
 		}
+		color *= c.texel;
 
 		// Trace refracted ray
+		float outRefrInd = 1.0f;
 		if (depth >= 0 && transmitRate > 0.0f) {
-			/*if (ior == material.refractInd) {
-				color += transmitRate * trace(Ray(cpoint, ray.dir), depth - 1, material.refractInd);
-			} else {*/
-				float incAngleCos = dot(cnormal, -ray.dir);	
-				vec3 normal;
-				float outRefrInd;
+			float n = refractInd / m.refractInd; // Check
+			float outRefrInd = m.refractInd;
+      
+			vec3 normal = c.normal;
+			float cosI = -dot(ray.dir, normal);
 
-				// If inside object
-				if (incAngleCos < 0.f) {
-					incAngleCos *= -1.f;
-					normal = -cnormal;
-					refractInd = 1.f / refractInd;
-					outRefrInd = 1.f;
-				} else {
-					outRefrInd = material.refractInd;
-					normal = cnormal;
-				}
-				float transAngleCos = 1.f - (1.f / (refractInd * refractInd)) * 
-					(1.f - incAngleCos * incAngleCos);
-				if (transAngleCos < 0) {
-					reflectRate = 1.f; 
-				} else {
-					transAngleCos = sqrtf(transAngleCos);
-					vec3 refrDir = normalize((1.f / refractInd) * (-ray.dir) - 
-						(transAngleCos - (1.f / refractInd) * incAngleCos) * normal);
-					Color tmpCol = findColor(Ray(cpoint, -refrDir), depth - 1, outRefrInd);
-					if (length(tmpCol) > 0.f) {
-						// cout << "tmpCol \n";
-					}
-					color += transmitRate * tmpCol;
-				}
-			//}
+			if (cosI < 0.0f) {    // Inside of object
+				normal *= -1.f;
+				cosI *= -1.0f;
+				n = m.refractInd; // or m.refractInd / 1.0f bcs we assume that outRefrInd is air
+				outRefrInd = 1.0f;
+				reflectRate = 0.0f;
+			}
+
+			float sinT2 = 1.0f + n * n * (cosI * cosI - 1.0f);
+			if (sinT2 > 0.0f) {
+				vec3 refrDir = n * ray.dir + (n * cosI - sqrtf(sinT2)) * normal;
+				vec3 refrEye = c.point + (refrDir * 0.001f);
+				color += transmitRate * findColor(Ray(refrEye, refrDir), depth - 1, outRefrInd);
+			} else {
+				specularity += transmitRate;
+			}
+
 		}
+
 		// Trace reflected ray
 		if (depth >= 0 && reflectRate > 0.0f) {
-			vec3 eyeDir	 = cpoint - ray.eye;
-			vec3 reflDir = normalize(eyeDir - 2.f * dot(eyeDir, cnormal) * cnormal);
-			// Rest one material.specular index
-			color += material.specular * findColor(Ray(cpoint, reflDir), depth - 1); // reflectRate * 
+			vec3 reflectDir = ray.dir - 2.f * dot(ray.dir, c.normal) * c.normal;
+			color += specularity * findColor(Ray(c.point, reflectDir), depth - 1, outRefrInd);		
 		}
 
-		return color * collision.texel;
+		return color;
 	}
 
 	Collision Raytracer::findNearestCollision(const Ray &ray) const

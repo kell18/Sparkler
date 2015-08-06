@@ -49,8 +49,7 @@ namespace raytracer
 				collision.point  = cPoint;
 				collision.normal = normalize(cPoint - position);
 			}
-			collision.primitivePos = position;
-			collision.texel	       = isTextured ? getTexelColor(collision.normal) : Color(1.f);
+			collision.texel	= isTextured ? getTexelColor(collision.normal) : Colors::WHITE;
 		}
 		return collision;
 	}

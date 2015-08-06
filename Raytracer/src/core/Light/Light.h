@@ -1,6 +1,8 @@
 #pragma once
 
-#include "glm/glm.hpp"
+#include <glm/glm.hpp>
+
+#include "../Color.h"
 #include "../../geometry/Collision.h"
 #include "../Film.h"
 #include "../Raytracer.h"

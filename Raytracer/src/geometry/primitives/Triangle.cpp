@@ -51,7 +51,6 @@ namespace raytracer
 				collision.point  = cPoint;
 				collision.normal = normal;
 			}
-			collision.primitivePos = position;
 		}
 
 		return collision;

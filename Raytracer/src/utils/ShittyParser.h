@@ -11,7 +11,8 @@
 #include "glm/gtc/type_ptr.hpp"
 #include "glm/gtx/transform.hpp"
 
-#include "../core/Light.h"
+#include "../core/Light/PointLight.h"
+#include "../core/Light/DirectionalLight.h"
 #include "../core/Scene.h"
 #include "../geometry/Material.h"
 #include "../geometry/primitives/Plane.h"

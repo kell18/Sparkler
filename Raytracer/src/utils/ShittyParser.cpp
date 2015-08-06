@@ -55,14 +55,12 @@ Scene* ShittyParser::readfile(const string &filename) {
             if (validinput) {
                 vec3 positionOrDirection = vec3(values[0], values[1], values[2]);
                 Color color = Color(values[3], values[4], values[5]);
-				LightType type;
                 if (cmd == "directional") {
-					type = LightType::Directional;
+					lights.push_back(new DirectionalLight(positionOrDirection, color, 1.f));
 				}
 				else if (cmd == "point") {
-					type = LightType::Point;
+					lights.push_back(new PointLight(positionOrDirection, color, 1.f));
 				}
-                lights.push_back(new Light(positionOrDirection, color, 5.f, type));
             }
 		}
 		else if (cmd == "attenuation") {
