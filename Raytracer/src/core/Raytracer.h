@@ -22,6 +22,7 @@ namespace raytracer
 	class Raytracer
 	{
 	private:
+		int maxDepth;
 		const Scene *scene;
 		const vector<Light*> &lights;
 
@@ -31,7 +32,7 @@ namespace raytracer
 		Collision	findNearestCollision(const Ray &ray) const;
 		Collision	findAnyCollision(const Ray &ray) const;
 
-					Raytracer(const Scene *scene);
+					Raytracer(const Scene *scene, int maxDepth);
 					~Raytracer();
 
 					Raytracer(const Raytracer&) = delete;

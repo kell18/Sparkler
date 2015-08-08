@@ -17,14 +17,19 @@ namespace raytracer
 		: position(position), Light(color, power)
 	{
 		// Nice and smooth attenuation by distance
-		_constAttenCoef = 0.8f;
-		_linearAttenCoef = 0.004f;
-		_quadAttenCoef = 0.004f;
+		atten.constant = 0.8f;
+		atten.linear = 0.004f;
+		atten.quad = 0.004f;
 
 		// Attenuation based on cos(angleOfIncidence)
-		/*_constAttenCoef = 1.0f;
-		_linearAttenCoef = 0.0f;
-		_quadAttenCoef = 0.0f;*/
+		/*atten.constant = 1.f;
+		atten.linear = 0.f;
+		atten.quad = 0.f;*/
+	}
+
+	PointLight::PointLight(vec3 position, Color color, Attenuation attn, float power)
+		: position(position), Light(color, power, attn)
+	{
 	}
 
 }

@@ -19,6 +19,8 @@ namespace raytracer
 		virtual float	getDistance(const vec3& point) const;
 
 						DirectionalLight(vec3 direction, Color color, float power = 1.f);
+						DirectionalLight(vec3 direction, Color color, Attenuation attn, 
+							float power = 1.f);
 	};
 
 }

@@ -21,9 +21,14 @@ namespace raytracer
 	DirectionalLight::DirectionalLight(vec3 direction, Color color, float power)
 		: direction(normalize(direction)), Light(color, power)
 	{
-		_constAttenCoef = 1.f;
-		_linearAttenCoef = 0.f;
-		_quadAttenCoef = 0.f;
+		atten.constant = 1.f;
+		atten.linear = 0.f;
+		atten.quad = 0.f;
+	}
+
+	DirectionalLight::DirectionalLight(vec3 direction, Color color, Attenuation attn, float power)
+		: direction(normalize(direction)), Light(color, power, attn)
+	{
 	}
 
 }

@@ -2,6 +2,8 @@
  
 #include <iostream>
 #include <string>
+#include <regex>
+#include <iterator>
 #include <fstream>
 #include <sstream>
 #include <deque>
@@ -18,29 +20,23 @@
 #include "../geometry/primitives/Plane.h"
 #include "../geometry/primitives/Triangle.h"
 #include "../geometry/primitives/Sphere.h"
+#include "SceneBuilder.h"
 
 using namespace std;
-using namespace raytracer;
 using namespace glm;
 
-class ShittyParser
-{
+namespace raytracer {
 
-public:
-	Camera* camera;
-	vector<Light*> lights;
-	vector<vec3> vertexBuffer;
-	vector<Primitive*> primitives;
-	int recursionDepth;
-	int width, height;
-	Material material;
+	class Parser
+	{
 
-	Scene*		readfile(const string &filename);
-				ShittyParser();
-				~ShittyParser();
+	public:
+		Scene*		parseFile(const string &filename);
+					Parser();
+					~Parser();
 
-private: 
-	void		rightmultiply(const mat4 & M, stack<mat4> &transform_stack);
-	bool		readvals(stringstream &s, const int numvals, float *values);
-};
+	private: 
+		bool		readVals(stringstream &s, const int numvals, float *values);
+	};
 
+}

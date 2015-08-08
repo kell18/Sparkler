@@ -17,6 +17,7 @@ namespace raytracer
 		virtual float	getDistance(const vec3& point) const;
 
 						PointLight(vec3 position, Color color, float power = 1.f);
+						PointLight(vec3 position, Color color, Attenuation attn, float power = 1.f);
 
 	};
 

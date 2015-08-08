@@ -14,13 +14,17 @@ namespace raytracer
 {
 	class Raytracer;
 
+	struct Attenuation
+	{
+		float constant;
+		float linear;
+		float quad;
+	};
+
 	class Light
 	{
-	protected:
-		float _constAttenCoef;
-		float _linearAttenCoef;
-		float _quadAttenCoef;
 	public:
+		Attenuation atten;
 		Color color;
 		float power;
 
@@ -31,6 +35,7 @@ namespace raytracer
 		virtual float	getDistance(const vec3& point) const = 0;
 
 						Light(Color color, float power);
+						Light(Color color, float power, Attenuation attenuation);
 		virtual			~Light();
 	};
 }

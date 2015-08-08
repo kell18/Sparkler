@@ -25,33 +25,31 @@ namespace raytracer
 		if (depth >= 0 && transmitRate > 0.0f) {
 			float n = refractInd / m.refractInd; // Check
 			float outRefrInd = m.refractInd;
-      
-			vec3 normal = c.normal;
-			float cosI = -dot(ray.dir, normal);
 
+			float cosI = -dot(ray.dir, c.normal);
 			if (cosI < 0.0f) {    // Inside of object
-				normal *= -1.f;
-				cosI *= -1.0f;
-				n = m.refractInd; // or m.refractInd / 1.0f bcs we assume that outRefrInd is air
+				c.normal *= -1.0f;
+				cosI   *= -1.0f;
+				n = 1.0f / n; // m.refractInd; // or m.refractInd / 1.0f bcs we assume that outRefrInd is air
 				outRefrInd = 1.0f;
-				reflectRate = 0.0f;
 			}
 
-			float sinT2 = 1.0f + n * n * (cosI * cosI - 1.0f);
-			if (sinT2 > 0.0f) {
-				vec3 refrDir = n * ray.dir + (n * cosI - sqrtf(sinT2)) * normal;
-				vec3 refrEye = c.point + (refrDir * 0.001f);
+			float sinT = 1.0f + n * n * (cosI * cosI - 1.0f);
+			if (sinT > 0.0f) {
+				vec3 refrDir = n * ray.dir + (n * cosI - sqrtf(sinT)) * c.normal;
+				vec3 refrEye = c.point + (refrDir * COLLISION_AMEND);
+				// TODO: Add color param: Color(0.65f, 0.65f, 1.0f)
 				color += transmitRate * findColor(Ray(refrEye, refrDir), depth - 1, outRefrInd);
 			} else {
-				specularity += transmitRate;
+				reflectRate += transmitRate;
 			}
-
 		}
 
 		// Trace reflected ray
-		if (depth >= 0 && reflectRate > 0.0f) {
-			vec3 reflectDir = ray.dir - 2.f * dot(ray.dir, c.normal) * c.normal;
-			color += specularity * findColor(Ray(c.point, reflectDir), depth - 1, outRefrInd);		
+		if (depth >= 0 ) {
+			vec3 reflDir = ray.dir - 2.f * dot(ray.dir, c.normal) * c.normal;
+			vec3 reflEye = c.point + (reflDir * COLLISION_AMEND);
+			color +=  specularity * findColor(Ray(reflEye, reflDir), depth - 1, outRefrInd);		
 		}
 
 		return color;
@@ -86,8 +84,8 @@ namespace raytracer
 		return c;
 	}
 
-	Raytracer::Raytracer(const Scene *scene)
-		: scene(scene), lights(scene->lights)
+	Raytracer::Raytracer(const Scene *scene, int maxDepth)
+		: scene(scene), lights(scene->lights), maxDepth(maxDepth)
 	{
 	}
 

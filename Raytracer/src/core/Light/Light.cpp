@@ -11,9 +11,15 @@ namespace raytracer
 		vec3 ldir	 = -getDirection(cpoint);
 		float cos	 = dot(cnormal, ldir);
 
-		Collision sunshade = tracer->findAnyCollision(Ray(cpoint, ldir, T_MIN, ldist));
+		float transmitRate = 1.0f;
+		vec3 eye = cpoint + (ldir * COLLISION_AMEND);
+		Collision sunshade = tracer->findAnyCollision(Ray(eye, ldir, T_MIN, ldist));
 		if (sunshade.isFind) { 
-			return Colors::BLACK;
+			if (sunshade.material.transmitRate != 0.0f) {
+				transmitRate = sunshade.material.transmitRate * 0.70f;
+			} else {
+				return Colors::BLACK;
+			}
 		}
 
 		Color diffuse  = m.diffuse * max(cos, 0.f);
@@ -21,12 +27,12 @@ namespace raytracer
 		float nh	   = max(dot(cnormal, h), 0.f);
 		Color specular = m.specular * pow(nh, m.shininess);
 
-		return (diffuse + specular) * color * computeAttenuation(ldist);
+		return transmitRate * (diffuse + specular) * color * computeAttenuation(ldist);
 	}
 
 	float Light::computeAttenuation(float dist) const
 	{
-		return power / (_constAttenCoef + _linearAttenCoef * dist + _quadAttenCoef * dist * dist);
+		return power / (atten.constant + atten.linear * dist + atten.quad * dist * dist);
 		// some variations: std::pow(dist + deadDist, fallof);
 	}
 	
@@ -34,6 +40,10 @@ namespace raytracer
 		: color(color), power(power)
 	{
 	}
+
+	Light::Light(Color color, float power, Attenuation attenuation) 
+		: color(color), power(power), atten(attenuation)
+	{}
 
 	Light::~Light() 
 	{

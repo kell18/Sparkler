@@ -11,19 +11,19 @@ namespace raytracer {
 		FreeImage_SetPixelColor(_imageBitmap, x, y, &rgbquad);
 	};
 
-	void Film::writeToImage(const char *pngImgPathAndName) 
+	void Film::pushFragments() 
 	{
-		BOOL isSaved = FreeImage_Save(FIF_PNG, _imageBitmap, pngImgPathAndName, PNG_DEFAULT);
+		BOOL isSaved = FreeImage_Save(FIF_PNG, _imageBitmap, outputFile.c_str(), PNG_DEFAULT);
 		if (isSaved) {
-			cout << "\nImage saved to file: " << pngImgPathAndName << endl;
+			cout << "Image saved to file: " << outputFile.c_str() << endl;
 		} else {
-			cout << "\nError: Image not saved" << endl;
+			cerr << "\nError: Image not saved. Path: " << outputFile.c_str() << endl;
 			getchar();
 		}
 	}
 
-	Film::Film(int width, int height, short bitsPerPixel) 
-		: _width(width), _height(height)
+	Film::Film(int width, int height, string outputFile, short bitsPerPixel) 
+		: _width(width), _height(height), outputFile(outputFile)
 	{
 		_imageBitmap = FreeImage_Allocate(width, height, bitsPerPixel);
 		FreeImage_Initialise();

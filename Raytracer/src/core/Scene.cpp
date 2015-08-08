@@ -2,29 +2,22 @@
 
 namespace raytracer 
 {
-	void Scene::render(const char *fileName, int recursionDepth) const
+	void Scene::render()
 	{
-		Film film(camera.width, camera.height);
-		Raytracer raytracer(this);
-		for (int x = 0, w = camera.width; x < w; ++x) {
-			for (int y = 0, h = camera.height; y < h; ++y) {
+		Raytracer raytracer(this, recursionDepth);
+		for (int x = 0, w = camera->width; x < w; ++x) {
+			for (int y = 0, h = camera->height; y < h; ++y) {
 				Color color = bgColor;
-				float shift = 1.f / fragsPerPixel;
-				for (int f = 0; f < fragsPerPixel; ++f)
+				for (int f = 0; f < fragmentsPerPixel; ++f)
 				{
-					Ray ray	= camera.rayThroughPixel(x + shift * f, y + shift * f);
-					color	+= raytracer.findColor(ray, recursionDepth);
+					Ray ray	= camera->rayThroughPixel(x + fragmentShift * f, y + fragmentShift * f);
+					color	+= raytracer.findColor(ray, recursionDepth); // TODO
 				}
-				color /= fragsPerPixel;
-				film.commitFragment(x, y, color);
+				color /= fragmentsPerPixel;
+				film->commitFragment(x, y, color);
 			}
 		}
-		film.writeToImage(fileName);
-	}
-
-	void Scene::addPrimitive(Primitive* primitive) 
-	{
-		_primitives.push_back(primitive);
+		film->pushFragments();
 	}
 
 	vector<Primitive*> Scene::findNearestPrimitives(const Ray &ray) const
@@ -33,12 +26,25 @@ namespace raytracer
 		return _primitives;
 	}
 
-	Scene::Scene(Camera camera, vector<Primitive*> primitives, vector<Light*> lights, 
-				 int fragmentsPerPixel, Color bgColor)
-		: camera(camera), _primitives(primitives), lights(lights), 
-		bgColor(bgColor), fragsPerPixel(fragmentsPerPixel)
+	void Scene::addPrimitive(Primitive* primitive) 
 	{
-		FreeImage_Initialise();
+		_primitives.push_back(primitive);
+	}
+
+	void Scene::addLight(Light* light) 
+	{
+		lights.push_back(light);
+	}
+
+	void Scene::setFragmentsPerPixel(int fragmentsPerPixel)
+	{
+		this->fragmentsPerPixel = fragmentsPerPixel;
+		fragmentShift = 1.0f / fragmentsPerPixel;
+	}
+
+	Scene::Scene(Camera *camera, Film *film, vector<Primitive*> primitives,  vector<Light*> lights)
+		: camera(camera), film(film), _primitives(primitives), lights(lights)
+	{
 	}
 
 	Scene::~Scene()
@@ -53,6 +59,7 @@ namespace raytracer
 		}
 		lights.clear();
 
-		FreeImage_DeInitialise();
+		delete camera;
+		delete film;
 	}
 }

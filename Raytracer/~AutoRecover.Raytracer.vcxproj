@@ -147,7 +147,6 @@
     <ClCompile Include="src\geometry\primitives\Ray.cpp" />
     <ClCompile Include="src\main.cpp" />
     <ClCompile Include="src\geometry\primitives\Triangle.cpp" />
-    <ClCompile Include="src\utils\SceneBuilder.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\core\Color.h" />
@@ -172,7 +171,6 @@
     <ClInclude Include="src\core\Camera.h" />
     <ClInclude Include="src\geometry\primitives\Ray.h" />
     <ClInclude Include="src\geometry\primitives\Triangle.h" />
-    <ClInclude Include="src\utils\SceneBuilder.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

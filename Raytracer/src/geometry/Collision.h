@@ -3,6 +3,8 @@
 #include "Material.h"
 #include "primitives/Ray.h"
 
+#define COLLISION_AMEND 0.00005f
+
 namespace raytracer
 {
 	struct Collision

@@ -20,13 +20,16 @@ namespace raytracer
 		int _width, _height;
 		FIBITMAP* _imageBitmap;
 		FIBITMAP* loadedImg;
+		string outputFile;
 
 	public:
+
 		void                commitFragment(int x, int y, Color color);
 
-		void                writeToImage(const char* pngImgPathAndName);
+		void                pushFragments();
 
-							Film(int width, int height, short bitsPerPixel = 24);
+							Film(int width, int height, string outputFile, 
+								short bitsPerPixel = 24);
 							~Film();
 
 							Film(const Film&) = delete;

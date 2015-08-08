@@ -21,19 +21,27 @@ namespace raytracer
 	{
 	private:
 		vector<Primitive*> _primitives;
+		float fragmentShift = 0.5f;
+		int fragmentsPerPixel = 2;
+
 	public:
 		vector<Light*> lights;
-		Camera camera;
+		Camera *camera;
+		Film *film;
 		Color bgColor;
-		int fragsPerPixel;
+		int recursionDepth = 3;
 
-		void				render(const char* fileName, int recursionDepth = 3) const;
+		void				render();
 
 		vector<Primitive*>	findNearestPrimitives(const Ray &ray) const;
 		void				addPrimitive(Primitive* primitive);
 
-							Scene(Camera camera, vector<Primitive*> primitives, vector<Light*> lights,
-								  int fragmentsPerPixel = 2, Color bgColor = Colors::BLACK);
+		void				addLight(Light* light);
+
+		void				setFragmentsPerPixel(int fragmentsPerPixel);
+
+							Scene(Camera *camera, Film *film, vector<Primitive*> primitives, 
+								vector<Light*> lights);
 							~Scene();
 
 							Scene(const Scene&) = delete;
