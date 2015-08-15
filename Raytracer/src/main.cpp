@@ -19,6 +19,7 @@
 #include "core/Light/DirectionalLight.h"
 #include "core/Film.h"
 #include "core/Camera.h"
+#include "core/World.h"
 #include "core/Scene.h"
 #include "utils/Parser.h"
 #include "utils/Direction.h"
@@ -28,16 +29,15 @@ using namespace raytracer;
 using namespace std;
 
 
-int main() 
+int main()
 {
-	Parser parser;
-	Scene *scene = parser.parseFile("C:\\Dropbox\\Code\\Cpp\\Raytracer\\Resources\\Testscenes\\hw3-submissionscenes\\scene4-specular.test");
+	string inputFile = "C:\\Dropbox\\Code\\Cpp\\Raytracer\\Raytracer\\res\\test_scenes\\CornellBox.test";
+	World::setActiveScene(Parser::parseFile(inputFile));
 
 	clock_t start = clock();
-	scene->render();
-	cout << "\n\nRender time: " << (clock() - start) / (double) (CLOCKS_PER_SEC / 1000) << " ms" << endl;
+	World::renderActiveScene();
+	cout << "\n\nRender time: " << (clock() - start) / (double) (CLOCKS_PER_SEC / 1000) << " ms\n";
 
-	delete scene;
 	getchar();
 	return 0;
 }

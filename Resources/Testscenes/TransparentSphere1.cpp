@@ -19,8 +19,9 @@
 #include "core/Light/DirectionalLight.h"
 #include "core/Film.h"
 #include "core/Camera.h"
+#include "core/World.h"
 #include "core/Scene.h"
-#include "utils/ShittyParser.h"
+#include "utils/Parser.h"
 #include "utils/Direction.h"
 #include "utils/Point.h"
 
@@ -32,9 +33,11 @@ int main()
 {
 	int width = 1240; // 1920;
 	int height = 1080; // 1080;
-	Camera camera(width, height, 60.0f);
-	camera.lookAt(vec3(0.f, -7.f, 7.f), vec3(0.f, 1.f, 0.f), vec3(0.f, 1.f, 1.f)); // -3.f, 2.f
-	
+	Camera *camera = new Camera(width, height, 60.0f);
+	camera->lookAt(vec3(0.f, -7.f, 7.f), vec3(0.f, 1.f, 0.f), vec3(0.f, 1.f, 1.f)); // -3.f, 2.f
+
+	string outputFile = "C:\\Dropbox\\Code\\Cpp\\Raytracer\\Resources\\Imgs\\out.png";
+	Film *film = new Film(width, height, outputFile);	
 
 	Color ambient(.0f, .0f, .0f);
 	Color diffuse(0.f, 0.05f, 0.05f);
@@ -67,15 +70,8 @@ int main()
 	s1.shininess = 200.f;
 	s1.reflectRate = 0.05f;
 	s1.transmitRate = 0.95f;
-	s1.refractInd = 2.42f;
-	Material s2 = { emission+0.08f, yellow + 0.4f, emission+0.05f, emission };
-	s2.shininess = 150.f;
-	s2.reflectRate = 0.0f;
-	s2.transmitRate = 0.0f;
+	s1.refractInd = 1.1f;
 
-	Material pl1 = { ambient, red };
-	pl1.shininess = 10.f;
-	pl1.reflectRate = 0.f;
 	Material pl2 = { ambient + 0.18f };
 	pl2.diffuse = Color(0.8f);
 	pl2.specular = Color(0.3f);
@@ -93,41 +89,25 @@ int main()
 	// sp2->loadTexture("C:\\Dropbox\\Code\\Cpp\\Raytracer\\Resources\\Imgs\\Stuff\\moon.jpg");
 
 	Rectangle* r1 = new Rectangle(vec3(-18.f, 22.3f, -25.0f), 
-		camera.forward * 35.f, camera.right * 30.f * 1.4f, pl2);
+		camera->forward * 35.f, camera->right * 30.f * 1.4f, pl2);
 	r1->loadTexture("C:\\Dropbox\\Code\\Cpp\\Raytracer\\Resources\\Imgs\\Stuff\\GreenAndYellow.jpg");
-	
-
-	// cout << r2->normal.x << " " << r2->normal.y << " " << r2->normal.z << endl;
-
-	Triangle* t1 = new Triangle(vec3(-2.f, 0.f, 0.f), vec3(5.f, 0.f, 0.f), 
-		vec3(-2.f, 2.f, 5.f), s2);
-	t1->transform(translate(vec3(0.f, 1.f, -0.5f)));
-
-	Plane* plane1 = new Plane(vec3(0.f, 0.f, -1.f), vec3(0.f, 0.f, 1.f), pl1);
-	plane1->transform(scale(vec3(1.f, 1.f, 2.f))); // ...
 
 	vector<Primitive*> p;
 	p.push_back(sp1);
 	p.push_back(sp2);
-	/*p.push_back(new Sphere(vec3(0.f, .58f, 0.61f), 0.6f, s3, shiftTransform));*/
-	/*p.push_back(new Sphere(vec3(-1.5f, 0.8f, 0.85f), 0.6f, s1));*/
 
 	p.push_back(r1);
-	
-	// p.push_back(t1);
-
-	// p.push_back(plane1);
-	/*p.push_back(new Plane(vec3(0.f, 3.f, 0.f), vec3(0.f, -1.f, 0.f), pl2));*/
 
 	vector<Light*> l;
 	// l.push_back(new DirectionalLight(vec3(0.3f, -0.3f, -0.3f), white, 1.0f));
 	l.push_back(new PointLight(vec3(3.3f, 0.3f, 5.3f), white, 1.5f));
 
   
-	Scene scene(camera, p, l, 16);
+	World::setActiveScene(new Scene(camera, film, p, l));
+	World::getActiveScene()->setFragmentsPerPixel(2);
 
 	clock_t start = clock();
-	scene.render("C:\\Dropbox\\Code\\Cpp\\Raytracer\\Resources\\Imgs\\out.png", 2);
+	World::renderActiveScene();
 	cout << "\n\nRender time: " << (clock() - start) / (double) (CLOCKS_PER_SEC / 1000) << " ms" << endl;
 
 	getchar();

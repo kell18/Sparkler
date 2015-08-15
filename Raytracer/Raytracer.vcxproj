@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Project DefaultTargets="Build" ToolsVersion="12.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+<Project DefaultTargets="Build" ToolsVersion="14.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
     <ProjectConfiguration Include="Debug|Win32">
       <Configuration>Debug</Configuration>
@@ -22,19 +22,19 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
-    <PlatformToolset>v120</PlatformToolset>
+    <PlatformToolset>v140</PlatformToolset>
     <CharacterSet>MultiByte</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Lib|Win32'" Label="Configuration">
     <ConfigurationType>StaticLibrary</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
-    <PlatformToolset>v120</PlatformToolset>
+    <PlatformToolset>v140</PlatformToolset>
     <CharacterSet>MultiByte</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
-    <PlatformToolset>v120</PlatformToolset>
+    <PlatformToolset>v140</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <CharacterSet>MultiByte</CharacterSet>
   </PropertyGroup>
@@ -128,6 +128,9 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="src\core\Color.cpp" />
+    <ClCompile Include="src\core\Light\AreaLight.cpp" />
+    <ClCompile Include="src\core\World.cpp" />
+    <ClCompile Include="src\geometry\primitives\Box.cpp" />
     <ClCompile Include="src\utils\Point.cpp" />
     <ClCompile Include="src\utils\Direction.cpp" />
     <ClCompile Include="src\core\Light\DirectionalLight.cpp" />
@@ -142,7 +145,7 @@
     <ClCompile Include="src\geometry\primitives\Primitive.cpp" />
     <ClCompile Include="src\core\Scene.cpp" />
     <ClCompile Include="src\geometry\primitives\Sphere.cpp" />
-    <ClCompile Include="src\utils\Mathf.cpp" />
+    <ClCompile Include="src\utils\Mathf.inl" />
     <ClCompile Include="src\core\Camera.cpp" />
     <ClCompile Include="src\geometry\primitives\Ray.cpp" />
     <ClCompile Include="src\main.cpp" />
@@ -151,13 +154,15 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\core\Color.h" />
+    <ClInclude Include="src\core\Light\AreaLight.h" />
+    <ClInclude Include="src\core\World.h" />
+    <ClInclude Include="src\geometry\primitives\Box.h" />
     <ClInclude Include="src\utils\Point.h" />
     <ClInclude Include="src\utils\Direction.h" />
     <ClInclude Include="src\core\Light\DirectionalLight.h" />
     <ClInclude Include="src\core\Light\PointLight.h" />
     <ClInclude Include="src\geometry\primitives\Rectangle.h" />
     <ClInclude Include="src\geometry\TexturedObject.h" />
-    <ClInclude Include="src\utils\Constants.h" />
     <ClInclude Include="src\utils\Parser.h" />
     <ClInclude Include="src\core\Light\Light.h" />
     <ClInclude Include="src\core\Raytracer.h" />

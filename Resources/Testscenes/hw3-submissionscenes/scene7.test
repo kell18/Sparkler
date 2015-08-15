@@ -1,8 +1,8 @@
 #Stanford Dragon
 
-size 640 480
+size 240 180
 camera 0 0 20 0 0 -1 0 1 0 45
-output scene7.png
+output C:\Dropbox\Code\Cpp\Raytracer\Resources\Imgs\out.png
 
 diffuse 0.4 0.1 0.1
 ambient 0.0 0.0 0.0
@@ -10,7 +10,7 @@ point 0 20 20 1 1 1
 shininess 20
 specular 0.3 0.3 0.3
 
-maxdepth 5
+maxdepth 1
 
 maxverts 50001
 

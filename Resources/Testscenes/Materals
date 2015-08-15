@@ -1,0 +1,18 @@
+Materals
+
+#Polished Gold sphere
+reflectRate 1.0
+ambient 0.05 0.05 0.005
+diffuse 0.34615	0.3143	0.0903
+specular 0.797357 0.723991 0.208006
+shininess 83.2
+sphere -0.6 -0.35 -0.39 0.21
+
+
+#Metal sphere
+reflectRate 1.0
+ambient 0.005 0.005 0.005
+diffuse 0.2775	0.2775	0.2775
+specular 0.773911 0.773911 0.773911
+shininess 89.6
+sphere -0.6 -0.35 -0.39 0.21

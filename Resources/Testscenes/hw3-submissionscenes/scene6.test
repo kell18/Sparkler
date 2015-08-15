@@ -1,10 +1,12 @@
 #Cornell Box
 size 640 480
 camera 0 0 1 0 0 -1 0 1 0 45
-output scene6.png
 
-maxdepth 5
+output C:\Dropbox\Code\Cpp\Raytracer\Resources\Imgs\out.png
 
+maxdepth 4
+
+fragmentsPerPixel 1
 
 
 maxverts 12
@@ -31,11 +33,13 @@ specular 0 0 0
 shininess 1
 emission 0 0 0
 diffuse 0 0 0
+reflectRate 1.0
+refractInd 1.0
 
 attenuation 1 0.1 0.05
 
 point 0 0.44 -1.5 0.8 0.8 0.8
-directional 0 1 -1 0.2 0.2 0.2
+# directional 0 1 -1 0.2 0.2 0.2
 
 diffuse 0 0 1
 #sphere 0 0.8 -1.5 0.1
@@ -115,6 +119,9 @@ popTransform
 #sphere3
 diffuse 0.7 0.5 0.2
 specular 0.2 0.2 0.2
+#transmitRate 0.90
+#reflectRate 0.1
+#refractInd 2.4
 pushTransform
 translate -0.5 -0.7 -1.5
 scale 0.1 0.1 0.1
@@ -124,6 +131,9 @@ popTransform
 #sphere4
 diffuse 0.7 0.5 0.2
 specular 0.2 0.2 0.2
+#transmitRate 0.90
+#reflectRate 0.1
+#refractInd 1.4
 pushTransform
 translate 0.5 -0.5 -2
 scale 0.3 0.6 0.3
@@ -133,6 +143,8 @@ popTransform
 #cube
 diffuse 0.5 0.7 0.2
 specular 0.2 0.2 0.2
+transmitRate 0.0
+reflectRate 0.99
 pushTransform
 translate -0.25 -0.4 -1.8
 rotate 0 1 0 15
