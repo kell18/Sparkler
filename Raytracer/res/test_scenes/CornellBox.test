@@ -1,0 +1,75 @@
+#Cornell Box
+size 640 480
+camera 1 0 0 -1 0 0 0 0 1 60
+
+output C:\Dropbox\Code\Cpp\Raytracer\Raytracer\res\out.png
+
+maxdepth 4
+
+fragmentsPerPixel 2
+
+ambient 0.1 0.08 0.08
+specular 0 0 0
+shininess 1
+emission 0 0 0
+diffuse 0.4 0.4 0.4
+reflectRate 1.0
+refractInd 1.0
+
+pushTransform
+
+attenuation 0.4 1 0
+# point 0.0 0 0 1 1 1 1
+# directional -1 0 -0.5 1 1 1 0.5
+# Area light
+emission 1 1 1
+#rectangle -0.3 -0.25 0.61 0 0.5 0 0.3 0 -0.05
+#area_light 1 1 1 0 8 1.15
+point -0.3 0 0.51 1 1 1 1.15
+emission 0 0 0
+
+#floor
+plane 0 0 -0.65 0.05 0 1
+
+#forward
+plane -1.2 -3.5 -0.5 1 0 0
+
+#back
+plane 1.01 0 0 -1 0 0
+
+#top
+ambient 0.1 0.1 0.1
+plane 0 0 0.6 -0.05 0 -1
+ambient 0.1 0.08 0.08
+
+#left
+diffuse 0.73 0.42 0.42
+plane 0 -0.75 0 0 1 0
+
+#right
+diffuse 0.42 0.42 0.73
+plane 0 0.75 0 0 -1 0
+
+ambient 0.04 0.04 0.04
+diffuse 0.0 0.0 0.0
+
+#Metal sphere
+reflectRate 1.0
+ambient 0.005 0.005 0.005
+diffuse 0.1775	0.1775	0.1775
+specular 0.873911 0.873911 0.873911
+shininess 89.6
+sphere -0.6 -0.37 -0.39 0.21
+
+#transparent sphere
+ambient 0.0 0.0 0.0
+diffuse 0.0588235 0.0670588 0.0729412
+specular 0.99 0.99 0.99
+shininess 96
+reflectRate 0.05
+transmitRate 0.95
+refractInd 2.4
+sphere -0.3 0.30 -0.39 0.21
+transmitRate 0.0
+
+popTransform
