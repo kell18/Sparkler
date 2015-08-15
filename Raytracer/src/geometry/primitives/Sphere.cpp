@@ -12,8 +12,8 @@ namespace raytracer
 		vec3 reye = ray.eye;
 		if (isTransformed) {
 			// TODO: May be create different classes for pnt and dir
-			rdir = vec3(invTransforms * vec4(rdir, 0.f));
-			reye = vec3(invTransforms * vec4(reye, 1.f));
+			rdir = vec3(invTransforms * vec4(rdir, 0.0f));
+			reye = vec3(invTransforms * vec4(reye, 1.0f));
 		}
 
 		vec3 ec = reye - position;  
@@ -49,22 +49,23 @@ namespace raytracer
 				collision.point  = cPoint;
 				collision.normal = normalize(cPoint - position);
 			}
-			collision.texel	= isTextured ? getTexelColor(collision.normal) : Colors::WHITE;
+			collision.texel	= getTexelColor(collision.normal);
 		}
 		return collision;
 	}
 
 	Color Sphere::getTexelColor(const vec3 &pointNormal) const
 	{
+		if (!isTextured) {
+			return Colors::WHITE;
+		}
 		float phi = atan2f(-pointNormal.x, pointNormal.y);
-		if (phi < 0.f) {
+		if (phi < 0.0f) {
 			phi += two_pi<float>();
 		}
 		float u	  = (phi) * one_over_two_pi<float>();
-
 		float theta = acosf(pointNormal.z);
 		float v		= (pi<float>() - theta) * one_over_pi<float>();
-		assert(u >= 0.f && v >= 0.f && u < 1.00001f && v < 1.00001f);
 
 		int x = (textureWidth - 1) * u;
 		int y = (textureHeight - 1) * v;
@@ -74,11 +75,8 @@ namespace raytracer
 	}
 
 	Sphere::Sphere(vec3 position, float radius, Material material)
-		: Primitive(position, material), TexturedObject(), radius(radius)
+		: Primitive(position, material), radius(radius)
 	{
-		poleDir	   = normalize(vec3(position.x, position.y, position.z + radius) - position);
-		equatorDir = normalize(vec3(position.x + radius, position.y, position.z) - position);
-		poleCrossEuqtor = cross(poleDir, equatorDir);
 	}
 
 	Sphere::~Sphere()

@@ -17,8 +17,8 @@ namespace raytracer
 		FIBITMAP* texture;
 		int textureWidth, textureHeight;
 
-		virtual Color		getTexelColor(const vec3 &point) const = 0;
-		bool				loadTexture(const char* pathAndName);
+		virtual Color		getTexelColor(const vec3 &point) const;
+		bool				loadTexture(string pathAndName);
 
 							TexturedObject();
 		virtual				~TexturedObject();

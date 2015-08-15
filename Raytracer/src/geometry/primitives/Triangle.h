@@ -1,6 +1,6 @@
 #pragma once
 
-#include "glm/glm.hpp"
+#include "../../utils/Mathf.h"
 #include "Primitive.h"
 #include "Plane.h"
 #include "Ray.h"
@@ -12,14 +12,19 @@ namespace raytracer
 
 	class Triangle : public Primitive
 	{
-	public:
-		vec3 p1, p2, p3;
-		vec3 v1, v2;
+	protected:
+		vec3 vert1, vert2, vert3;
+		vec3 edge1, edge2;
 		vec3 normal;
+	public:
 
-		virtual Collision	findIntersectionWith(const Ray &ray) const;
+		virtual Collision	findIntersectionWith(const Ray &ray) const override;
+		vec3				getNormal() const;
+		vec3				getVert1() const;
+		vec3				getVert2() const;
+		vec3				getVert3() const;
 
-							Triangle(vec3 p1, vec3 p2, vec3 p3, Material material);
+							Triangle(vec3 vert1, vec3 vert2, vec3 vert3, Material material);
 							~Triangle();
 	};
 

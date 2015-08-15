@@ -13,7 +13,7 @@ namespace raytracer
 
 	Ray Camera::rayThroughPixel(float x, float y) const
 	{
-		// Add & subtract 0.5 bcs I trace ray through center of pixel
+		// Adding & subtracting 0.5 bcs I trace ray through center of pixel
 		float a = tanHalfFovX * ((x - halfWidth + 0.5f) / (halfWidth));
 		float b = tanHalfFovY * ((halfHeight - y - 0.5f) / (halfHeight));
 

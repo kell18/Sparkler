@@ -24,7 +24,7 @@ namespace raytracer
 
 		vector<vec3> vertexBuffer;
 		int width, height;
-		Material material;
+		Material material = {};
 		SceneBuilder builder;
 
 		getline (in, str); 
@@ -51,15 +51,28 @@ namespace raytracer
 				}
 			}
 			else if (cmd == "directional" || cmd == "point") {
-				isInputValid = readVals(s, 6, values);
+				isInputValid = readVals(s, 7, values);
 				if (isInputValid) {
 					vec3 positionOrDirection = vec3(values[0], values[1], values[2]);
 					Color color = Color(values[3], values[4], values[5]);
 					if (cmd == "directional") {
-						builder.addLight(new DirectionalLight(positionOrDirection, color, 1.f));
+						builder.addLight(new DirectionalLight(positionOrDirection, color, values[6]));
 					}
 					else if (cmd == "point") {
-						builder.addLight(new PointLight(positionOrDirection, color, 1.f));
+						builder.addLight(new PointLight(positionOrDirection, color, values[6]));
+					}
+				}
+			}
+			else if (cmd == "area_light") {
+				isInputValid = readVals(s, 6, values);
+				if (isInputValid) {
+					try {
+						Rectangle *rect = dynamic_cast<Rectangle*>(builder.getPrimitive(values[3]));
+						builder.addLight(new AreaLight(Color(values[0], values[1], values[2]),
+							rect, values[4], values[5]));
+					} catch(...) {
+						cerr << "Error: area_light will skip. Area light \
+							     can use only rectangles as primitive components.";
 					}
 				}
 			}
@@ -152,14 +165,49 @@ namespace raytracer
 					//vertexNormalBuffer.push_back(vec3(values[3], values[4], values[5]));
 				}
 			}
-
+			else if (cmd == "texture") {
+				string textureFile = "";
+				getline(s, textureFile);
+				if (!s.fail()) {
+					// remove leading spaces
+					textureFile = regex_replace(textureFile, regex("^(\\s)+"), "");
+					builder.setTexture(move(textureFile));
+				} else {
+					cout << "Failed reading textureFile value. Will skip.\n";
+				}
+			}
+			
+			else if (cmd == "plane") {
+				isInputValid = readVals(s, 6, values);
+				if (isInputValid) {
+					builder.addPrimitive(new Plane(vec3(values[0], values[1], values[2]), 
+												   vec3(values[3], values[4], values[5]), material));
+				}
+			}
+			else if (cmd == "rectangle") {
+				isInputValid = readVals(s, 9, values);
+				if (isInputValid) {
+					builder.addPrimitive(new Rectangle(vec3(values[0], values[1], values[2]), 
+													   vec3(values[3], values[4], values[5]),
+													   vec3(values[6], values[7], values[8]), material));
+					/*builder.addPrimitive(new Sphere(rect->position + rect->a, 0.5f, material));*/
+				}
+			}
+			else if (cmd == "rectanglev") {
+				isInputValid = readVals(s, 5, values);
+				if (isInputValid) {
+					builder.addPrimitive(new Rectangle(vertexBuffer[values[0]], 
+												   vertexBuffer[values[1]] - vertexBuffer[values[2]],
+												   vertexBuffer[values[3]] - vertexBuffer[values[4]], material));
+					/*builder.addPrimitive(new Sphere(rect->position + rect->a, 0.5f, material));*/
+				}
+			}
 			else if (cmd == "sphere") {
 				isInputValid = readVals(s, 4, values);
 				if (isInputValid) {
 					builder.addPrimitive(new Sphere(vec3(values[0], values[1], values[2]), values[3], material));
 				}
 			}
-
 			else if (cmd == "tri") {
 				isInputValid = readVals(s, 3, values);
 				if (isInputValid) {
@@ -226,14 +274,4 @@ namespace raytracer
 
 		return builder.buildScene();
 	}
-
-
-	Parser::Parser() 
-	{
-	}
-
-	Parser::~Parser()
-	{
-	}
-
 }

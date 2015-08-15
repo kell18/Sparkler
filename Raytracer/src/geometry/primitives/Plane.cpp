@@ -15,7 +15,7 @@ namespace raytracer
 		}
 
 		float dirn = dot(rdir, normal);
-		if (dirn == 0) {
+		if (Mathf::isAlmostZero(dirn)) {
 			return c;
 		}
 		float pn   = dot(position, normal);
@@ -27,7 +27,7 @@ namespace raytracer
 			c.isFind	= true;
 			c.distance  = t;
 			c.material  = material;
-			c.texel		=  Color(1.f);
+			c.texel		= getTexelColor(cPoint);
 			if (isTransformed) {
 				c.point  = vec3(transforms * vec4(cPoint, 1.f));
 				c.normal = normalize(mat3(invTranspTransforms) * normal);
@@ -37,6 +37,15 @@ namespace raytracer
 			}
 		}
 		return c;
+	}
+
+	vec3 Plane::getNormal() const 
+	{
+		if (isTransformed) {
+			return vec3(transforms * vec4(normal, 0.0f));
+		} else {
+			return normal;
+		}
 	}
 
 	Plane::Plane(vec3 position, vec3 normal, Material material)

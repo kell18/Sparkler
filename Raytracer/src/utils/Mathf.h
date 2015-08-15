@@ -1,21 +1,21 @@
 #pragma once
 
-#include "glm/glm.hpp"
-#include "../geometry/primitives/Ray.h"
-#include "../geometry/Collision.h"
-
-#define TOTAL_INTERNAL_REFRACTION false
+#include <glm/glm.hpp>
+#include <glm/gtc/constants.hpp>
+#include <cstdlib>
 
 using namespace glm;
 
 namespace raytracer
 {
+	static const float FLT_EPS = std::numeric_limits<float>::epsilon();
 
 	class Mathf
 	{
 	public:
-		static bool	computeRefractDir(vec3 eyeDir, const Collision &c, vec3& outRay, float &refrInd);
-		static vec3	computeReflectDir(const vec3& eyePos, const vec3& point, const vec3& normal);
+		static float	randFloat0to1();
+		static bool		isAlmostZero(float a, float EPSILON = FLT_EPS);
+		static bool		isAlmostEqual(float a, float b, float EPSILON = FLT_EPS);
 	};
 }
 

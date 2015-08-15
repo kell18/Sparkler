@@ -3,7 +3,7 @@
 #include <vector>
 #include <cfloat>
 
-#include "glm/glm.hpp"
+#include "../utils/Mathf.h"
 #include "../geometry/primitives/Primitive.h"
 #include "../geometry/primitives/Ray.h"
 #include "../geometry/Collision.h"
@@ -11,6 +11,7 @@
 #include "Light/Light.h"
 #include "Film.h"
 #include "Scene.h"
+#include "World.h"
 
 using namespace std;
 
@@ -21,22 +22,12 @@ namespace raytracer
 
 	class Raytracer
 	{
-	private:
-		int maxDepth;
-		const Scene *scene;
-		const vector<Light*> &lights;
-
 	public:
-		Color		findColor(const Ray &ray, int recursionDepth = 3, float refractInd = 1.0f) const;
+		static Color		findColor(const Ray &ray, int recursionDepth = 3, float refractInd = 1.0f);
 
-		Collision	findNearestCollision(const Ray &ray) const;
-		Collision	findAnyCollision(const Ray &ray) const;
+		static Collision	findNearestCollision(const Ray &ray);
+		static Collision	findAnyCollision(const Ray &ray);
 
-					Raytracer(const Scene *scene, int maxDepth);
-					~Raytracer();
-
-					Raytracer(const Raytracer&) = delete;
-					Raytracer& operator = (const Raytracer&) = delete;
 	};
 }
 

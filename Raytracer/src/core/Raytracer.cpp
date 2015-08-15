@@ -2,66 +2,70 @@
 
 namespace raytracer
 {
-	Color Raytracer::findColor(const Ray &ray, int depth, float refractInd) const
+	Color Raytracer::findColor(const Ray &ray, int depth, float refractInd)
 	{
 		Collision c = findNearestCollision(ray);
 		if (!c.isFind) {
-			return scene->bgColor;
+			return World::getActiveScene()->bgColor;
+		}
+		if (length(c.material.emissive) > 1.7f) {
+			return c.material.emissive;
 		}
 
 		Material &m		   = c.material;
-		Color color		   = m.ambient;
+		Color color		   = m.ambient + m.emissive;
 		float reflectRate  = m.reflectRate;
 		float transmitRate = m.transmitRate;
-		vec3 specularity   = m.specular;
+		auto lights		   = World::getActiveScene()->lights;
 
 		for (size_t i = 0, len = lights.size(); i < len; ++i) {
-			color += lights[i]->computeShadeColor(ray.dir, c, this);
+			color += lights[i]->computeShadeColor(ray.dir, c);
 		}
 		color *= c.texel;
 
 		// Trace refracted ray
-		float outRefrInd = 1.0f;
-		if (depth >= 0 && transmitRate > 0.0f) {
-			float n = refractInd / m.refractInd; // Check
-			float outRefrInd = m.refractInd;
-
+		float outRefrInd = m.refractInd;
+		if (depth > 1 && transmitRate > 0.0f) {
+			float n    = refractInd / m.refractInd; // Check
 			float cosI = -dot(ray.dir, c.normal);
-			if (cosI < 0.0f) {    // Inside of object
-				c.normal *= -1.0f;
-				cosI   *= -1.0f;
-				n = 1.0f / n; // m.refractInd; // or m.refractInd / 1.0f bcs we assume that outRefrInd is air
+			// If inside of object: inverse normal and n
+			// Also set outRefrInd to air refraction index
+			if (cosI < 0.0f) {
+				c.normal  *= -1.0f; // Check
+				cosI      *= -1.0f;
+				n		   = 1.0f / n;
 				outRefrInd = 1.0f;
 			}
 
 			float sinT = 1.0f + n * n * (cosI * cosI - 1.0f);
-			if (sinT > 0.0f) {
+			if (sinT >= 0.0f) {
 				vec3 refrDir = n * ray.dir + (n * cosI - sqrtf(sinT)) * c.normal;
-				vec3 refrEye = c.point + (refrDir * COLLISION_AMEND);
 				// TODO: Add color param: Color(0.65f, 0.65f, 1.0f)
-				color += transmitRate * findColor(Ray(refrEye, refrDir), depth - 1, outRefrInd);
+				color += transmitRate * findColor(Ray::BuildShifted(c.point, refrDir), 
+												  depth - 1, outRefrInd);
 			} else {
+				// Case of total internal reflection
+				// TODO: Bug when ior < 1
 				reflectRate += transmitRate;
 			}
 		}
-
 		// Trace reflected ray
-		if (depth >= 0 ) {
-			vec3 reflDir = ray.dir - 2.f * dot(ray.dir, c.normal) * c.normal;
-			vec3 reflEye = c.point + (reflDir * COLLISION_AMEND);
-			color +=  specularity * findColor(Ray(reflEye, reflDir), depth - 1, outRefrInd);		
+		if (depth > 1 && reflectRate > 0.0f) {
+			vec3 reflDir = ray.dir - 2.0f * dot(ray.dir, c.normal) * c.normal;
+			color +=  reflectRate * m.specular * findColor(Ray::BuildShifted(c.point, reflDir),
+															depth - 1, outRefrInd);
 		}
 
 		return color;
 	}
 
-	Collision Raytracer::findNearestCollision(const Ray &ray) const
+	Collision Raytracer::findNearestCollision(const Ray &ray)
 	{
 		Collision nearest;
 		Collision current;
 		nearest.isFind   = false;
 		nearest.distance = FLT_MAX;
-		const vector<Primitive*> &primitives = scene->findNearestPrimitives(ray);
+		const vector<Primitive*> &primitives = World::getActiveScene()->findNearestPrimitives(ray);
 		for (size_t i = 0, len = primitives.size(); i < len; ++i) {
 			current = primitives[i]->findIntersectionWith(ray);
 			if (current.isFind && current.distance < nearest.distance) { // TODO: May be '<='
@@ -71,10 +75,10 @@ namespace raytracer
 		return nearest;
 	}
 
-	Collision Raytracer::findAnyCollision(const Ray &ray) const
+	Collision Raytracer::findAnyCollision(const Ray &ray)
 	{
 		Collision c = { false };
-		const vector<Primitive*> &objects = scene->findNearestPrimitives(ray);
+		const vector<Primitive*> &objects = World::getActiveScene()->findNearestPrimitives(ray);
 		for (size_t i = 0, len = objects.size(); i < len; ++i) {
 			c = objects[i]->findIntersectionWith(ray);
 			if (c.isFind) {
@@ -82,15 +86,5 @@ namespace raytracer
 			}
 		}
 		return c;
-	}
-
-	Raytracer::Raytracer(const Scene *scene, int maxDepth)
-		: scene(scene), lights(scene->lights), maxDepth(maxDepth)
-	{
-	}
-
-	Raytracer::~Raytracer()
-	{
-		scene = nullptr;
 	}
 }

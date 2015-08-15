@@ -15,9 +15,11 @@
 
 #include "../core/Light/PointLight.h"
 #include "../core/Light/DirectionalLight.h"
+#include "../core/Light/AreaLight.h"
 #include "../core/Scene.h"
 #include "../geometry/Material.h"
 #include "../geometry/primitives/Plane.h"
+#include "../geometry/primitives/Rectangle.h"
 #include "../geometry/primitives/Triangle.h"
 #include "../geometry/primitives/Sphere.h"
 #include "SceneBuilder.h"
@@ -31,12 +33,10 @@ namespace raytracer {
 	{
 
 	public:
-		Scene*		parseFile(const string &filename);
-					Parser();
-					~Parser();
+		static Scene*	parseFile(const string &filename);
 
 	private: 
-		bool		readVals(stringstream &s, const int numvals, float *values);
+		static bool		readVals(stringstream &s, const int numvals, float *values);
 	};
 
 }

@@ -2,9 +2,11 @@
 
 #include <vector>
 #include <iostream>
+#include <ctime>
+#include <FreeImage.h>
 
-#include "FreeImage.h"
 #include "../geometry/primitives/Primitive.h"
+#include "../geometry/primitives/Sphere.h"
 #include "Light/Light.h"
 #include "Camera.h"
 #include "Film.h"

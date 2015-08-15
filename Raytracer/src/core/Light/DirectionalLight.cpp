@@ -2,7 +2,6 @@
 
 namespace raytracer 
 {
-
 	float DirectionalLight::computeAttenuation(float dist) const
 	{
 		return power;
@@ -18,6 +17,11 @@ namespace raytracer
 		return 1.f;
 	}
 
+	vec3 DirectionalLight::getPosition() const 
+	{
+		return direction;
+	}
+
 	DirectionalLight::DirectionalLight(vec3 direction, Color color, float power)
 		: direction(normalize(direction)), Light(color, power)
 	{
@@ -25,10 +29,4 @@ namespace raytracer
 		atten.linear = 0.f;
 		atten.quad = 0.f;
 	}
-
-	DirectionalLight::DirectionalLight(vec3 direction, Color color, Attenuation attn, float power)
-		: direction(normalize(direction)), Light(color, power, attn)
-	{
-	}
-
 }

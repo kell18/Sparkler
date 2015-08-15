@@ -1,6 +1,6 @@
 #pragma once
 
-#include "glm/glm.hpp"
+#include "../../utils/Mathf.h"
 #include "Primitive.h"
 #include "Ray.h"
 #include "../Collision.h"
@@ -12,11 +12,12 @@ namespace raytracer
 {
 	class Plane : public Primitive
 	{
-	public:
+	protected:
 		vec3 normal;
+	public:
 
-		virtual Collision	findIntersectionWith(const Ray &ray) const;
-
+		virtual Collision	findIntersectionWith(const Ray &ray) const override;
+		vec3				getNormal() const;
 							Plane(vec3 position, vec3 normal, Material material);
 		virtual				~Plane();
 	};

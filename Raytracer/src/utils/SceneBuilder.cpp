@@ -5,14 +5,14 @@ namespace raytracer
 	Scene* SceneBuilder::buildScene() 
 	{
 		if (camera == nullptr) {
-			cerr << "Scene build error: camera don't set up.\n";
-			return nullptr;
+			cerr << "Scene build error: camera don't set up.\n\n";
+			assert(false);
 		}
-		if (outputFile.length() == 0) {
-			cerr << "Scene build error: outputFile don't set up.\n";
-			return nullptr;
+		if (outputFile == "") {
+			cerr << "Scene build error: outputFile don't set up.\n\n";
+			assert(false);
 		}
-		Film *film = new Film(camera->width, camera->height, move(outputFile), bitsPerPixel);
+		Film *film = new Film(camera->width, camera->height, string(outputFile), bitsPerPixel);
 		Scene* scene = new Scene(camera, film, primitives, lights);
 		scene->setFragmentsPerPixel(fragmentsPerPixel);
 		scene->recursionDepth = recursionDepth;
@@ -31,7 +31,22 @@ namespace raytracer
 		if (isAnyTrsnform) {
 			primitive->transform(transformStack.top());
 		}
+		if (textureFile != "") {
+			primitive->loadTexture(string(textureFile));
+			textureFile = "";
+		}
 		primitives.push_back(primitive);
+	}
+
+	Primitive*	SceneBuilder::getPrimitive(int index) 
+	{
+		Primitive *p = nullptr;
+		try {
+			p = primitives.at(index);
+		} catch (const out_of_range &ex) {
+			cerr << ex.what();
+		}
+		return p;
 	}
 
 	void SceneBuilder::addLight(Light* light) 
@@ -42,6 +57,11 @@ namespace raytracer
 		lights.push_back(light);
 	}
 
+	void SceneBuilder::setOutputFile(string pathAndName) 
+	{
+		this->outputFile = pathAndName;
+	}
+
 	void SceneBuilder::setAttenuation(float constant, float linear, float quad) 
 	{
 		isAttenuationSet = true;
@@ -50,9 +70,9 @@ namespace raytracer
 		attenuation.quad	 = quad;
 	}
 
-	void SceneBuilder::setOutputFile(string pathAndName) 
+	void SceneBuilder::setTexture(string pathAndName)
 	{
-		this->outputFile = pathAndName;
+		textureFile = pathAndName;
 	}
 
 	void SceneBuilder::addTransform(const mat4& transform)

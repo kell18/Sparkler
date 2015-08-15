@@ -2,13 +2,17 @@
 
 namespace raytracer 
 {
-
-	bool TexturedObject::loadTexture(const char* pathAndName)
+	Color TexturedObject::getTexelColor(const vec3 &point) const
 	{
-		texture		  = FreeImage_Load(FreeImage_GetFileType(pathAndName), pathAndName);
+		return Colors::WHITE;
+	}
+
+	bool TexturedObject::loadTexture(string pathAndName)
+	{
+		isTextured	  = true;
+		texture		  = FreeImage_Load(FreeImage_GetFileType(pathAndName.c_str()), pathAndName.c_str());
 		textureWidth  = FreeImage_GetWidth(texture);
 		textureHeight = FreeImage_GetHeight(texture);
-		isTextured	  = true;
 		// if (texture == NULL) cout << "Error: texture was not loaded: " << pathAndName
 		return texture != NULL;
 	}

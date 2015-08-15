@@ -28,11 +28,12 @@ namespace raytracer
 		Color color;
 		float power;
 
-		virtual Color	computeShadeColor(vec3 eyeDir, const Collision &c, const Raytracer* tracer) const;
+		virtual Color	computeShadeColor(const vec3 &eyeDir, const Collision &c) const;
 		virtual float	computeAttenuation(float dist) const;
 
 		virtual vec3	getDirection(const vec3& point) const = 0;
 		virtual float	getDistance(const vec3& point) const = 0;
+		virtual vec3	getPosition() const = 0;
 
 						Light(Color color, float power);
 						Light(Color color, float power, Attenuation attenuation);
