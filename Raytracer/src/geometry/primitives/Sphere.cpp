@@ -7,16 +7,15 @@ namespace raytracer
 	{
 		Collision collision = {};
 		collision.isFind = false;
-
-		vec3 rdir = ray.dir;
-		vec3 reye = ray.eye;
+		
+		Direction rdir = ray.dir;
+		Position reye = ray.eye;
 		if (isTransformed) {
-			// TODO: May be create different classes for pnt and dir
-			rdir = vec3(invTransforms * vec4(rdir, 0.0f));
-			reye = vec3(invTransforms * vec4(reye, 1.0f));
+			rdir = invTransforms * rdir;
+			reye = invTransforms * reye;
 		}
 
-		vec3 ec = reye - position;  
+		Direction ec = reye - this->position;  
 		float A = dot(rdir, rdir);
 		float B = 2.f * dot(rdir, ec);
 		float C = dot(ec, ec) - radius * radius;
@@ -38,33 +37,33 @@ namespace raytracer
 		}
 
 		if (t > ray.tMin && t < ray.tMax) {
-			vec3 cPoint		   = reye + rdir * t;
+			Position cPoint	   = reye + rdir * t;
 			collision.isFind   = true;
 			collision.distance = t;
 			collision.material = material;
 			if (isTransformed) {
-				collision.point  = vec3(transforms * vec4(cPoint, 1.f));
-				collision.normal = normalize(mat3(invTranspTransforms) * (cPoint - position));
+				collision.point  = transforms * cPoint;
+				collision.normal = normalize(invTranspTransforms * Direction(cPoint - this->position));
 			} else {
 				collision.point  = cPoint;
-				collision.normal = normalize(cPoint - position);
+				collision.normal = normalize(cPoint - this->position);
 			}
-			collision.texel	= getTexelColor(collision.normal);
+			collision.texel	= getTexelColor(collision);
 		}
 		return collision;
 	}
 
-	Color Sphere::getTexelColor(const vec3 &pointNormal) const
+	Color Sphere::getTexelColor(const Collision &c) const
 	{
 		if (!isTextured) {
 			return Colors::WHITE;
 		}
-		float phi = atan2f(-pointNormal.x, pointNormal.y);
+		float phi = atan2f(-c.normal.x, c.normal.y);
 		if (phi < 0.0f) {
 			phi += two_pi<float>();
 		}
 		float u	  = (phi) * one_over_two_pi<float>();
-		float theta = acosf(pointNormal.z);
+		float theta = acosf(c.normal.z);
 		float v		= (pi<float>() - theta) * one_over_pi<float>();
 
 		int x = (textureWidth - 1) * u;
@@ -74,7 +73,7 @@ namespace raytracer
 		return Color(rgbquad.rgbRed / 255.f, rgbquad.rgbGreen / 255.f, rgbquad.rgbBlue / 255.f); 
 	}
 
-	Sphere::Sphere(vec3 position, float radius, Material material)
+	Sphere::Sphere(Position position, float radius, Material material)
 		: Primitive(position, material), radius(radius)
 	{
 	}

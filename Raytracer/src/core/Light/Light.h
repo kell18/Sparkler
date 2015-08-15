@@ -1,14 +1,11 @@
 #pragma once
 
-#include <glm/glm.hpp>
-
-#include "../Color.h"
+#include "../../utils/Mathf.h"
+#include "../../utils/Color.h"
 #include "../../geometry/Collision.h"
 #include "../Film.h"
 #include "../Raytracer.h"
 #include "../../geometry/primitives/Ray.h"
-
-using namespace glm;
 
 namespace raytracer
 {
@@ -28,16 +25,15 @@ namespace raytracer
 		Color color;
 		float power;
 
-		virtual Color	computeShadeColor(const vec3 &eyeDir, const Collision &c) const;
-		virtual float	computeAttenuation(float dist) const;
+		virtual Color		computeShadeColor(const Direction &eyeDir, const Collision &c) const;
+		virtual float		computeAttenuation(float dist) const;
 
-		virtual vec3	getDirection(const vec3& point) const = 0;
-		virtual float	getDistance(const vec3& point) const = 0;
-		virtual vec3	getPosition() const = 0;
+		virtual Direction	getDirection(const Position& point) const = 0;
+		virtual float		getDistance(const Position& point) const = 0;
+		virtual Position	getPosition() const = 0;
 
-						Light(Color color, float power);
-						Light(Color color, float power, Attenuation attenuation);
-		virtual			~Light();
+							Light(Color color, float power);
+		virtual				~Light();
 	};
 }
 

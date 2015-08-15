@@ -1,7 +1,6 @@
 #pragma once
 
-#include "glm/glm.hpp"
-
+#include "../../utils/Mathf.h"
 #include "../Material.h"
 #include "../Collision.h"
 #include "../TexturedObject.h"
@@ -15,7 +14,7 @@ namespace raytracer
 	{
 	protected:
 		mat4 transforms, invTransforms, invTranspTransforms;
-		vec3 position;
+		Position position;
 	public:
 		bool isTransformed;
 		Material material;
@@ -23,10 +22,10 @@ namespace raytracer
 		// Todo: May be rename to collision
 		virtual Collision	findIntersectionWith(const Ray &ray) const = 0;
 
-		vec3				getPosition() const;
+		Position				getPosition() const;
 		void				transform(mat4 transforms);
 
-							Primitive(vec3 position, Material material);
+							Primitive(Position position, Material material);
 		virtual				~Primitive();
 	};
 

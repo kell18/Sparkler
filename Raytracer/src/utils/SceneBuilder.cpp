@@ -20,7 +20,8 @@ namespace raytracer
 		return scene;
 	}
 
-	void SceneBuilder::setupCamera(int width, int heght, float fovXDeg, vec3 lookFrom, vec3 lookTo, vec3 up)
+	void SceneBuilder::setupCamera(int width, int heght, float fovXDeg, 
+								   Position lookFrom, Position lookTo, Direction up)
 	{
 		camera = new Camera(width, heght, fovXDeg);
 		camera->lookAt(lookFrom, lookTo, up);

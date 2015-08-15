@@ -8,7 +8,7 @@ namespace raytracer
 		Collision c = {};
 		c.isFind = false;
 		
-		vec3 invDir = 1.0f / ray.dir;
+		Direction invDir = 1.0f / ray.dir;
 		float lo = invDir.x*(fromP.x - ray.eye.x);
 		float hi = invDir.x*(toP.x - ray.eye.x);
 		float tmin = std::min(lo, hi);
@@ -27,7 +27,7 @@ namespace raytracer
 		if ((tmin <= tmax) && (tmax > 0.f)) {
 			c.isFind = true;
 			c.material = this->material;
-			c.point = ray.eye + ray.dir * tmin;
+			c.point = Position(ray.eye + ray.dir * tmin);
 			c.distance = tmin;
 			// TODO: Find a normal
 		}
@@ -35,7 +35,7 @@ namespace raytracer
 		return c;
 	}
 
-	Box::Box(vec3 fromPoint, vec3 toPoint, Material material)
+	Box::Box(Position fromPoint, Position toPoint, Material material)
 		// TODO: change fromPoint to middle
 		: Primitive(fromPoint, material), fromP(fromPoint), toP(toPoint)
 	{

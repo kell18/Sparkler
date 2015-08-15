@@ -7,22 +7,23 @@ namespace raytracer
 		return power;
 	}
 
-	vec3 DirectionalLight::getDirection(const vec3& point) const 
+	Direction DirectionalLight::getDirection(const Position& point) const
 	{
 		return direction;
 	}
 
-	float DirectionalLight::getDistance(const vec3& point) const 
+	float DirectionalLight::getDistance(const Position& point) const 
 	{
 		return 1.f;
 	}
 
-	vec3 DirectionalLight::getPosition() const 
+	Position DirectionalLight::getPosition() const 
 	{
-		return direction;
+		cout << "\nWarning: taking position of directional light.";
+		return Position();
 	}
 
-	DirectionalLight::DirectionalLight(vec3 direction, Color color, float power)
+	DirectionalLight::DirectionalLight(Direction direction, Color color, float power)
 		: direction(normalize(direction)), Light(color, power)
 	{
 		atten.constant = 1.f;

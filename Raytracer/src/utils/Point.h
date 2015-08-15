@@ -7,17 +7,18 @@ using namespace glm;
 
 namespace raytracer
 {
-	class Direction;
+	using Direction = tvec3<float, highp>;
+	using Position = tvec3<float, mediump>;
 
-	using Point = tvec3<float, mediump>;
+	float dot(const Position& p, const Direction &d);
+	Direction cross(const Position& p, const Direction &d);
 
-	float dot(const Point& p, const Direction &d);
-	Direction cross(const Point& p, const Direction &d);
+	Position operator*(const mat4& m, const Position& p);
+	Position operator+(const Position& p, const Direction& d);
+	Position operator-(const Position& p, const Direction& d);
+	Position operator*(const Position& p, const Direction& d);
+	Position operator/(const Position& p, const Direction& d);
 
-	Point operator*(const mat4& m, const Point& p);
-	Point operator+(const Point& p, const Direction& d);
-	Point operator-(const Point& p, const Direction& d);
-	Point operator*(const Point& p, const Direction& d);
-	Point operator/(const Point& p, const Direction& d);
+	// TODO: point - point = dir
 }
 

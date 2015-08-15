@@ -8,7 +8,7 @@ namespace raytracer
 		if (!c.isFind) {
 			return World::getActiveScene()->bgColor;
 		}
-		if (length(c.material.emissive) > 1.7f) {
+		if (Mathf::isAlmostEqual(c.material.emissive, Colors::WHITE, ROUGH_EPS)) {
 			return c.material.emissive;
 		}
 
@@ -39,7 +39,7 @@ namespace raytracer
 
 			float sinT = 1.0f + n * n * (cosI * cosI - 1.0f);
 			if (sinT >= 0.0f) {
-				vec3 refrDir = n * ray.dir + (n * cosI - sqrtf(sinT)) * c.normal;
+				Direction refrDir = n * ray.dir + (n * cosI - sqrtf(sinT)) * c.normal;
 				// TODO: Add color param: Color(0.65f, 0.65f, 1.0f)
 				color += transmitRate * findColor(Ray::BuildShifted(c.point, refrDir), 
 												  depth - 1, outRefrInd);
@@ -51,7 +51,7 @@ namespace raytracer
 		}
 		// Trace reflected ray
 		if (depth > 1 && reflectRate > 0.0f) {
-			vec3 reflDir = ray.dir - 2.0f * dot(ray.dir, c.normal) * c.normal;
+			Direction reflDir = ray.dir - 2.0f * dot(ray.dir, c.normal) * c.normal;
 			color +=  reflectRate * m.specular * findColor(Ray::BuildShifted(c.point, reflDir),
 															depth - 1, outRefrInd);
 		}

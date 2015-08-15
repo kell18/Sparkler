@@ -1,9 +1,7 @@
 #pragma once
 
-#include "glm/glm.hpp"
+#include "../utils/Mathf.h"
 #include "../geometry/primitives/Ray.h"
-
-using namespace glm;
 
 namespace raytracer
 {
@@ -11,13 +9,14 @@ namespace raytracer
 	{
 	public:
 		// We look towards -forward direction
-		vec3	eye, forward, up, right;
-		int		width, height;
-		float	halfWidth, halfHeight;
-		vec2	fov; // FieldOfView
-		float 	tanHalfFovX, tanHalfFovY;
+		Position	eye;
+		Direction	forward, up, right;
+		int			width, height;
+		float		halfWidth, halfHeight;
+		vec2		fov; // FieldOfView
+		float 		tanHalfFovX, tanHalfFovY;
 
-		void	lookAt(vec3 lookFrom, vec3 lookTo, vec3 up);
+		void	lookAt(Position lookFrom, Position lookTo, Direction up);
 		Ray		rayThroughPixel(float x, float y) const;
 
 				Camera(int width, int height, float fovYDegree);

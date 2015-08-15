@@ -28,16 +28,16 @@
 using namespace raytracer;
 using namespace std;
 
-
 int main()
 {
 	string inputFile = "C:\\Dropbox\\Code\\Cpp\\Raytracer\\Raytracer\\res\\test_scenes\\CornellBox.test";
+	World::initialize();
+
 	World::setActiveScene(Parser::parseFile(inputFile));
+	double renderTime = World::renderActiveScene();
 
-	clock_t start = clock();
-	World::renderActiveScene();
-	cout << "\n\nRender time: " << (clock() - start) / (double) (CLOCKS_PER_SEC / 1000) << " ms\n";
-
+	World::deinitialize();
+	cout << "\nRender time: " << renderTime << "ms";
 	getchar();
 	return 0;
 }

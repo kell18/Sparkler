@@ -1,6 +1,7 @@
 #pragma once
 
-#include "glm/glm.hpp"
+#include <glm/glm.hpp>
+#include "../utils/Color.h"
 #include "../core/Film.h"
 
 using namespace glm;

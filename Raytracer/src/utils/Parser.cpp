@@ -22,7 +22,7 @@ namespace raytracer
 			throw 2;
 		}
 
-		vector<vec3> vertexBuffer;
+		vector<Position> vertexBuffer;
 		int width, height;
 		Material material = {};
 		SceneBuilder builder;
@@ -50,17 +50,24 @@ namespace raytracer
 					cout << "Failed reading outputFile value. Will skip.\n";
 				}
 			}
-			else if (cmd == "directional" || cmd == "point") {
+			else if (cmd == "point") {
 				isInputValid = readVals(s, 7, values);
 				if (isInputValid) {
-					vec3 positionOrDirection = vec3(values[0], values[1], values[2]);
-					Color color = Color(values[3], values[4], values[5]);
-					if (cmd == "directional") {
-						builder.addLight(new DirectionalLight(positionOrDirection, color, values[6]));
+					if (isInputValid) {
+						builder.addLight(new PointLight(
+							Position(values[0], values[1], values[2]),
+							Color(values[3], values[4], values[5]), values[6])
+						);
 					}
-					else if (cmd == "point") {
-						builder.addLight(new PointLight(positionOrDirection, color, values[6]));
-					}
+				}
+			}
+			else if (cmd == "directional") {
+				isInputValid = readVals(s, 7, values);
+				if (isInputValid) {
+					builder.addLight(new DirectionalLight(
+						Direction(values[0], values[1], values[2]), 
+						Color(values[3], values[4], values[5]), values[6])
+					);
 				}
 			}
 			else if (cmd == "area_light") {
@@ -68,8 +75,9 @@ namespace raytracer
 				if (isInputValid) {
 					try {
 						Rectangle *rect = dynamic_cast<Rectangle*>(builder.getPrimitive(values[3]));
-						builder.addLight(new AreaLight(Color(values[0], values[1], values[2]),
-							rect, values[4], values[5]));
+						builder.addLight(new AreaLight(
+							Color(values[0], values[1], values[2]), rect, values[4], values[5])
+						);
 					} catch(...) {
 						cerr << "Error: area_light will skip. Area light \
 							     can use only rectangles as primitive components.";
@@ -142,12 +150,13 @@ namespace raytracer
 				}
 			}
 			else if (cmd == "camera") {
-				isInputValid = readVals(s, 10, values) ; // 10 values eye cen up fov
+				isInputValid = readVals(s, 10, values) ; // 10 values lookFrom lookTo up fov
 				if (isInputValid) {
-					builder.setupCamera(width, height, values[9], 
-										vec3(values[0], values[1], values[2]),
-										vec3(values[3], values[4], values[5]),
-										vec3(values[6], values[7], values[8]));
+					builder.setupCamera(width, height, values[9],
+						Position(values[0], values[1], values[2]),
+						Position(values[3], values[4], values[5]),
+						Direction(values[6], values[7], values[8])
+					);
 				}
 			}
 			else if (cmd == "maxdepth") {
@@ -156,7 +165,7 @@ namespace raytracer
 			}
 			else if (cmd == "vertex") {
 				isInputValid = readVals(s, 3, values);
-				if (isInputValid) vertexBuffer.push_back(vec3(values[0], values[1], values[2]));
+				if (isInputValid) vertexBuffer.push_back(Position(values[0], values[1], values[2]));
 			}
 			else if (cmd == "vertexnormal") {
 				isInputValid = readVals(s, 6, values);
@@ -180,32 +189,40 @@ namespace raytracer
 			else if (cmd == "plane") {
 				isInputValid = readVals(s, 6, values);
 				if (isInputValid) {
-					builder.addPrimitive(new Plane(vec3(values[0], values[1], values[2]), 
-												   vec3(values[3], values[4], values[5]), material));
+					builder.addPrimitive(new Plane(
+						Position(values[0], values[1], values[2]),
+						Direction(values[3], values[4], values[5]), material)
+					);
 				}
 			}
 			else if (cmd == "rectangle") {
 				isInputValid = readVals(s, 9, values);
 				if (isInputValid) {
-					builder.addPrimitive(new Rectangle(vec3(values[0], values[1], values[2]), 
-													   vec3(values[3], values[4], values[5]),
-													   vec3(values[6], values[7], values[8]), material));
+					builder.addPrimitive(new Rectangle(
+						Position(values[0], values[1], values[2]),
+						Direction(values[3], values[4], values[5]),
+						Direction(values[6], values[7], values[8]), material)
+					);
 					/*builder.addPrimitive(new Sphere(rect->position + rect->a, 0.5f, material));*/
 				}
 			}
 			else if (cmd == "rectanglev") {
 				isInputValid = readVals(s, 5, values);
 				if (isInputValid) {
-					builder.addPrimitive(new Rectangle(vertexBuffer[values[0]], 
-												   vertexBuffer[values[1]] - vertexBuffer[values[2]],
-												   vertexBuffer[values[3]] - vertexBuffer[values[4]], material));
+					builder.addPrimitive(new Rectangle(
+						vertexBuffer[values[0]], 
+						Direction(vertexBuffer[values[1]] - vertexBuffer[values[2]]),
+						Direction(vertexBuffer[values[3]] - vertexBuffer[values[4]]), material)
+					);
 					/*builder.addPrimitive(new Sphere(rect->position + rect->a, 0.5f, material));*/
 				}
 			}
 			else if (cmd == "sphere") {
 				isInputValid = readVals(s, 4, values);
 				if (isInputValid) {
-					builder.addPrimitive(new Sphere(vec3(values[0], values[1], values[2]), values[3], material));
+					builder.addPrimitive(new Sphere(
+						Position(values[0], values[1], values[2]), values[3], material)
+					);
 				}
 			}
 			else if (cmd == "tri") {
@@ -255,13 +272,15 @@ namespace raytracer
 			else if (cmd == "rotate") {
 				isInputValid = readVals(s, 4, values) ; 
 				if (isInputValid) {
-					builder.addTransform(rotate(radians(values[3]), vec3(values[0], values[1], values[2])));
+					builder.addTransform(rotate(radians(
+						values[3]), vec3(values[0], values[1], values[2]))
+					);
 				}
 			}
 
-			// I include the basic push/pop code for matrix stacks
-			else if (cmd == "pushTransform") 
+			else if (cmd == "pushTransform") {
 				builder.pushTransform();
+			}
 			else if (cmd == "popTransform") {
 				builder.popTransform();
 			}

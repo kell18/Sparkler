@@ -1,5 +1,6 @@
 #pragma once
 
+#include "../utils/Mathf.h"
 #include "Material.h"
 
 namespace raytracer
@@ -9,8 +10,8 @@ namespace raytracer
 		bool isFind;
 		float distance;
 
-		vec3 point;
-		vec3 normal;
+		Position point;
+		Direction normal;
 
 		Material material;
 		Color texel;

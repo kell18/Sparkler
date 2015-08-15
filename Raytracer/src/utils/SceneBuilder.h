@@ -32,7 +32,8 @@ namespace raytracer
 		short bitsPerPixel = 24;
 
 		Scene*		buildScene();
-		void		setupCamera(int width, int heght, float fovXDeg, vec3 lookFrom, vec3 lookTo, vec3 up);
+		void		setupCamera(int width, int heght, float fovXDeg, 
+						Position lookFrom, Position lookTo, Direction up);
 
 		void		addPrimitive(Primitive* primitive);
 		Primitive*	getPrimitive(int index);

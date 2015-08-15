@@ -7,11 +7,11 @@ namespace raytracer
 		Collision c = {};
 		c.isFind = false;
 
-		vec3 rdir = ray.dir;
-		vec3 reye = ray.eye;
+		Position reye = ray.eye;
+		Direction rdir = ray.dir;
 		if (isTransformed) {
-			rdir = vec3(invTransforms * vec4(rdir, 0.f));
-			reye = vec3(invTransforms * vec4(reye, 1.f));
+			rdir = invTransforms * rdir;
+			reye = invTransforms * reye;
 		}
 
 		float dirn = dot(rdir, normal);
@@ -23,32 +23,32 @@ namespace raytracer
 		float t	   = (pn - eyen) / dirn;
 
 		if (t < ray.tMax && t > ray.tMin) {
-			vec3 cPoint = reye + rdir * t;
-			c.isFind	= true;
-			c.distance  = t;
-			c.material  = material;
-			c.texel		= getTexelColor(cPoint);
+			Position cPoint = reye + rdir * t;
+			c.isFind	 = true;
+			c.distance   = t;
+			c.material   = material;
 			if (isTransformed) {
-				c.point  = vec3(transforms * vec4(cPoint, 1.f));
-				c.normal = normalize(mat3(invTranspTransforms) * normal);
+				c.point  = transforms * cPoint;
+				c.normal = normalize(invTranspTransforms * normal);
 			} else {
 				c.point  = cPoint;
 				c.normal = normal;
+				c.texel	 = getTexelColor(c);
 			}
 		}
 		return c;
 	}
 
-	vec3 Plane::getNormal() const 
+	Direction Plane::getNormal() const
 	{
 		if (isTransformed) {
-			return vec3(transforms * vec4(normal, 0.0f));
+			return transforms * normal;
 		} else {
 			return normal;
 		}
 	}
 
-	Plane::Plane(vec3 position, vec3 normal, Material material)
+	Plane::Plane(Position position, Direction normal, Material material)
 		: Primitive(position, material), normal(normal)
 	{
 	}

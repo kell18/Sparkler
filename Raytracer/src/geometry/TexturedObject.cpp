@@ -2,7 +2,7 @@
 
 namespace raytracer 
 {
-	Color TexturedObject::getTexelColor(const vec3 &point) const
+	Color TexturedObject::getTexelColor(const Collision &c) const
 	{
 		return Colors::WHITE;
 	}

@@ -5,6 +5,7 @@
 #include <glm/glm.hpp>
 
 #include "../core/Film.h"
+#include "Collision.h"
 
 using namespace glm;
 
@@ -17,7 +18,7 @@ namespace raytracer
 		FIBITMAP* texture;
 		int textureWidth, textureHeight;
 
-		virtual Color		getTexelColor(const vec3 &point) const;
+		virtual Color		getTexelColor(const Collision &c) const;
 		bool				loadTexture(string pathAndName);
 
 							TexturedObject();

@@ -9,10 +9,10 @@ namespace raytracer
 	class Box : Primitive
 	{
 	protected:
-		vec3 fromP, toP;
+		Position fromP, toP;
 	public:
 		virtual Collision	findIntersectionWith(const Ray & ray) const override;
 
-							Box(vec3 fromPoint, vec3 toPoint, Material material);
+							Box(Position fromPoint, Position toPoint, Material material);
 	};
 }

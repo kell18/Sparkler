@@ -27,7 +27,7 @@ namespace raytracer
 		int fragmentsPerPixel = 2;
 
 	public:
-		vector<Light*> lights;
+		vector<Light*> lights; // TODO: Private?
 		Camera *camera;
 		Film *film;
 		Color bgColor;

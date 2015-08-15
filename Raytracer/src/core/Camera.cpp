@@ -2,12 +2,12 @@
 
 namespace raytracer
 {
-	void Camera::lookAt(vec3 lookFrom, vec3 lookTo, vec3 up)
+	void Camera::lookAt(Position lookFrom, Position lookTo, Direction up)
 	{
 		// We look towards -forward direction
 		this->forward = normalize(lookFrom - lookTo);
 		this->right   = normalize(cross(up, forward));
-		this->up		  = cross(right, forward);
+		this->up	  = cross(right, forward);
 		this->eye	  = lookFrom;
 	}
 
@@ -17,7 +17,7 @@ namespace raytracer
 		float a = tanHalfFovX * ((x - halfWidth + 0.5f) / (halfWidth));
 		float b = tanHalfFovY * ((halfHeight - y - 0.5f) / (halfHeight));
 
-		vec3 dir = normalize(a * right + b * up - forward);
+		Direction dir = normalize(a * right + b * up - forward);
 
 		return Ray(eye, dir);
 	}

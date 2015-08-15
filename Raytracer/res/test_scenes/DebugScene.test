@@ -22,8 +22,6 @@ diffuse 0.4 0.3 0.3
 reflectRate 1.0
 refractInd 1.0
 
-pushTransform
-
 point 0.0 0 1.5 1 1 1 1
 # directional -1 0 -0.5 1 1 1 0.5
 
@@ -48,6 +46,11 @@ plane 0 2 0 0 -1 0
 
 ambient 0.04 0.04 0.04
 
+pushTransform
+translate 0.5 0 0
+rotate 0 1 0 -10
+scale 1 0.7 1
+
 #transparent sphere
 ambient 0.0 0.0 0.0
 diffuse 0.0 0.0 0.0
@@ -67,11 +70,14 @@ shininess 400
 sphere -0.5 -0.4 0 0.15
 
 #plastic sphere
-reflectRate 0.15
-diffuse 0.7 0.7 0.1
-specular 0.5 0.5 0.05
+reflectRate 0.0
+ambient 0.3 0.3 0.3
+#diffuse 0.7 0.7 0.7
+#specular 0.5 0.5 0.5
 shininess 100
+texture C:\Dropbox\Code\Cpp\Raytracer\Resources\Imgs\textures\earth.jpg
 sphere -0.5 -0.05 0 0.15
+ambient 0.04 0.04 0.04
 
 
 #triangle

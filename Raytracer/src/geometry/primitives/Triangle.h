@@ -13,18 +13,18 @@ namespace raytracer
 	class Triangle : public Primitive
 	{
 	protected:
-		vec3 vert1, vert2, vert3;
-		vec3 edge1, edge2;
-		vec3 normal;
+		Position  vert1, vert2, vert3;
+		Direction edge1, edge2;
+		Direction normal;
 	public:
 
 		virtual Collision	findIntersectionWith(const Ray &ray) const override;
-		vec3				getNormal() const;
-		vec3				getVert1() const;
-		vec3				getVert2() const;
-		vec3				getVert3() const;
+		Direction			getNormal() const;
+		Position				getVert1() const;
+		Position				getVert2() const;
+		Position				getVert3() const;
 
-							Triangle(vec3 vert1, vec3 vert2, vec3 vert3, Material material);
+							Triangle(Position vert1, Position vert2, Position vert3, Material material);
 							~Triangle();
 	};
 

@@ -1,6 +1,6 @@
 #pragma once 
 
-#include "glm/glm.hpp"
+#include <glm/glm.hpp>
 #include "Light.h"
 
 using namespace glm;
@@ -9,14 +9,14 @@ namespace raytracer
 {
 	class DirectionalLight : public Light
 	{
-		vec3 direction;
+		Direction direction;
 	public:
-		virtual float	computeAttenuation(float dist) const;
+		virtual float		computeAttenuation(float dist) const;
 
-		virtual vec3	getDirection(const vec3& point) const;
-		virtual float	getDistance(const vec3& point) const;
-		virtual vec3	getPosition() const;
+		virtual Direction	getDirection(const Position& point) const;
+		virtual float		getDistance(const Position& point) const;
+		virtual Position	getPosition() const;
 
-						DirectionalLight(vec3 direction, Color color, float power = 1.f);
+							DirectionalLight(Direction direction, Color color, float power = 1.f);
 	};
 }

@@ -9,11 +9,11 @@ namespace raytracer
 		Collision collision = {};
 		collision.isFind = false;
 
-		vec3 rdir = ray.dir;
-		vec3 reye = ray.eye;
+		Direction rdir = ray.dir;
+		Position reye = ray.eye;
 		if (isTransformed) {
-			rdir = vec3(invTransforms * vec4(rdir, 0.f));
-			reye = vec3(invTransforms * vec4(reye, 1.f));
+			rdir = invTransforms * rdir;
+			reye = invTransforms * reye;
 		}
 
 		float dirn = dot(rdir, normal);
@@ -28,70 +28,70 @@ namespace raytracer
 			return collision;
 		}
 
-		vec3 cPoint	= reye + rdir * t;
-		vec3 w		= cPoint - vert1;
-		float w_e1  = dot(w, edge1);
-		float w_e2  = dot(w, edge2);
-		float e1_e2 = dot(edge1, edge2);
-		float e1_e1 = dot(edge1, edge1);
-		float e2_e2 = dot(edge2, edge2);
-		float denom = e1_e2 * e1_e2 - e1_e1 * e2_e2;
-		float a		= (e1_e2 * w_e2 - e2_e2 * w_e1) / denom;
-		float b		= (e1_e2 * w_e1 - e1_e1 * w_e2) / denom;
+		Position cPoint = reye + rdir * t;
+		Direction w	 = cPoint - vert1;
+		float w_e1   = dot(w, edge1);
+		float w_e2   = dot(w, edge2);
+		float e1_e2  = dot(edge1, edge2);
+		float e1_e1  = dot(edge1, edge1);
+		float e2_e2  = dot(edge2, edge2);
+		float denom  = e1_e2 * e1_e2 - e1_e1 * e2_e2;
+		float a		 = (e1_e2 * w_e2 - e2_e2 * w_e1) / denom;
+		float b		 = (e1_e2 * w_e1 - e1_e1 * w_e2) / denom;
 
 		if (a >= 0.f && b >= 0.f && a + b <= 1.f) {
 			collision.isFind   = true;
 			collision.distance = t;
 			collision.material = material;
-			collision.texel	   = getTexelColor(cPoint);
 			if (isTransformed) {
-				collision.point  = vec3(transforms * vec4(cPoint, 1.f));
-				collision.normal = normalize(mat3(invTranspTransforms) * normal);
+				collision.point  = transforms * cPoint;
+				collision.normal = normalize(invTranspTransforms * normal);
 			} else {
 				collision.point  = cPoint;
 				collision.normal = normal;
 			}
+			collision.texel  = getTexelColor(collision);
 		}
 
 		return collision;
 	}
 
-	vec3 Triangle::getNormal() const
+	Direction Triangle::getNormal() const
 	{
 		if (isTransformed) {
-			return vec3(transforms * vec4(normal, 0.0f));
+			return transforms * normal;
 		} else {
 			return normal;
 		}
 	}
 
-	vec3 Triangle::getVert1() const
+	Position Triangle::getVert1() const
 	{
 		if (isTransformed) {
-			return vec3(transforms * vec4(vert1, 1.0f));
+			return transforms * vert1;
 		} else {
 			return vert1;
 		}
 	}
-	vec3 Triangle::getVert2() const
+	Position Triangle::getVert2() const
 	{
 		if (isTransformed) {
-			return vec3(transforms * vec4(vert2, 1.0f));
+			return transforms * vert2;
 		} else {
 			return vert2;
 		}
 	}
-	vec3 Triangle::getVert3() const
+	Position Triangle::getVert3() const
 	{
 		if (isTransformed) {
-			return vec3(transforms * vec4(vert3, 1.0f));
+			return transforms * vert3;
 		} else {
 			return vert3;
 		}
 	}
 
-	Triangle::Triangle(vec3 vert1, vec3 vert2, vec3 vert3, Material material)
-		: Primitive(vec3((vert1.x + vert2.x + vert3.x) / 3.f, (vert1.y + vert2.y + vert3.y) / 3.f,
+	Triangle::Triangle(Position vert1, Position vert2, Position vert3, Material material)
+		: Primitive(Position((vert1.x + vert2.x + vert3.x) / 3.f, (vert1.y + vert2.y + vert3.y) / 3.f,
 					(vert1.z + vert2.z + vert3.z) / 3.f), material), 
 		vert1(vert1), vert2(vert2), vert3(vert3), 
 		edge1(vert2 - vert1), edge2(vert3 - vert1)

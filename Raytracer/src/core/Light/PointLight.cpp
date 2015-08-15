@@ -2,22 +2,22 @@
 
 namespace raytracer 
 {
-	vec3 PointLight::getDirection(const vec3& point) const
+	Direction PointLight::getDirection(const Position& point) const
 	{
 		return normalize(point - this->position);
 	}
 
-	float PointLight::getDistance(const vec3& point) const 
+	float PointLight::getDistance(const Position& point) const
 	{
 		return length(point - this->position);
 	}
 
-	vec3 PointLight::getPosition() const 
+	Position PointLight::getPosition() const
 	{
 		return this->position;
 	}
 
-	PointLight::PointLight(vec3 position, Color color, float power)
+	PointLight::PointLight(Position position, Color color, float power)
 		: position(position), Light(color, power)
 	{
 		// Nice and smooth attenuation by distance

@@ -6,11 +6,11 @@ namespace raytracer
 	{
 		for (int x = 0, w = camera->width; x < w; ++x) {
 			for (int y = 0, h = camera->height; y < h; ++y) {
-				Color color = bgColor;
+				Color color;
 				for (int f = 0; f < fragmentsPerPixel; ++f)
 				{
 					Ray ray	= camera->rayThroughPixel(x + fragmentShift * f, y + fragmentShift * f);
-					color	+= Raytracer::findColor(ray, recursionDepth);
+					color  += Raytracer::findColor(ray, recursionDepth);
 				}
 				color /= fragmentsPerPixel;
 				film->commitFragment(x, y, color);
@@ -21,7 +21,7 @@ namespace raytracer
 
 	vector<Primitive*> Scene::findNearestPrimitives(const Ray &ray) const
 	{
-		// TODO: Use tree struct
+		// TODO: Use accel tree struct
 		return _primitives;
 	}
 
@@ -44,7 +44,6 @@ namespace raytracer
 	Scene::Scene(Camera *camera, Film *film, vector<Primitive*> primitives,  vector<Light*> lights)
 		: camera(camera), film(film), _primitives(primitives), lights(lights)
 	{
-		srand(static_cast<unsigned> (time(0)));
 	}
 
 	Scene::~Scene()

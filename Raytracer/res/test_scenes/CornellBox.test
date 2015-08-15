@@ -23,9 +23,9 @@ attenuation 0.4 1 0
 # directional -1 0 -0.5 1 1 1 0.5
 # Area light
 emission 1 1 1
-#rectangle -0.3 -0.25 0.61 0 0.5 0 0.3 0 -0.05
-#area_light 1 1 1 0 8 1.15
-point -0.3 0 0.51 1 1 1 1.15
+rectangle -0.3 -0.25 0.61 0 0.5 0 0.3 0 -0.05
+area_light 1 1 1 0 1 1.15
+#point -0.3 0 0.51 1 1 1 1.15
 emission 0 0 0
 
 #floor
