@@ -3,8 +3,8 @@
 #include <glm/glm.hpp>
 #include <glm/gtc/constants.hpp>
 #include <cstdlib>
-
-using namespace glm;
+#include "Point.h"
+#include "Direction.h"
 
 namespace raytracer
 {
