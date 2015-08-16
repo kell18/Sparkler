@@ -2,7 +2,7 @@
 
 namespace raytracer
 {
-	Collision Plane::findIntersectionWith(const Ray &ray) const
+	Collision Plane::findCollisionTo(const Ray &ray) const
 	{
 		Collision c = {};
 		c.isFind = false;
@@ -26,14 +26,12 @@ namespace raytracer
 			Position cPoint = reye + rdir * t;
 			c.isFind	 = true;
 			c.distance   = t;
-			c.material   = material;
 			if (isTransformed) {
 				c.point  = transforms * cPoint;
 				c.normal = normalize(invTranspTransforms * normal);
 			} else {
 				c.point  = cPoint;
 				c.normal = normal;
-				c.texel	 = getTexelColor(c);
 			}
 		}
 		return c;
@@ -48,8 +46,8 @@ namespace raytracer
 		}
 	}
 
-	Plane::Plane(Position position, Direction normal, Material material)
-		: Primitive(position, material), normal(normal)
+	Plane::Plane(Position position, Direction normal)
+		: Shape(position), normal(normal)
 	{
 	}
 

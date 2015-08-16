@@ -1,18 +1,19 @@
 #pragma once
 
 #include <algorithm>
-#include "Primitive.h"
+#include "../Shape.h"
 
 namespace raytracer
 {
 	// NOTE: Unimplemented to the end
-	class Box : Primitive
+	class Box : Shape
 	{
 	protected:
 		Position fromP, toP;
 	public:
-		virtual Collision	findIntersectionWith(const Ray & ray) const override;
+		virtual Collision	findCollisionTo(const Ray & ray) const override;
 
-							Box(Position fromPoint, Position toPoint, Material material);
+							Box(Position fromPoint, Position toPoint);
+		virtual				~Box();
 	};
 }

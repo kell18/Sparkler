@@ -3,7 +3,7 @@
 namespace raytracer
 {
 	// TODO: Try to implement simpler method
-	Collision Sphere::findIntersectionWith(const Ray &ray) const
+	Collision Sphere::findCollisionTo(const Ray &ray) const
 	{
 		Collision collision = {};
 		collision.isFind = false;
@@ -40,7 +40,6 @@ namespace raytracer
 			Position cPoint	   = reye + rdir * t;
 			collision.isFind   = true;
 			collision.distance = t;
-			collision.material = material;
 			if (isTransformed) {
 				collision.point  = transforms * cPoint;
 				collision.normal = normalize(invTranspTransforms * Direction(cPoint - this->position));
@@ -48,33 +47,26 @@ namespace raytracer
 				collision.point  = cPoint;
 				collision.normal = normalize(cPoint - this->position);
 			}
-			collision.texel	= getTexelColor(collision);
 		}
 		return collision;
 	}
 
-	Color Sphere::getTexelColor(const Collision &c) const
+	vec2 Sphere::computeUVCoords(const Collision &c) const
 	{
-		if (!isTextured) {
-			return Colors::WHITE;
-		}
+		vec2 uv;
 		float phi = atan2f(-c.normal.x, c.normal.y);
 		if (phi < 0.0f) {
 			phi += two_pi<float>();
 		}
-		float u	  = (phi) * one_over_two_pi<float>();
+		uv.x = (phi) * one_over_two_pi<float>();
 		float theta = acosf(c.normal.z);
-		float v		= (pi<float>() - theta) * one_over_pi<float>();
-
-		int x = (textureWidth - 1) * u;
-		int y = (textureHeight - 1) * v;
-		RGBQUAD rgbquad;
-		FreeImage_GetPixelColor(texture, x, y, &rgbquad);
-		return Color(rgbquad.rgbRed / 255.f, rgbquad.rgbGreen / 255.f, rgbquad.rgbBlue / 255.f); 
+		uv.y = (pi<float>() - theta) * one_over_pi<float>();
+		// TODO: clamp uv btw 0 & 1
+		return uv;
 	}
 
-	Sphere::Sphere(Position position, float radius, Material material)
-		: Primitive(position, material), radius(radius)
+	Sphere::Sphere(Position position, float radius)
+		: Shape(position), radius(radius)
 	{
 	}
 

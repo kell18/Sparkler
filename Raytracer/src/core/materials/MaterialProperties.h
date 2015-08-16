@@ -1,18 +1,15 @@
 #pragma once
 
-#include <glm/glm.hpp>
-#include "../utils/Color.h"
-#include "../core/Film.h"
-
-using namespace glm;
+#include "../../utils/Color.h"
 
 namespace raytracer
 {
-	struct Material
+	struct MaterialProperties
 	{
 		Color ambient;
 		Color diffuse;
 		Color specular;
+		// Color reflectance;
 		Color emissive;
 		float shininess;
 

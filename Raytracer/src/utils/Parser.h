@@ -13,11 +13,10 @@
 #include "glm/gtc/type_ptr.hpp"
 #include "glm/gtx/transform.hpp"
 
-#include "../core/Light/PointLight.h"
-#include "../core/Light/DirectionalLight.h"
-#include "../core/Light/AreaLight.h"
+#include "../core/lights/PointLight.h"
+#include "../core/lights/DirectionalLight.h"
+#include "../core/lights/AreaLight.h"
 #include "../core/Scene.h"
-#include "../geometry/Material.h"
 #include "../geometry/primitives/Plane.h"
 #include "../geometry/primitives/Rectangle.h"
 #include "../geometry/primitives/Triangle.h"
@@ -37,6 +36,7 @@ namespace raytracer {
 
 	private: 
 		static bool		readVals(stringstream &s, const int numvals, float *values);
+		static bool		readVals(stringstream &s, const int numvals, int *values);
 	};
 
 }

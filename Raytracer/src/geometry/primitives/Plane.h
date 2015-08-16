@@ -1,22 +1,21 @@
 #pragma once
 
 #include "../../utils/Mathf.h"
-#include "Primitive.h"
 #include "Ray.h"
 #include "../Collision.h"
-#include "../Material.h"
+#include "../Shape.h"
 
 namespace raytracer
 {
-	class Plane : public Primitive
+	class Plane : public Shape
 	{
 	protected:
 		Direction normal;
 	public:
-
-		virtual Collision	findIntersectionWith(const Ray &ray) const override;
+		virtual Collision	findCollisionTo(const Ray &ray) const override;
 		Direction			getNormal() const;
-							Plane(Position position, Direction normal, Material material);
+
+							Plane(Position position, Direction normal);
 		virtual				~Plane();
 	};
 }

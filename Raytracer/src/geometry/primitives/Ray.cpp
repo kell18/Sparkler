@@ -2,7 +2,7 @@
 
 namespace raytracer
 {
-	Ray	Ray::BuildShifted(Position eye, Direction dir, float tMin, float tMax)
+	Ray	Ray::BuildShifted(const Position &eye, const Direction &dir, float tMin, float tMax)
 	{
 		return Ray(eye + (dir * SELF_COLLISION_AMEND), dir, tMin, tMax);
 	}

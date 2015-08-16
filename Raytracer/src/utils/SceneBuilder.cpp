@@ -13,7 +13,7 @@ namespace raytracer
 			assert(false);
 		}
 		Film *film = new Film(camera->width, camera->height, string(outputFile), bitsPerPixel);
-		Scene* scene = new Scene(camera, film, primitives, lights);
+		Scene* scene = new Scene(camera, film, dObjects, lights);
 		scene->setFragmentsPerPixel(fragmentsPerPixel);
 		scene->recursionDepth = recursionDepth;
 		scene->bgColor = bgColor;
@@ -27,25 +27,26 @@ namespace raytracer
 		camera->lookAt(lookFrom, lookTo, up);
 	}
 
-	void SceneBuilder::addPrimitive(Primitive* primitive)
+	void SceneBuilder::addObject(Shape* shape, MaterialProperties mProps)
 	{
-		if (isAnyTrsnform) {
-			primitive->transform(transformStack.top());
-		}
+		Material *material = new SimpleMaterial(mProps);
 		if (textureFile != "") {
-			primitive->loadTexture(string(textureFile));
+			material->loadTexture(string(textureFile));
 			textureFile = "";
 		}
-		primitives.push_back(primitive);
+		if (isAnyTrsnform) {
+			shape->transform(transformStack.top());
+		}
+		dObjects.push_back(new DisplayObject(shape, material));
 	}
 
-	Primitive*	SceneBuilder::getPrimitive(int index) 
+	DisplayObject*	SceneBuilder::getObject(int index)
 	{
-		Primitive *p = nullptr;
+		DisplayObject *p = nullptr;
 		try {
-			p = primitives.at(index);
+			p = dObjects.at(index);
 		} catch (const out_of_range &ex) {
-			cerr << ex.what();
+			cerr << ex.what() << endl;
 		}
 		return p;
 	}
@@ -100,7 +101,7 @@ namespace raytracer
 
 	SceneBuilder::SceneBuilder(int approxPrimitivesCnt, int approxLightCnt) 
 	{
-		primitives.reserve(approxPrimitivesCnt);
+		dObjects.reserve(approxPrimitivesCnt);
 		lights.reserve(approxLightCnt);
 		transformStack.push(mat4(1.0f));
 		camera = nullptr;

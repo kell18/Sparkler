@@ -3,7 +3,7 @@
 namespace raytracer
 {
 
-	Collision Triangle::findIntersectionWith(const Ray &ray) const
+	Collision Triangle::findCollisionTo(const Ray &ray) const
 	{
 
 		Collision collision = {};
@@ -42,7 +42,6 @@ namespace raytracer
 		if (a >= 0.f && b >= 0.f && a + b <= 1.f) {
 			collision.isFind   = true;
 			collision.distance = t;
-			collision.material = material;
 			if (isTransformed) {
 				collision.point  = transforms * cPoint;
 				collision.normal = normalize(invTranspTransforms * normal);
@@ -50,9 +49,7 @@ namespace raytracer
 				collision.point  = cPoint;
 				collision.normal = normal;
 			}
-			collision.texel  = getTexelColor(collision);
 		}
-
 		return collision;
 	}
 
@@ -90,9 +87,9 @@ namespace raytracer
 		}
 	}
 
-	Triangle::Triangle(Position vert1, Position vert2, Position vert3, Material material)
-		: Primitive(Position((vert1.x + vert2.x + vert3.x) / 3.f, (vert1.y + vert2.y + vert3.y) / 3.f,
-					(vert1.z + vert2.z + vert3.z) / 3.f), material), 
+	Triangle::Triangle(Position vert1, Position vert2, Position vert3)
+		: Shape(Position((vert1.x + vert2.x + vert3.x) / 3.f, (vert1.y + vert2.y + vert3.y) / 3.f,
+					(vert1.z + vert2.z + vert3.z) / 3.f)), 
 		vert1(vert1), vert2(vert2), vert3(vert3), 
 		edge1(vert2 - vert1), edge2(vert3 - vert1)
 	{

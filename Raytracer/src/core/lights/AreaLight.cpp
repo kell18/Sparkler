@@ -2,7 +2,8 @@
 
 namespace raytracer
 {
-	Color AreaLight::computeShadeColor(const Direction &eyeDir, const Collision &c) const
+	Color AreaLight::computeShadeColor(const Direction &eyeDir, const Collision &c,
+		const MaterialProperties &materialProps) const
 	{
 		Direction baseDir = rect->getPosition() - c.point;
 		Direction deltaX, deltaY;
@@ -15,7 +16,8 @@ namespace raytracer
 			for (int y = 0; y < samples; ++y) {
 				deltaY		 = rect->getB() * shift * Mathf::randFloat0to1();
 				localYDir	 = rect->getB() * shift * (float)y + deltaY;
-				color		 += computeFragmentShade(eyeDir, c, baseDir + (localXDir + localYDir));
+				lfragmentDir = baseDir + (localXDir + localYDir);
+				color		 += computeFragmentShade(eyeDir, c, materialProps, lfragmentDir);
 			}
 		}
 		return color / samplesSqr;
@@ -37,28 +39,28 @@ namespace raytracer
 	}
 
 	Color AreaLight::computeFragmentShade(const Direction &eyeDir, const Collision &c, 
-		const Direction &lfrafmentDir) const
+		const MaterialProperties &materialProps, const Direction &lfrafmentDir) const
 	{
-		Material m	   = c.material;
 		float ldist	   = length(lfrafmentDir) - 0.0005f;
 		Direction ldir = normalize(lfrafmentDir);
 
 		float transmitRate = 1.0f;
+		DisplayObject *sunshadeDObject = nullptr;
 		Collision sunshade = Raytracer::findAnyCollision(
-			Ray::BuildShifted(c.point, ldir, T_MIN, ldist)
+			Ray::BuildShifted(c.point, ldir, T_MIN, ldist), sunshadeDObject
 		);
 		if (sunshade.isFind) {
-			if (sunshade.material.transmitRate > 0.0f) {
-				transmitRate *= sunshade.material.transmitRate * 0.70f;
+			if (sunshadeDObject->material->properties.transmitRate > 0.0f) {
+				transmitRate *= sunshadeDObject->material->properties.transmitRate * 0.70f;
 			} else {
 				return Colors::BLACK;
 			}
 		}
 		float cos	   = dot(c.normal, ldir);
-		Color diffuse  = m.diffuse * max(cos, 0.f);
+		Color diffuse  = materialProps.diffuse * max(cos, 0.f);
 		Direction h	   = normalize(ldir - eyeDir);
 		float nh	   = max(dot(c.normal, h), 0.f);
-		Color specular = m.specular * pow(nh, m.shininess);
+		Color specular = materialProps.specular * pow(nh, materialProps.shininess);
 
 		return transmitRate * (diffuse + specular) * color * computeAttenuation(ldist);
 	}

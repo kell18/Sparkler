@@ -15,7 +15,8 @@ namespace raytracer
 		Direction dir;
 		float	  tMin, tMax;
 
-		static Ray	BuildShifted(Position eye, Direction dir, float tMin = T_MIN, float tMax = T_MAX);
+		static Ray	BuildShifted(const Position &eye, const Direction &dir, 
+						float tMin = T_MIN, float tMax = T_MAX);
 
 					Ray(Position eye, Direction dir, float tMin = T_MIN, float tMax = T_MAX);
 					Ray();

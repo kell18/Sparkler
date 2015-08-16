@@ -19,15 +19,15 @@ namespace raytracer
 		film->pushFragments();
 	}
 
-	vector<Primitive*> Scene::findNearestPrimitives(const Ray &ray) const
+	vector<DisplayObject*> Scene::findNearestObjects(const Ray &ray) const
 	{
 		// TODO: Use accel tree struct
-		return _primitives;
+		return dObjects;
 	}
 
-	void Scene::addPrimitive(Primitive* primitive) 
+	void Scene::addObject(DisplayObject* dObject)
 	{
-		_primitives.push_back(primitive);
+		dObjects.push_back(dObject);
 	}
 
 	void Scene::addLight(Light* light) 
@@ -41,17 +41,18 @@ namespace raytracer
 		fragmentShift = 1.0f / fragmentsPerPixel;
 	}
 
-	Scene::Scene(Camera *camera, Film *film, vector<Primitive*> primitives,  vector<Light*> lights)
-		: camera(camera), film(film), _primitives(primitives), lights(lights)
+	Scene::Scene(Camera *camera, Film *film, vector<DisplayObject*> dObjects,  vector<Light*> lights)
+		: camera(camera), film(film), dObjects(dObjects), lights(lights)
 	{
+		fragmentShift = 1.0f / fragmentsPerPixel;
 	}
 
 	Scene::~Scene()
 	{
-		for (auto iterP = _primitives.begin(); iterP != _primitives.end(); iterP++) {
+		for (auto iterP = dObjects.begin(); iterP != dObjects.end(); iterP++) {
 			delete *iterP;
 		}
-		_primitives.clear();
+		dObjects.clear();
 
 		for (auto iterL = lights.begin(); iterL != lights.end(); iterL++) {
 			delete *iterL;

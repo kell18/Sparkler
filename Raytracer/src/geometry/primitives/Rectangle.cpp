@@ -3,7 +3,7 @@
 namespace raytracer 
 {
 
-	Collision Rectangle::findIntersectionWith(const Ray &ray) const
+	Collision Rectangle::findCollisionTo(const Ray &ray) const
 	{
 		Collision collision;
 		collision.isFind = false;
@@ -33,7 +33,6 @@ namespace raytracer
 		{
 			collision.isFind   = true;
 			collision.distance = t;
-			collision.material = material;
 			if (isTransformed) {
 				collision.point  = transforms * cPoint;
 				collision.normal = normalize(invTranspTransforms * normal);
@@ -41,28 +40,19 @@ namespace raytracer
 				collision.point  = cPoint;
 				collision.normal = normal;
 			}
-			collision.texel	= getTexelColor(collision);
 		}
 		return collision;
 	}
 
-	Color Rectangle::getTexelColor(const Collision &c) const
+	vec2 Rectangle::computeUVCoords(const Collision &c) const
 	{
-		if (!isTextured) {
-			return Colors::WHITE;
-		}
+		vec2 uv;
 		// TODO: Get transformed pos
 		Position p = (c.point - this->position);
-		float u = dot(p, aNorm) / aLength;
-		float v = dot(p, bNorm) / bLength;
-		// assert(dot(p, aNorm) > 0.0f && dot(p, bNorm) > 0.0f);
-		// assert(u > 0.f && v > 0.f && u < 1.0001f && v < 1.0001f);
-		float x = (textureWidth - 1) * u;
-		float y = (textureHeight - 1) * v;
-
-		RGBQUAD rgbquad;
-		FreeImage_GetPixelColor(texture, floor(x+0.5f), floor(y+0.5f), &rgbquad);
-		return Color(rgbquad.rgbRed / 255.f, rgbquad.rgbGreen / 255.f, rgbquad.rgbBlue / 255.f);
+		uv.x = dot(p, aNorm) / aLength;
+		uv.y = dot(p, bNorm) / bLength;
+		// TODO: clamp uv btw 0 & 1
+		return uv;
 	}
 
 	Direction Rectangle::getA() const
@@ -83,8 +73,8 @@ namespace raytracer
 		}
 	}
 
-	Rectangle::Rectangle(Position position, Direction a, Direction b, Material material)
-		: Primitive(position, material), a(a), b(b)
+	Rectangle::Rectangle(Position position, Direction a, Direction b)
+		: Shape(position), a(a), b(b)
 	{
 		aLength    = length(a);
 		aLengthSqr = aLength * aLength;
@@ -92,6 +82,7 @@ namespace raytracer
 		bLengthSqr = bLength * bLength;
 
 		normal = cross(a, b) / (aLength * bLength);
+		// TODO: Cache this to whole RT
 		posDotNorm = dot(this->position, normal);
 		aNorm  = a / aLength;
 		bNorm  = b / bLength;

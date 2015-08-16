@@ -1,16 +1,14 @@
 #pragma once
 
 #include "../../utils/Mathf.h"
-#include "Primitive.h"
-#include "Plane.h"
+#include "../Shape.h"
 #include "Ray.h"
 #include "../Collision.h"
-#include "../Material.h"
 
 namespace raytracer
 {
 
-	class Triangle : public Primitive
+	class Triangle : public Shape
 	{
 	protected:
 		Position  vert1, vert2, vert3;
@@ -18,13 +16,13 @@ namespace raytracer
 		Direction normal;
 	public:
 
-		virtual Collision	findIntersectionWith(const Ray &ray) const override;
+		virtual Collision	findCollisionTo(const Ray &ray) const override;
 		Direction			getNormal() const;
-		Position				getVert1() const;
-		Position				getVert2() const;
-		Position				getVert3() const;
+		Position			getVert1() const;
+		Position			getVert2() const;
+		Position			getVert3() const;
 
-							Triangle(Position vert1, Position vert2, Position vert3, Material material);
+							Triangle(Position vert1, Position vert2, Position vert3);
 							~Triangle();
 	};
 

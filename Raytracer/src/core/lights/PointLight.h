@@ -12,9 +12,9 @@ namespace raytracer
 	{
 		Position position;
 	public:
-		virtual Direction	getDirection(const Position& point) const;
-		virtual float		getDistance(const Position& point) const;
-		virtual Position	getPosition() const;
+		virtual Direction	getDirection(const Position& point) const override;
+		virtual float		getDistance(const Position& point) const override;
+		virtual Position	getPosition() const override;
 
 							PointLight(Position position, Color color, float power = 1.f);
 	};

@@ -11,11 +11,11 @@ namespace raytracer
 	{
 		Direction direction;
 	public:
-		virtual float		computeAttenuation(float dist) const;
+		virtual float		computeAttenuation(float dist) const override;
 
-		virtual Direction	getDirection(const Position& point) const;
-		virtual float		getDistance(const Position& point) const;
-		virtual Position	getPosition() const;
+		virtual Direction	getDirection(const Position& point) const override;
+		virtual float		getDistance(const Position& point) const override;
+		virtual Position	getPosition() const override;
 
 							DirectionalLight(Direction direction, Color color, float power = 1.f);
 	};

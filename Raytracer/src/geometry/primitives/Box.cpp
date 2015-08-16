@@ -3,7 +3,7 @@
 namespace raytracer 
 {
 	// TODO: Implement for the end
-	Collision Box::findIntersectionWith(const Ray & ray) const
+	Collision Box::findCollisionTo(const Ray & ray) const
 	{
 		Collision c = {};
 		c.isFind = false;
@@ -26,7 +26,6 @@ namespace raytracer
 
 		if ((tmin <= tmax) && (tmax > 0.f)) {
 			c.isFind = true;
-			c.material = this->material;
 			c.point = Position(ray.eye + ray.dir * tmin);
 			c.distance = tmin;
 			// TODO: Find a normal
@@ -35,9 +34,13 @@ namespace raytracer
 		return c;
 	}
 
-	Box::Box(Position fromPoint, Position toPoint, Material material)
+	Box::Box(Position fromPoint, Position toPoint)
 		// TODO: change fromPoint to middle
-		: Primitive(fromPoint, material), fromP(fromPoint), toP(toPoint)
+		: Shape(fromPoint), fromP(fromPoint), toP(toPoint)
+	{
+	}
+
+	Box::~Box()
 	{
 	}
 }

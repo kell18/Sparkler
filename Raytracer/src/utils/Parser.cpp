@@ -13,6 +13,17 @@ namespace raytracer
 		return true; 
 	}
 
+	bool Parser::readVals(stringstream &s, const int numvals, int *values) {
+		for (int i = 0; i < numvals; i++) {
+			s >> values[i];
+			if (s.fail()) {
+				cout << "Failed reading value " << i << ". Will skip.\n";
+				return false;
+			}
+		}
+		return true;
+	}
+
 	Scene* Parser::parseFile(const string &fileName) {
 		string str, cmd; 
 		ifstream in;
@@ -24,7 +35,7 @@ namespace raytracer
 
 		vector<Position> vertexBuffer;
 		int width, height;
-		Material material = {};
+		MaterialProperties materialProps = {};
 		SceneBuilder builder;
 
 		getline (in, str); 
@@ -37,8 +48,9 @@ namespace raytracer
 			s >> cmd; 
 			 // position and color for light, colors and others
 			float values[10];
+			float valuesi[10];
 			bool isInputValid;
-        
+		
 			if (cmd == "output") {
 				string outputFile = "";
 				getline(s, outputFile);
@@ -74,13 +86,14 @@ namespace raytracer
 				isInputValid = readVals(s, 6, values);
 				if (isInputValid) {
 					try {
-						Rectangle *rect = dynamic_cast<Rectangle*>(builder.getPrimitive(values[3]));
-						builder.addLight(new AreaLight(
-							Color(values[0], values[1], values[2]), rect, values[4], values[5])
+						Rectangle *rect = dynamic_cast<Rectangle*>(
+							builder.getObject(roundf(values[3]))->shape);
+						builder.addLight(new AreaLight(Color(values[0], values[1], values[2]), 
+							rect, roundf(values[4]), values[5])
 						);
 					} catch(...) {
 						cerr << "Error: area_light will skip. Area light \
-							     can use only rectangles as primitive components.";
+								 can use only rectangles as primitive components.";
 					}
 				}
 			}
@@ -93,42 +106,42 @@ namespace raytracer
 			else if (cmd == "ambient") {
 				isInputValid = readVals(s, 3, values);
 				if (isInputValid) 
-					material.ambient = Color(values[0], values[1], values[2]); 
+					materialProps.ambient = Color(values[0], values[1], values[2]); 
 			}
 			else if (cmd == "diffuse") {
 				isInputValid = readVals(s, 3, values); 
 				if (isInputValid) 
-					material.diffuse = Color(values[0], values[1], values[2]); 
+					materialProps.diffuse = Color(values[0], values[1], values[2]); 
 			}
 			else if (cmd == "specular") {
 				isInputValid = readVals(s, 3, values); 
 				if (isInputValid) 
-					material.specular = Color(values[0], values[1], values[2]); 
+					materialProps.specular = Color(values[0], values[1], values[2]); 
 			}
 			else if (cmd == "emission") {
 				isInputValid = readVals(s, 3, values); 
 				if (isInputValid) 
-					material.emissive = Color(values[0], values[1], values[2]); 
+					materialProps.emissive = Color(values[0], values[1], values[2]); 
 			}
 			else if (cmd == "shininess") {
 				isInputValid = readVals(s, 1, values); 
 				if (isInputValid) 
-					material.shininess = values[0] ; 
+					materialProps.shininess = values[0] ; 
 			}
 			else if (cmd == "reflectRate") {
 				isInputValid = readVals(s, 1, values); 
 				if (isInputValid) 
-					material.reflectRate = values[0] ; 
+					materialProps.reflectRate = values[0] ; 
 			}
 			else if (cmd == "transmitRate") {
 				isInputValid = readVals(s, 1, values); 
 				if (isInputValid) 
-					material.transmitRate = values[0] ; 
+					materialProps.transmitRate = values[0] ; 
 			}
 			else if (cmd == "refractInd") {
 				isInputValid = readVals(s, 1, values); 
 				if (isInputValid) 
-					material.refractInd = values[0] ; 
+					materialProps.refractInd = values[0] ; 
 			}
 			else if (cmd == "bgColor") {
 				isInputValid = readVals(s, 3, values); 
@@ -139,7 +152,7 @@ namespace raytracer
 			else if (cmd == "fragmentsPerPixel") {
 				isInputValid = readVals(s, 1, values); 
 				if (isInputValid) { 
-					builder.fragmentsPerPixel = (int) values[0];
+					builder.fragmentsPerPixel = round(values[0]);
 				}
 			}
 			else if (cmd == "size") {
@@ -161,7 +174,7 @@ namespace raytracer
 			}
 			else if (cmd == "maxdepth") {
 				isInputValid = readVals(s, 1, values);
-				if (isInputValid) builder.recursionDepth = values[0];
+				if (isInputValid) builder.recursionDepth = roundf(values[0]);
 			}
 			else if (cmd == "vertex") {
 				isInputValid = readVals(s, 3, values);
@@ -189,47 +202,47 @@ namespace raytracer
 			else if (cmd == "plane") {
 				isInputValid = readVals(s, 6, values);
 				if (isInputValid) {
-					builder.addPrimitive(new Plane(
+					builder.addObject(new Plane(
 						Position(values[0], values[1], values[2]),
-						Direction(values[3], values[4], values[5]), material)
+						Direction(values[3], values[4], values[5])), materialProps
 					);
 				}
 			}
 			else if (cmd == "rectangle") {
 				isInputValid = readVals(s, 9, values);
 				if (isInputValid) {
-					builder.addPrimitive(new Rectangle(
+					builder.addObject(new Rectangle(
 						Position(values[0], values[1], values[2]),
 						Direction(values[3], values[4], values[5]),
-						Direction(values[6], values[7], values[8]), material)
+						Direction(values[6], values[7], values[8])), materialProps
 					);
-					/*builder.addPrimitive(new Sphere(rect->position + rect->a, 0.5f, material));*/
+					/*builder.addObject(new Sphere(rect->position + rect->a, 0.5f, material));*/
 				}
 			}
 			else if (cmd == "rectanglev") {
-				isInputValid = readVals(s, 5, values);
+				isInputValid = readVals(s, 5, valuesi);
 				if (isInputValid) {
-					builder.addPrimitive(new Rectangle(
-						vertexBuffer[values[0]], 
-						Direction(vertexBuffer[values[1]] - vertexBuffer[values[2]]),
-						Direction(vertexBuffer[values[3]] - vertexBuffer[values[4]]), material)
+					builder.addObject(new Rectangle(
+						vertexBuffer[valuesi[0]],
+						Direction(vertexBuffer[valuesi[1]] - vertexBuffer[valuesi[2]]),
+						Direction(vertexBuffer[valuesi[3]] - vertexBuffer[valuesi[4]])), materialProps
 					);
-					/*builder.addPrimitive(new Sphere(rect->position + rect->a, 0.5f, material));*/
+					/*builder.addObject(new Sphere(rect->position + rect->a, 0.5f, material));*/
 				}
 			}
 			else if (cmd == "sphere") {
 				isInputValid = readVals(s, 4, values);
 				if (isInputValid) {
-					builder.addPrimitive(new Sphere(
-						Position(values[0], values[1], values[2]), values[3], material)
+					builder.addObject(new Sphere(
+						Position(values[0], values[1], values[2]), values[3]), materialProps
 					);
 				}
 			}
 			else if (cmd == "tri") {
-				isInputValid = readVals(s, 3, values);
+				isInputValid = readVals(s, 3, valuesi);
 				if (isInputValid) {
-					builder.addPrimitive(new Triangle(vertexBuffer[values[0]], 
-						vertexBuffer[values[1]], vertexBuffer[values[2]], material));
+					builder.addObject(new Triangle(vertexBuffer[valuesi[0]],
+						vertexBuffer[valuesi[1]], vertexBuffer[valuesi[2]]), materialProps);
 				}
 			}
 			else if (cmd == "trinormal") {
