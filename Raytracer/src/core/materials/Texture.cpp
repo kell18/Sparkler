@@ -4,11 +4,11 @@ namespace raytracer
 {
 	Color Texture::getTexelColor(vec2 uvCoords) const
 	{
-		float x = (textureWidth - 1) * uvCoords.x;
-		float y = (textureHeight - 1) * uvCoords.y;
+		int x = floor((textureWidth - 1) * uvCoords.x + 0.5f);
+		int y = floor((textureHeight - 1) * uvCoords.y + 0.5f);
 		// TODO: Care with x & y
 		RGBQUAD rgbquad;
-		FreeImage_GetPixelColor(bitmap, floor(x + 0.5f), floor(y + 0.5f), &rgbquad);
+		FreeImage_GetPixelColor(bitmap, x, y, &rgbquad);
 		return Color(rgbquad.rgbRed / 255.f, rgbquad.rgbGreen / 255.f, rgbquad.rgbBlue / 255.f);
 	}
 

@@ -5,9 +5,7 @@ namespace raytracer
 
 	Collision Rectangle::findCollisionTo(const Ray &ray) const
 	{
-		Collision collision;
-		collision.isFind = false;
-
+		Collision collision(ray);
 		Position reye = ray.eye;
 		Direction rdir = ray.dir;
 		if (isTransformed) {

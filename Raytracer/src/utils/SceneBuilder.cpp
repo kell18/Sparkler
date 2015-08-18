@@ -29,7 +29,12 @@ namespace raytracer
 
 	void SceneBuilder::addObject(Shape* shape, MaterialProperties mProps)
 	{
-		Material *material = new SimpleMaterial(mProps);
+		Material *material;
+		if (mProps.diffuseRad > 0.0f) {
+			material = new DiffuseMaterial(mProps);
+		} else { 
+			material = new SimpleMaterial(mProps);
+		}
 		if (textureFile != "") {
 			material->loadTexture(string(textureFile));
 			textureFile = "";

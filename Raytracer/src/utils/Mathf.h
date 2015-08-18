@@ -30,6 +30,8 @@ namespace raytracer
 	class Mathf
 	{
 	public:
+		static float	randFloat(float range);
+		static float	randFloat(float from, float to);
 		static float	randFloat0to1();
 
 		static bool		isAlmostZero(float a, float EPSILON = FLT_EPS);

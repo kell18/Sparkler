@@ -28,7 +28,7 @@ using namespace std;
 
 int main()
 {
-	string inputFile = "C:\\Dropbox\\Code\\Cpp\\Raytracer\\Raytracer\\res\\test_scenes\\DebugScene.test";
+	string inputFile = "C:\\Dropbox\\Code\\Cpp\\Raytracer\\Raytracer\\res\\test_scenes\\EnvMapping.test";
 	World::initialize();
 
 	World::setActiveScene(Parser::parseFile(inputFile));
@@ -36,6 +36,7 @@ int main()
 
 	World::deinitialize();
 	cout << "\nRender time: " << renderTime << "ms";
+	
 	getchar();
 	return 0;
 }

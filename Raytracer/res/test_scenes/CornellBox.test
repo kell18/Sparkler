@@ -4,9 +4,9 @@ camera 1 0 0 -1 0 0 0 0 1 60
 
 output C:\Dropbox\Code\Cpp\Raytracer\Raytracer\res\out.png
 
-maxdepth 4
+maxdepth 7
 
-fragmentsPerPixel 2
+fragmentsPerPixel 1
 
 ambient 0.1 0.08 0.08
 specular 0 0 0
@@ -69,7 +69,7 @@ shininess 96
 reflectRate 0.05
 transmitRate 0.95
 refractInd 2.4
-sphere -0.3 0.30 -0.39 0.21
+sphere -0.3 0.3 -0.39 0.21
 transmitRate 0.0
 
 popTransform

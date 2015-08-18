@@ -17,5 +17,9 @@ namespace raytracer
 		float reflectRate;
 		float transmitRate;
 		float refractInd;
+
+		// TODO: Move somewhere
+		float diffuseRad;
+		short diffuseSamples;
 	};
 }

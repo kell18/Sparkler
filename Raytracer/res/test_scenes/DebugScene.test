@@ -69,6 +69,7 @@ diffuse 0.0 0.0 0.0
 specular 0.99 0.99 0.99
 shininess 400
 sphere -0.5 -0.4 0 0.15
+diffuse_props 0 0
 
 #plastic sphere
 reflectRate 0.0

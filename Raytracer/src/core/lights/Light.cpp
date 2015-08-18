@@ -2,8 +2,7 @@
 
 namespace raytracer
 {
-	Color Light::computeShadeColor(const Direction &eyeDir, const Collision &c, 
-		const MaterialProperties &materialProps) const
+	Color Light::computeShadeColor(const Collision &c, const MaterialProperties &mProperties) const
 	{
 		float ldist		   = getDistance(c.point);
 		Direction negLDir  = -getDirection(c.point);
@@ -21,16 +20,13 @@ namespace raytracer
 			}
 		}
 
-		float cos	   = dot(c.normal, negLDir);
-		Color diffuse  = materialProps.diffuse * max(cos, 0.f);
-		Direction h	   = normalize(negLDir - eyeDir);
-		float nh	   = max(dot(c.normal, h), 0.f);
-		Color specular = materialProps.specular * pow(nh, materialProps.shininess);
-		// cout << "cos: " << cos << endl;
+		Direction normal = dot(c.ray->dir, c.normal) > (-FLT_EPS) ? -c.normal : c.normal;
+		float cos		 = dot(normal, negLDir);
+		Color diffuse	 = mProperties.diffuse * max(cos, 0.f);
 
-		if (World::getWorkTime() > 1000) {
-			//cout << "\nc.normal.x: " << c.normal << " negLDir.x: " << negLDir << " cos: " << cos;
-		}
+		Direction h		 = normalize(negLDir - c.ray->dir);
+		float nh		 = max(dot(normal, h), 0.f);
+		Color specular	 = mProperties.specular * pow(nh, mProperties.shininess);
 
 		return transmitRate * (diffuse + specular) * color * computeAttenuation(ldist);
 	}

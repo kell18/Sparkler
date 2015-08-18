@@ -27,8 +27,8 @@ namespace raytracer
 		Color color;
 		float power;
 
-		virtual Color		computeShadeColor(const Direction &eyeDir, const Collision &c, 
-								const MaterialProperties &materialProps) const;
+		virtual Color		computeShadeColor(const Collision &c, 
+								const MaterialProperties &mProperties) const;
 		virtual float		computeAttenuation(float dist) const;
 
 		virtual Direction	getDirection(const Position& point) const = 0;

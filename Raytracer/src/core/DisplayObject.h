@@ -16,8 +16,7 @@ namespace raytracer
 		Shape* shape;
 		Material* material;
 
-		Color		findSurfaceColor(const Collision &c, const Ray& ray, float ior, 
-						int depth) const;
+		Color		findSurfaceColor(const Collision &c, float ior, int depth) const;
 					DisplayObject(Shape* shape, Material* material);
 					~DisplayObject();
 	};

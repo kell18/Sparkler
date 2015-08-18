@@ -5,6 +5,7 @@
 #include <stack>
 #include <vector>
 #include "../core/materials/SimpleMaterial.h"
+#include "../core/materials/DiffuseMaterial.h"
 #include "../core/Scene.h"
 
 using namespace glm;

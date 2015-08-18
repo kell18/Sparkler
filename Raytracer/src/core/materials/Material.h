@@ -22,7 +22,7 @@ namespace raytracer
 		string texturePath;
 		bool isPureEmissive;
 
-		virtual Color		findSurfaceColor(const Collision &c, const Ray& ray, float ior,
+		virtual Color		findSurfaceColor(const Collision &c, float ior,
 								int depth, const vec2 &texelCoords = vec2()) const = 0;
 
 							// Unload old texture if exists and load new one

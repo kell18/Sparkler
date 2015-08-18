@@ -5,9 +5,7 @@ namespace raytracer
 	// TODO: Implement for the end
 	Collision Box::findCollisionTo(const Ray & ray) const
 	{
-		Collision c = {};
-		c.isFind = false;
-		
+		Collision c(ray);		
 		Direction invDir = 1.0f / ray.dir;
 		float lo = invDir.x*(fromP.x - ray.eye.x);
 		float hi = invDir.x*(toP.x - ray.eye.x);

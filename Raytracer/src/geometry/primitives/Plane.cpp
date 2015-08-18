@@ -4,9 +4,7 @@ namespace raytracer
 {
 	Collision Plane::findCollisionTo(const Ray &ray) const
 	{
-		Collision c = {};
-		c.isFind = false;
-
+		Collision c(ray);
 		Position reye = ray.eye;
 		Direction rdir = ray.dir;
 		if (isTransformed) {
@@ -24,14 +22,14 @@ namespace raytracer
 
 		if (t < ray.tMax && t > ray.tMin) {
 			Position cPoint = reye + rdir * t;
-			c.isFind	 = true;
-			c.distance   = t;
+			c.isFind	    = true;
+			c.distance      = t;
 			if (isTransformed) {
-				c.point  = transforms * cPoint;
-				c.normal = normalize(invTranspTransforms * normal);
+				c.point		  = transforms * cPoint;
+				c.normal	  = normalize(invTranspTransforms * normal);
 			} else {
-				c.point  = cPoint;
-				c.normal = normal;
+				c.point		  = cPoint;
+				c.normal	  = normal;
 			}
 		}
 		return c;

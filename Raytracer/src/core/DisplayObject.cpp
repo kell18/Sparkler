@@ -2,14 +2,13 @@
 
 namespace raytracer 
 {
-	Color DisplayObject::findSurfaceColor(const Collision &c, const Ray& ray, 
-		float ior, int depth) const
+	Color DisplayObject::findSurfaceColor(const Collision &c, float ior, int depth) const
 	{
 		vec2 uvCoords;
 		if (material->isTextured()) {
 			uvCoords = shape->computeUVCoords(c);
 		}
-		return material->findSurfaceColor(c, ray, ior, depth, uvCoords);
+		return material->findSurfaceColor(c, ior, depth, uvCoords);
 	}
 
 	DisplayObject::DisplayObject(Shape* shape, Material* material)

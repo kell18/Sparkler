@@ -2,8 +2,7 @@
 
 namespace raytracer
 {
-	Color AreaLight::computeShadeColor(const Direction &eyeDir, const Collision &c,
-		const MaterialProperties &materialProps) const
+	Color AreaLight::computeShadeColor(const Collision &c, const MaterialProperties &mProperties) const
 	{
 		Direction baseDir = rect->getPosition() - c.point;
 		Direction deltaX, deltaY;
@@ -17,7 +16,7 @@ namespace raytracer
 				deltaY		 = rect->getB() * shift * Mathf::randFloat0to1();
 				localYDir	 = rect->getB() * shift * (float)y + deltaY;
 				lfragmentDir = baseDir + (localXDir + localYDir);
-				color		 += computeFragmentShade(eyeDir, c, materialProps, lfragmentDir);
+				color		 += computeFragmentShade(c, mProperties, lfragmentDir);
 			}
 		}
 		return color / samplesSqr;
@@ -38,8 +37,7 @@ namespace raytracer
 		return rect->getPosition();
 	}
 
-	Color AreaLight::computeFragmentShade(const Direction &eyeDir, const Collision &c, 
-		const MaterialProperties &materialProps, const Direction &lfrafmentDir) const
+	Color AreaLight::computeFragmentShade(const Collision &c, const MaterialProperties &mProperties, const Direction &lfrafmentDir) const
 	{
 		float ldist	   = length(lfrafmentDir) - 0.0005f;
 		Direction ldir = normalize(lfrafmentDir);
@@ -56,11 +54,12 @@ namespace raytracer
 				return Colors::BLACK;
 			}
 		}
-		float cos	   = dot(c.normal, ldir);
-		Color diffuse  = materialProps.diffuse * max(cos, 0.f);
-		Direction h	   = normalize(ldir - eyeDir);
-		float nh	   = max(dot(c.normal, h), 0.f);
-		Color specular = materialProps.specular * pow(nh, materialProps.shininess);
+		Direction normal = dot(c.ray->dir, c.normal) > (-FLT_EPS) ? -c.normal : c.normal;
+		float cos	     = dot(normal, ldir);
+		Color diffuse    = mProperties.diffuse * max(cos, 0.f);
+		Direction h	     = normalize(ldir - c.ray->dir);
+		float nh	     = max(dot(normal, h), 0.f);
+		Color specular   = mProperties.specular * pow(nh, mProperties.shininess);
 
 		return transmitRate * (diffuse + specular) * color * computeAttenuation(ldist);
 	}

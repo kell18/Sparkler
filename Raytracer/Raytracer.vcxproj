@@ -128,9 +128,11 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="src\core\DisplayObject.cpp" />
+    <ClCompile Include="src\core\materials\DiffuseMaterial.cpp" />
     <ClCompile Include="src\core\materials\Material.cpp" />
     <ClCompile Include="src\core\materials\SimpleMaterial.cpp" />
     <ClCompile Include="src\core\materials\Texture.cpp" />
+    <ClCompile Include="src\geometry\Collision.cpp" />
     <ClCompile Include="src\geometry\Shape.cpp" />
     <ClCompile Include="src\utils\Color.cpp" />
     <ClCompile Include="src\core\lights\AreaLight.cpp" />
@@ -157,6 +159,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\core\DisplayObject.h" />
+    <ClInclude Include="src\core\materials\DiffuseMaterial.h" />
     <ClInclude Include="src\core\materials\Material.h" />
     <ClInclude Include="src\core\materials\MaterialProperties.h" />
     <ClInclude Include="src\core\materials\SimpleMaterial.h" />
@@ -184,6 +187,9 @@
     <ClInclude Include="src\geometry\primitives\Ray.h" />
     <ClInclude Include="src\geometry\primitives\Triangle.h" />
     <ClInclude Include="src\utils\SceneBuilder.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="res\test_scenes\EnvMapping.test" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

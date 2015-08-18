@@ -6,9 +6,7 @@ namespace raytracer
 	Collision Triangle::findCollisionTo(const Ray &ray) const
 	{
 
-		Collision collision = {};
-		collision.isFind = false;
-
+		Collision collision(ray);
 		Direction rdir = ray.dir;
 		Position reye = ray.eye;
 		if (isTransformed) {
@@ -43,11 +41,11 @@ namespace raytracer
 			collision.isFind   = true;
 			collision.distance = t;
 			if (isTransformed) {
-				collision.point  = transforms * cPoint;
-				collision.normal = normalize(invTranspTransforms * normal);
+				collision.point		  = transforms * cPoint;
+				collision.normal	  = normalize(invTranspTransforms * normal);
 			} else {
-				collision.point  = cPoint;
-				collision.normal = normal;
+				collision.point		  = cPoint;
+				collision.normal	  = normal;
 			}
 		}
 		return collision;

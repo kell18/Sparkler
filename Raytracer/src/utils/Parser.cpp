@@ -138,6 +138,13 @@ namespace raytracer
 				if (isInputValid) 
 					materialProps.transmitRate = values[0] ; 
 			}
+			else if (cmd == "diffuse_props") {
+				isInputValid = readVals(s, 2, values);
+				if (isInputValid) {
+					materialProps.diffuseRad = values[0];
+					materialProps.diffuseSamples = round(values[1]);
+				}
+			}
 			else if (cmd == "refractInd") {
 				isInputValid = readVals(s, 1, values); 
 				if (isInputValid) 

@@ -2,6 +2,17 @@
 
 namespace raytracer 
 {
+	float Mathf::randFloat(float range) 
+	{
+		return (static_cast<float> (rand()) / FLT_RAND_MAX) * range;
+	}
+
+	float Mathf::randFloat(float from, float to) 
+	{
+		// TODO: Change to FLT_RAND_MAX
+		return from + static_cast <float> (rand()) / (static_cast <float> (RAND_MAX) / (to - from));
+	}
+
 	float Mathf::randFloat0to1()
 	{
 		return static_cast<float> (rand()) / FLT_RAND_MAX;

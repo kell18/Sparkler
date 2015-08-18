@@ -5,9 +5,7 @@ namespace raytracer
 	// TODO: Try to implement simpler method
 	Collision Sphere::findCollisionTo(const Ray &ray) const
 	{
-		Collision collision = {};
-		collision.isFind = false;
-		
+		Collision collision(ray);		
 		Direction rdir = ray.dir;
 		Position reye = ray.eye;
 		if (isTransformed) {
@@ -20,7 +18,7 @@ namespace raytracer
 		float B = 2.f * dot(rdir, ec);
 		float C = dot(ec, ec) - radius * radius;
 		float D = B * B - 4.f * A * C;
-		if (D < std::numeric_limits<float>::epsilon()) {
+		if (D < FLT_EPS) {
 			return collision;
 		}
 
