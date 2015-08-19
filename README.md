@@ -24,7 +24,7 @@
 <br>
 #### Some rendered scenes below. 
 <br>
-###### > Soft shdows reflections and refractions with transparency:
+###### > Monte Carlo area light, reflections and refractions:
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;![Image of Yaktocat](/Resources/Imgs/Results/CornellBox1.png)
 ###### > Environment mapping:
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;![Image of Yaktocat](/Resources/Imgs/Results/em1.png)
