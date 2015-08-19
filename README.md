@@ -21,9 +21,8 @@
 - [ ] Depth of field
 - [ ] Mothion blur
  
-
-#### Some rendered scenes below. <br>
 <br>
+#### Some rendered scenes below. 
 ###### Soft shdows reflections and refractions with transparency:
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;![Image of Yaktocat](/Resources/Imgs/Results/CornellBox1.png)
 ###### Environment mapping:
