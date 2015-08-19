@@ -25,15 +25,15 @@
 ### Some rendered scenes below. 
 <br>
 ##### > Monte Carlo area light, reflections and refractions:
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;![Image of Yaktocat](/Resources/Imgs/Results/CornellBox1.png)
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;![Image of Yaktocat](/Resources/Imgs/Results/CornellBox1.png) 
 ##### > Environment mapping:
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;![Image of Yaktocat](/Resources/Imgs/Results/em1.png)
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;![Image of Yaktocat](/Resources/Imgs/Results/em1.png)
 ##### > Diffuse reflections:
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;![Image of Yaktocat](/Resources/Imgs/Results/dr2.1.png) <br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;![Image of Yaktocat](/Resources/Imgs/Results/dr3.0.png) <br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;![Image of Yaktocat](/Resources/Imgs/Results/dr3.1.png)
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;![Image of Yaktocat](/Resources/Imgs/Results/dr2.1.png) <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;![Image of Yaktocat](/Resources/Imgs/Results/dr3.0.png) <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;![Image of Yaktocat](/Resources/Imgs/Results/dr3.1.png)
 ##### > Triangle mesh:
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;![Image of Yaktocat](/Resources/Imgs/Results/scene7.png)
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;![Image of Yaktocat](/Resources/Imgs/Results/scene7.png)
 ##### > Transparency (visualisation of Snell's law):
 ![Image of Yaktocat](/Resources/Imgs/Results/refr1.png)
 ##### > Texture mapping:
