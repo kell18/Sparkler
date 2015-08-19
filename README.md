@@ -15,26 +15,29 @@
 - [x] Diffuse reflections
 
 ######Futher work:
+
 - [ ] More realistic diffuse reflections (Hemisphere samling)
 - [ ] More realistic transparency (Fresnel equation)
 - [ ] Depth of field
 - [ ] Mothion blur
+ 
+
+#### Some rendered scenes below. <br>
 <br>
-Some rendered scenes <br>
-- Soft shdows reflections and refractions with transparency:
+###### Soft shdows reflections and refractions with transparency:
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;![Image of Yaktocat](/Resources/Imgs/Results/CornellBox1.png)
-- Environment mapping:
+###### Environment mapping:
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;![Image of Yaktocat](/Resources/Imgs/Results/em1.png)
-- Diffuse reflections:
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;![Image of Yaktocat](/Resources/Imgs/Results/dr2.0.png)
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;![Image of Yaktocat](/Resources/Imgs/Results/dr2.1.png)
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;![Image of Yaktocat](/Resources/Imgs/Results/dr3.0.png)
+###### Diffuse reflections:
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;![Image of Yaktocat](/Resources/Imgs/Results/dr2.0.png) <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;![Image of Yaktocat](/Resources/Imgs/Results/dr2.1.png) <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;![Image of Yaktocat](/Resources/Imgs/Results/dr3.0.png) <br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;![Image of Yaktocat](/Resources/Imgs/Results/dr3.1.png)
-- Triangle mesh:
+###### Triangle mesh:
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;![Image of Yaktocat](/Resources/Imgs/Results/scene7.png)
-- Visualisation of Snell's law:
+###### Visualisation of Snell's law:
 ![Image of Yaktocat](/Resources/Imgs/Results/refr1.png)
-- Texture mapping:
+###### Texture mapping:
 ![Image of Yaktocat](/Resources/Imgs/Results/EarthAndMoon2.png)
 
 <br><br>
