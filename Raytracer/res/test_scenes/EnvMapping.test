@@ -1,12 +1,12 @@
 #Environment mapping scene
 size 640 480
-camera -1 0 -0.2 1 0 0.2 0 0 1 60
+camera 1.0 0 0 0 0 0 0 0 1 60
 
-output C:\Dropbox\Code\Cpp\Raytracer\Raytracer\res\out.png
+output C:\Dropbox\Code\Cpp\Raytracer\Resources\Imgs\out.png
 
 maxdepth 3
 
-fragmentsPerPixel 1
+fragmentsPerPixel 4
 
 ambient 0.1 0.08 0.08
 specular 0 0 0
@@ -16,28 +16,34 @@ diffuse 0.4 0.3 0.3
 reflectRate 1.0
 transmitRate 0.0
 
-# point 1 0 0 1 1 1 1
+# point 0.5 0.5 0.5 1 1 1 0.01
 # directional -1 0 -0.5 1 1 1 0.5
+# Area light
+emission 1 1 1
+rectangle 0.5 0.4 1.1     0.6 0 -0.7    0 -0.6 0.0
+area_light 1 1 1 0 4 1.15
+emission 0 0 0
 
 pushTransform
 
+pushTransform
 #Environment sphere
 reflectRate 0.0
-ambient 0.9 0.9 0.9
-#diffuse 0.7 0.7 0.7
+#ambient 0.8 0.8 0.8
+diffuse 0.7 0.7 0.7
 #specular 0.05 0.05 0.05
-shininess 50
-texture C:\Dropbox\Code\Cpp\Raytracer\Resources\Imgs\textures\em13.jpg
-sphere 0 0 0 1.5
-ambient 0.04 0.04 0.04
+shininess 0
+texture C:\Dropbox\Code\Cpp\Raytracer\Resources\Imgs\textures\em18.jpg
+sphere 0.5 0 0.3 1.0
+popTransform
 
 #metal sphere
-reflectRate 1.0
-ambient 0 0 0
-diffuse 0.0 0.0 0.0
-specular 0.99 0.99 0.99
-shininess 500
-diffuse_props 0.2 32
-sphere 0 0 0 0.5
+reflectRate 0.9
+ambient 0.005 0.005 0.005
+diffuse 0.2775	0.2775	0.2775
+specular 0.773911 0.773911 0.773911
+shininess 5.6
+diffuse_props 0.8 64
+sphere -0.1 0 -0.1 0.3
 
 popTransform

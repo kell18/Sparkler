@@ -4,7 +4,7 @@ camera 1 0 0 -1 0 0 0 0 1 60
 
 output C:\Dropbox\Code\Cpp\Raytracer\Raytracer\res\out.png
 
-maxdepth 7
+maxdepth 4
 
 fragmentsPerPixel 1
 
@@ -53,14 +53,6 @@ plane 0 0.75 0 0 -1 0
 ambient 0.04 0.04 0.04
 diffuse 0.0 0.0 0.0
 
-#Metal sphere
-reflectRate 1.0
-ambient 0.005 0.005 0.005
-diffuse 0.1775	0.1775	0.1775
-specular 0.873911 0.873911 0.873911
-shininess 89.6
-sphere -0.6 -0.37 -0.39 0.21
-
 #transparent sphere
 ambient 0.0 0.0 0.0
 diffuse 0.0588235 0.0670588 0.0729412
@@ -71,5 +63,14 @@ transmitRate 0.95
 refractInd 2.4
 sphere -0.3 0.3 -0.39 0.21
 transmitRate 0.0
+
+#Metal sphere
+reflectRate 1.0
+ambient 0.005 0.005 0.005
+diffuse 0.1775	0.1775	0.1775
+specular 0.873911 0.873911 0.873911
+shininess 89.6
+#diffuse_props 1 32
+sphere -0.6 -0.37 -0.39 0.21
 
 popTransform
