@@ -190,6 +190,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="res\test_scenes\EnvMapping.test" />
+    <None Include="res\test_scenes\Refraction.test" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -3,9 +3,9 @@
 #include <time.h>
 
 #include <FreeImage.h>
-#include "glm/glm.hpp"
-#include "glm/gtc/type_ptr.hpp"
-#include "glm/gtx/transform.hpp"
+#include <glm/glm.hpp>
+#include <glm/gtc/type_ptr.hpp>
+#include <glm/gtx/transform.hpp>
 
 #include "geometry/primitives/Ray.h"
 #include "geometry/primitives/Plane.h"

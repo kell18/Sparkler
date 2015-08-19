@@ -4,6 +4,8 @@ namespace raytracer
 {
 	void Scene::render()
 	{
+		int oneTenth = camera->width / 20;
+		cout << "Start rendering.\n";
 		for (int x = 0, w = camera->width; x < w; ++x) {
 			for (int y = 0, h = camera->height; y < h; ++y) {
 				Color color;
@@ -15,7 +17,17 @@ namespace raytracer
 				color /= fragmentsPerPixel;
 				film->commitFragment(x, y, color);
 			}
+			if (x % oneTenth == 0) {
+				string progress = "";
+				string equal = "=";
+				int tenths = x / oneTenth + 1;
+				for (size_t i = 0; i < tenths; i++) {
+					progress += equal;
+				}
+				cout << "Progress: [" << progress << ">" << setw(22 - tenths) << "] "<< tenths*5 <<"%\r";
+			}
 		}
+		cout << "\nDone.";
 		film->pushFragments();
 	}
 
@@ -39,8 +51,8 @@ namespace raytracer
 	{
 		this->fragmentsPerPixel = fragmentsPerPixel;
 		fragmentShift = 1.0f / fragmentsPerPixel;
-	}
 
+	}
 	Scene::Scene(Camera *camera, Film *film, vector<DisplayObject*> dObjects,  vector<Light*> lights)
 		: camera(camera), film(film), dObjects(dObjects), lights(lights)
 	{
