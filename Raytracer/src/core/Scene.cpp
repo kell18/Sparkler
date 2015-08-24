@@ -4,30 +4,19 @@ namespace raytracer
 {
 	void Scene::render()
 	{
-		int oneTenth = camera->width / 20;
-		cout << "Start rendering.\n";
+		// TODO: Refactor this: move sampling to sep. class
 		for (int x = 0, w = camera->width; x < w; ++x) {
 			for (int y = 0, h = camera->height; y < h; ++y) {
 				Color color;
-				for (int f = 0; f < fragmentsPerPixel; ++f)
-				{
+				for (int f = 0; f < fragmentsPerPixel; ++f) {
 					Ray ray	= camera->rayThroughPixel(x + fragmentShift * f, y + fragmentShift * f);
 					color  += Raytracer::findColor(ray, recursionDepth);
 				}
 				color /= fragmentsPerPixel;
 				film->commitFragment(x, y, color);
 			}
-			if (x % oneTenth == 0) {
-				string progress = "";
-				string equal = "=";
-				int tenths = x / oneTenth + 1;
-				for (size_t i = 0; i < tenths; i++) {
-					progress += equal;
-				}
-				cout << "Progress: [" << progress << ">" << setw(22 - tenths) << "] "<< tenths*5 <<"%\r";
-			}
+			film->logProgress(x);
 		}
-		cout << "\nDone.";
 		film->pushFragments();
 	}
 

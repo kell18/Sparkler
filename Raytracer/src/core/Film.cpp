@@ -8,12 +8,12 @@ namespace raytracer {
 		rgbquad.rgbRed = min(color.r, 1.f) * 255;
 		rgbquad.rgbGreen = min(color.g, 1.f) * 255;
 		rgbquad.rgbBlue = min(color.b, 1.f) * 255;
-		FreeImage_SetPixelColor(_imageBitmap, x, y, &rgbquad);
+		FreeImage_SetPixelColor(raw_imageBitmap, x, y, &rgbquad);
 	};
 
 	void Film::pushFragments() 
 	{
-		BOOL isSaved = FreeImage_Save(FIF_PNG, _imageBitmap, outputFile.c_str(), PNG_DEFAULT);
+		BOOL isSaved = FreeImage_Save(FIF_PNG, raw_imageBitmap, outputFile.c_str(), PNG_DEFAULT);
 		if (isSaved) {
 			cout << "Image saved to file: " << outputFile.c_str() << endl;
 		} else {
@@ -22,11 +22,22 @@ namespace raytracer {
 		}
 	}
 
-	Film::Film(int width, int height, string outputFile, short bitsPerPixel) 
-		: _width(width), _height(height), outputFile(outputFile)
+	void Film::logProgress(int param)
 	{
-		_imageBitmap = FreeImage_Allocate(width, height, bitsPerPixel);
+		if (param % logInterval == 0) {
+			int percents = param / logInterval + 1;
+			progressMsg += "=";
+			cout << "Progress: [" << progressMsg << ">" <<
+				setw(logFrequency + 2 - percents) << "] " << percents * 5 << "%\r";
+		}
+	}
+
+	Film::Film(int width, int height, string outputFile, short bitsPerPixel) 
+		: width(width), height(height), outputFile(outputFile)
+	{
+		raw_imageBitmap = FreeImage_Allocate(width, height, bitsPerPixel);
 		FreeImage_Initialise();
+		logInterval = width / logFrequency;
 	}
 
 	Film::~Film() {

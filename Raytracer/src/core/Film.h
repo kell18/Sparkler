@@ -1,12 +1,12 @@
 #pragma once
 
-#include <glm/glm.hpp>
-#include <glm/vec4.hpp>
 #include <FreeImage.h>
 #include <stdio.h>
 #include <vector>
 #include <iostream>
+#include <iomanip>
 
+#include "../utils/Mathf.h"
 #include "../utils/Color.h"
 
 using namespace glm;
@@ -17,16 +17,19 @@ namespace raytracer
 
 	class Film {
 	private:
-		int _width, _height;
-		FIBITMAP* _imageBitmap;
-		FIBITMAP* loadedImg;
+		int width, height;
 		string outputFile;
+		FIBITMAP* raw_imageBitmap;
+
+		int logInterval;
+		string progressMsg = "";
 
 	public:
+		int logFrequency = 20;
 
 		void                commitFragment(int x, int y, Color color);
-
 		void                pushFragments();
+		void				logProgress(int param);
 
 							Film(int width, int height, string outputFile, 
 								short bitsPerPixel = 24);

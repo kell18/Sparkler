@@ -4,7 +4,6 @@
 #include <iostream>
 #include <ctime>
 #include <FreeImage.h>
-#include <iomanip>
 
 #include "../geometry/primitives/Sphere.h"
 #include "DisplayObject.h"
