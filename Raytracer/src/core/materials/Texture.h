@@ -22,5 +22,9 @@ namespace raytracer
 
 							Texture(string fullPath);
 		virtual				~Texture();
+
+
+							Texture(const Texture&) = delete;
+							Texture& operator= (const Texture&) = delete;
 	};
 }

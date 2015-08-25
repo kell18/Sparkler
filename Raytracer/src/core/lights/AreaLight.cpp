@@ -39,7 +39,7 @@ namespace raytracer
 
 	Color AreaLight::computeFragmentShade(const Collision &c, const MaterialProperties &mProperties, const Direction &lfrafmentDir) const
 	{
-		float ldist	   = length(lfrafmentDir) - 0.0005f;
+		float ldist	   = length(lfrafmentDir) - 0.0005f; // TODO: Work around
 		Direction ldir = normalize(lfrafmentDir);
 
 		float transmitRate = 1.0f;

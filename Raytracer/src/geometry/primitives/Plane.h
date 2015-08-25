@@ -16,7 +16,6 @@ namespace raytracer
 		Direction			getNormal() const;
 
 							Plane(Position position, Direction normal);
-		virtual				~Plane();
 	};
 }
 

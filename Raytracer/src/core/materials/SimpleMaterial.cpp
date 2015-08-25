@@ -60,8 +60,4 @@ namespace raytracer
 		: Material(properties)
 	{
 	}
-
-	SimpleMaterial::~SimpleMaterial()
-	{
-	}
 }

@@ -28,14 +28,14 @@ using namespace std;
 
 int main()
 {
-	string inputFile = "C:\\Dropbox\\Code\\Cpp\\Raytracer\\Raytracer\\res\\test_scenes\\EnvMapping.test";
+	string inputFile = "C:\\Dropbox\\Code\\Cpp\\Raytracer\\Raytracer\\res\\test_scenes\\DebugScene.test";
 	World::initialize();
 
 	World::setActiveScene(Parser::parseFile(inputFile));
 	double renderTime = World::renderActiveScene();
 
 	World::deinitialize();
-	cout << "\nRender time: " << renderTime << "ms";
+	cout << "\nDone. Render time: " << renderTime << "ms";
 	
 	getchar();
 	return 0;

@@ -115,7 +115,7 @@ namespace detail
 #		if GLM_HAS_ANONYMOUS_UNION
 			union
 			{
-				struct { T x, y, z, w;};
+				struct { T paramx, y, z, w;};
 				struct { T r, g, b, a; };
 				struct { T s, t, p, q; };
 

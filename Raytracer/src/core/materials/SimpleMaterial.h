@@ -11,6 +11,5 @@ namespace raytracer
 								int depth, const vec2 &texelCoords = vec2()) const override;
 
 							SimpleMaterial(MaterialProperties properties);
-		virtual				~SimpleMaterial();
 	};
 }

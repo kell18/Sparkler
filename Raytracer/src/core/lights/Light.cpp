@@ -13,6 +13,7 @@ namespace raytracer
 			Ray::BuildShifted(c.point, negLDir, T_MIN, ldist), sunshadeDObj
 		);
 		if (sunshade.isFind) {
+			// TODO: Bug when there are > 1 sunshade on a light path. Change on caustics.
 			if (sunshadeDObj->material->properties.transmitRate > 0.0f) {
 				transmitRate *= sunshadeDObj->material->properties.transmitRate * 0.70f;
 			} else {
@@ -20,7 +21,7 @@ namespace raytracer
 			}
 		}
 
-		Direction normal = dot(c.ray->dir, c.normal) > (-FLT_EPS) ? -c.normal : c.normal;
+		Direction normal = c.normal; // dot(c.ray->dir, c.normal) > (-FLT_EPS) ? -c.normal : c.normal;
 		float cos		 = dot(normal, negLDir);
 		Color diffuse	 = mProperties.diffuse * max(cos, 0.f);
 

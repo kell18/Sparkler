@@ -21,7 +21,7 @@ namespace raytracer
 		nearest.distance = FLT_MAX;
 		vector<DisplayObject*> &dObjects = World::getActiveScene()->findNearestObjects(ray);
 		for (auto dObject = dObjects.begin(); dObject != dObjects.end(); ++dObject) {
-			current = (*dObject)->shape->findCollisionTo(ray); // TODO: Usless dot products here
+			current = (*dObject)->shape->findCollisionTo(ray); // TODO: Unused dot product computes here
 			if (current.isFind && current.distance < nearest.distance) {
 				nearest = current;
 				outDObject = *dObject;
@@ -34,9 +34,9 @@ namespace raytracer
 	Collision Raytracer::findAnyCollision(const Ray & ray, DisplayObject *&outDObject)
 	{
 		Collision c;
-		vector<DisplayObject*> &objects = World::getActiveScene()->findNearestObjects(ray);
-		for (size_t i = 0, len = objects.size(); i < len; ++i) {
-			outDObject = objects[i];
+		vector<DisplayObject*> &dObjects = World::getActiveScene()->findNearestObjects(ray);
+		for (size_t i = 0, len = dObjects.size(); i < len; ++i) {
+			outDObject = dObjects[i];
 			c = outDObject->shape->findCollisionTo(ray);
 			if (c.isFind) {
 				return c;

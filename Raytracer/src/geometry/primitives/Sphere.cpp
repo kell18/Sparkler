@@ -39,6 +39,7 @@ namespace raytracer
 			collision.isFind   = true;
 			collision.distance = t;
 			if (isTransformed) {
+				// TODO: May be invTranspTransforms?
 				collision.point  = transforms * cPoint;
 				collision.normal = normalize(invTranspTransforms * Direction(cPoint - this->position));
 			} else {
@@ -65,10 +66,6 @@ namespace raytracer
 
 	Sphere::Sphere(Position position, float radius)
 		: Shape(position), radius(radius)
-	{
-	}
-
-	Sphere::~Sphere()
 	{
 	}
 }

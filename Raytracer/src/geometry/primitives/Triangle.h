@@ -23,7 +23,6 @@ namespace raytracer
 		Position			getVert3() const;
 
 							Triangle(Position vert1, Position vert2, Position vert3);
-							~Triangle();
 	};
 
 }

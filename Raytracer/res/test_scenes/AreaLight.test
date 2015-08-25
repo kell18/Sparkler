@@ -2,7 +2,7 @@
 size 640 480
 camera 1 0 0 -1 0 0 0 0 1 80
 
-output C:\Dropbox\Code\Cpp\Raytracer\Raytracer\res\out.png
+output C:\Dropbox\Code\Cpp\Raytracer\Resources\Imgs\out.png
 
 maxdepth 4
 

@@ -2,7 +2,8 @@
 
 namespace raytracer 
 {
-	bool Parser::readVals(stringstream &s, const int numvals, float *values) {
+	bool Parser::readVals(stringstream &s, const int numvals, float *values) 
+	{
 		for (int i = 0 ; i < numvals; i++) {
 			s >> values[i];
 			if (s.fail()) {
@@ -13,7 +14,8 @@ namespace raytracer
 		return true; 
 	}
 
-	bool Parser::readVals(stringstream &s, const int numvals, int *values) {
+	bool Parser::readVals(stringstream &s, const int numvals, int *values) 
+	{
 		for (int i = 0; i < numvals; i++) {
 			s >> values[i];
 			if (s.fail()) {
@@ -24,7 +26,8 @@ namespace raytracer
 		return true;
 	}
 
-	Scene* Parser::parseFile(const string &fileName) {
+	Scene* Parser::parseFile(const string &fileName) 
+	{
 		string str, cmd; 
 		ifstream in;
 		in.open(fileName.c_str()); 
@@ -65,12 +68,10 @@ namespace raytracer
 			else if (cmd == "point") {
 				isInputValid = readVals(s, 7, values);
 				if (isInputValid) {
-					if (isInputValid) {
-						builder.addLight(new PointLight(
-							Position(values[0], values[1], values[2]),
-							Color(values[3], values[4], values[5]), values[6])
-						);
-					}
+					builder.addLight(new PointLight(
+						Position(values[0], values[1], values[2]),
+						Color(values[3], values[4], values[5]), values[6])
+					);
 				}
 			}
 			else if (cmd == "directional") {

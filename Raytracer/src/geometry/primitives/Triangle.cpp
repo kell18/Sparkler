@@ -93,8 +93,4 @@ namespace raytracer
 	{
 		normal =  normalize(cross(edge1, edge2));
 	}
-
-	Triangle::~Triangle() 
-	{
-	}
 }

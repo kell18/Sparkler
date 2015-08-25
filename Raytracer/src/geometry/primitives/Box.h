@@ -14,6 +14,5 @@ namespace raytracer
 		virtual Collision	findCollisionTo(const Ray & ray) const override;
 
 							Box(Position fromPoint, Position toPoint);
-		virtual				~Box();
 	};
 }

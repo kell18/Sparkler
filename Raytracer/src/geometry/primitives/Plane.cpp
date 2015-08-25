@@ -2,6 +2,8 @@
 
 namespace raytracer
 {
+	// TODO: Fix BUG: black line under area light. 
+	// Can repeat with res/test_scenes/PlaneBug.test file.
 	Collision Plane::findCollisionTo(const Ray &ray) const
 	{
 		Collision c(ray);
@@ -45,11 +47,7 @@ namespace raytracer
 	}
 
 	Plane::Plane(Position position, Direction normal)
-		: Shape(position), normal(normal)
-	{
-	}
-
-	Plane::~Plane()
+		: Shape(position), normal(normalize(normal))
 	{
 	}
 }

@@ -20,7 +20,6 @@ namespace raytracer
 		virtual vec2		computeUVCoords(const Collision &c) const override;
 
 							Sphere(Position position, float radius);
-		virtual				~Sphere();
 	};
 
 }

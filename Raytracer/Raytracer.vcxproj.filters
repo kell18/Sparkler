@@ -195,5 +195,6 @@
   <ItemGroup>
     <None Include="res\test_scenes\EnvMapping.test" />
     <None Include="res\test_scenes\Refraction.test" />
+    <None Include="res\test_scenes\PlaneBug.test" />
   </ItemGroup>
 </Project>

@@ -37,8 +37,4 @@ namespace raytracer
 		: Shape(fromPoint), fromP(fromPoint), toP(toPoint)
 	{
 	}
-
-	Box::~Box()
-	{
-	}
 }

@@ -10,14 +10,16 @@ namespace raytracer
 
 	class DisplayObject
 	{
-	private: 
 	public:
-		// TODO: Make private
 		Shape* shape;
 		Material* material;
 
 		Color		findSurfaceColor(const Collision &c, float ior, int depth) const;
+
 					DisplayObject(Shape* shape, Material* material);
 					~DisplayObject();
+
+					DisplayObject(const DisplayObject&) = delete;
+					DisplayObject& operator= (const DisplayObject&) = delete;
 	};
 }
