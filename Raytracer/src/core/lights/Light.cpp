@@ -20,11 +20,11 @@ namespace raytracer
 				return Colors::BLACK;
 			}
 		}
-
-		Direction normal = c.normal; // dot(c.ray->dir, c.normal) > (-FLT_EPS) ? -c.normal : c.normal;
+		// Determ is it inside of object? If yes then invert norm direction
+		Direction normal = dot(c.ray->dir, c.normal) > (-FLT_EPS) ? -c.normal : c.normal;
 		float cos		 = dot(normal, negLDir);
 		Color diffuse	 = mProperties.diffuse * max(cos, 0.f);
-
+		
 		Direction h		 = normalize(negLDir - c.ray->dir);
 		float nh		 = max(dot(normal, h), 0.f);
 		Color specular	 = mProperties.specular * pow(nh, mProperties.shininess);

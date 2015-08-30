@@ -102,6 +102,9 @@
     <ClCompile Include="src\core\materials\DiffuseMaterial.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\core\lights\FastAreaLight.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\core\Camera.h">
@@ -191,10 +194,15 @@
     <ClInclude Include="src\core\materials\DiffuseMaterial.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="src\core\lights\FastAreaLight.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="res\test_scenes\EnvMapping.test" />
     <None Include="res\test_scenes\Refraction.test" />
     <None Include="res\test_scenes\PlaneBug.test" />
+    <None Include="res\test_scenes\FastAreaLight.test" />
+    <None Include="res\test_scenes\PlaneBug1.test" />
   </ItemGroup>
 </Project>

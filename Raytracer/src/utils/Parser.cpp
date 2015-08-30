@@ -98,6 +98,14 @@ namespace raytracer
 					}
 				}
 			}
+			else if (cmd == "fast_area_light") {
+				isInputValid = readVals(s, 7, values);
+				if (isInputValid) {
+					builder.addLight(new FastAreaLight(
+						Position(values[0], values[1], values[2]),
+						Color(values[3], values[4], values[5]), values[6]));
+				}
+			}
 			else if (cmd == "attenuation") {
 				isInputValid = readVals(s, 3, values);
 				if (isInputValid) {

@@ -51,7 +51,7 @@ namespace raytracer
 			if (sunshadeDObject->material->properties.transmitRate > 0.0f) {
 				transmitRate *= sunshadeDObject->material->properties.transmitRate * 0.70f;
 			} else {
-				return Colors::BLACK;
+				// return Colors::BLACK; // TODO: TMP return return
 			}
 		}
 		Direction normal = dot(c.ray->dir, c.normal) > (-FLT_EPS) ? -c.normal : c.normal;

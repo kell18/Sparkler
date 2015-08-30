@@ -11,6 +11,7 @@ namespace raytracer
 	class DisplayObject
 	{
 	public:
+		// TODO: Maki it const
 		Shape* shape;
 		Material* material;
 

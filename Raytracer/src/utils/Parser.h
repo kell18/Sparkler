@@ -16,6 +16,7 @@
 #include "../core/lights/PointLight.h"
 #include "../core/lights/DirectionalLight.h"
 #include "../core/lights/AreaLight.h"
+#include "../core/lights/FastAreaLight.h"
 #include "../core/Scene.h"
 #include "../geometry/primitives/Plane.h"
 #include "../geometry/primitives/Rectangle.h"

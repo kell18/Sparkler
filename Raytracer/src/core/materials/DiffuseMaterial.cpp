@@ -46,23 +46,24 @@ namespace raytracer
 		}
 		// Trace diffuse reflected rays
 		if (depth > 2 && reflectRate > 0.0f) {
-			Direction baseRefl = c.ray->dir - 2.0f * rdirDotNorm * c.normal;
-			Direction baseX = Direction(baseRefl.z, baseRefl.y, -baseRefl.x); // cross(baseRefl, c.normal);
-			Direction baseY = cross(baseRefl, baseX);
+			Direction baseRefl = normalize(c.ray->dir - 2.0f * rdirDotNorm * c.normal);
+			Direction baseX = normalize(cross(c.normal, baseRefl)); // Direction(baseRefl.z, baseRefl.y, -baseRefl.x);
+			Direction baseY = normalize(cross(baseX, baseRefl));
 			Color summColor;
 			float baseOffs, xOffs, yOffsRange, yOffs;
 			for (size_t i = 0; i < properties.diffuseSamples; ++i) {
 				do {
-					xOffs = Mathf::randFloat(properties.diffuseRad) * properties.diffuseRad;
-					yOffs = Mathf::randFloat(properties.diffuseRad) * properties.diffuseRad;
+					xOffs = Mathf::randFloat(-properties.diffuseRad, properties.diffuseRad);
+					yOffs = Mathf::randFloat(-properties.diffuseRad, properties.diffuseRad);
 				} while ((xOffs * xOffs + yOffs * yOffs) > (properties.diffuseRad * properties.diffuseRad));
-				Direction reflDir = baseRefl + baseX * xOffs + baseY * yOffs * properties.diffuseRad;
+				Direction reflDir = baseRefl + baseX * xOffs + baseY * yOffs;
 				// Reflect rays that direct inside the object to outside through baseRefl
 				if (dot(reflDir, c.normal) < 0.0f) {
 					reflDir = -reflDir - 2.0f * dot(-reflDir, baseRefl) * baseRefl;
 				}
 				summColor += reflectRate * properties.specular *
-					Raytracer::findColor(Ray(c.point, normalize(reflDir)), depth - 1, outRefrInd);
+					Raytracer::findColor(Ray::BuildShifted(c.point, normalize(reflDir)), 
+						depth - 1, outRefrInd);
 			}
 			color += summColor / ((float)properties.diffuseSamples);
 		}

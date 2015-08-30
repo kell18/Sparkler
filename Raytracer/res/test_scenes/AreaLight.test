@@ -6,7 +6,7 @@ output C:\Dropbox\Code\Cpp\Raytracer\Resources\Imgs\out.png
 
 maxdepth 4
 
-fragmentsPerPixel 2
+fragmentsPerPixel 1
 
 maxverts 3
 #planar face
@@ -29,36 +29,37 @@ pushTransform
 # Area light
 pushTransform
 emission 1.0 1.0 1.0
-rectangle -0.3 -0.999 0 0 0 0.3 0.3 0 0
+rectangle -0.0 -0.699 0 0 0 0.3 0.3 0 0
 emission 0 0 0
 popTransform
-area_light 1 1 1 0 2 1
+area_light 1 1 1 0 1 1
 
 #floor
 plane 0 0 -0.4 0 0 1
 
 #forward
-rectangle -1.5 -3.5 -0.5 0 7 0 0 0 7
+rectangle -0.8 -3.5 -0.5 0 7 0 0 0 7
 
 #back
 plane 1.1 0 0 -1 0 0
 
 #top
-plane 0 0 1.5 0 0 -1
+plane 0 0 0.8 0 0 -1
 
 #left
-plane 0 -1 0 0 1 0
+plane 0 -0.7 0 0 1 0
 
 #right
-plane 0 1 0 0 -1 0
+plane 0 0.7 0 0 -1 0
 
 ambient 0.04 0.04 0.04
 
 #metal sphere
-reflectRate 1.0
-diffuse 0.0 0.0 0.0
-specular 0.99 0.99 0.99
-shininess 400
-sphere -0.2 0.3 0.3 0.2
+reflectRate 0.3
+ambient 0.005 0.005 0.005
+diffuse 0.7 0.7 0.1
+specular 0.5 0.5 0.05
+shininess 100
+sphere -0.0 0.2 0.0 0.2
 
 popTransform

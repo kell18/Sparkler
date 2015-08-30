@@ -128,6 +128,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="src\core\DisplayObject.cpp" />
+    <ClCompile Include="src\core\lights\FastAreaLight.cpp" />
     <ClCompile Include="src\core\materials\DiffuseMaterial.cpp" />
     <ClCompile Include="src\core\materials\Material.cpp" />
     <ClCompile Include="src\core\materials\SimpleMaterial.cpp" />
@@ -159,6 +160,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\core\DisplayObject.h" />
+    <ClInclude Include="src\core\lights\FastAreaLight.h" />
     <ClInclude Include="src\core\materials\DiffuseMaterial.h" />
     <ClInclude Include="src\core\materials\Material.h" />
     <ClInclude Include="src\core\materials\MaterialProperties.h" />
@@ -190,7 +192,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="res\test_scenes\EnvMapping.test" />
+    <None Include="res\test_scenes\FastAreaLight.test" />
     <None Include="res\test_scenes\PlaneBug.test" />
+    <None Include="res\test_scenes\PlaneBug1.test" />
     <None Include="res\test_scenes\Refraction.test" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
