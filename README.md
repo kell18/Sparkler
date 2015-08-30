@@ -1,5 +1,5 @@
 #Sparkler
-#####C++ Raytracer.
+#####Graphical engine based on [ray tracing](https://en.wikipedia.org/wiki/Ray_tracing_(graphics)) method.
 <br>
 ######Realized features:
 - [x] Anti-Aliasing
