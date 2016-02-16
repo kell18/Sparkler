@@ -1,8 +1,6 @@
 #Sparkler
-#####Graphical engine based on [ray tracing](https://en.wikipedia.org/wiki/Ray_tracing_(graphics)) method.
-
-<br>
-### Some rendered scenes below. 
+#####Graphical engine based on [ray tracing](https://en.wikipedia.org/wiki/Ray_tracing_(graphics)) method. Some rendered scenes below.
+ 
 <br>
 ##### > Monte Carlo area light, reflections and refractions:
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;![CornellBox](/Resources/Imgs/Results/CornellBox1.png) 
