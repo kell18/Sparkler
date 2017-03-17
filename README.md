@@ -3,7 +3,7 @@
  
 <br>
 ##### > Monte Carlo area light, reflections and refractions:
- &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ![CornellBox](https://github.com/kell18/Sparkler/blob/master/Resources/Imgs/Results/CornellBox1.png) 
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ![CB](http://www.grammaticalframework.org/doc/Logos/gf1.svg) 
 ##### > Environment mapping:
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;![Environment mapping](Resources/Imgs/Results/em1.png)
 ##### > Diffuse reflections:
