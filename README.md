@@ -2,8 +2,10 @@
 ##### Graphical engine based on [ray tracing](https://en.wikipedia.org/wiki/Ray_tracing_(graphics)) method. Some rendered scenes below.
  
 <br>
-##### > Monte Carlo area light, reflections and refractions:
- &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ![CB](http://www.grammaticalframework.org/doc/Logos/gf1.svg) 
+##### Monte Carlo area light, reflections and refractions:
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;![CB](https://github.com/kell18/Sparkler/blob/master/Resources/Imgs/Results/CornellBox1.png)
+
 ##### > Environment mapping:
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;![Environment mapping](Resources/Imgs/Results/em1.png)
 ##### > Diffuse reflections:
@@ -18,7 +20,7 @@
 ![Image of Yaktocat](/Resources/Imgs/Results/EarthAndMoon2.png)
 
 <br>
-######Realized features:
+###### Realized features:
 - [x] Anti-Aliasing
 - [x] Blin-Phong shading model
 - [x] Reflections
@@ -31,7 +33,7 @@
 - [x] Monte Carlo area light (soft shadows)
 - [x] Diffuse reflections
 
-######Futher work:
+###### Futher work:
 
 - [ ] Realize acceleration structure (KD-Tree)
 - [ ] More realistic transparency (Fresnel equation)
