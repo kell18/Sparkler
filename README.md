@@ -1,11 +1,11 @@
-#Sparkler
-#####Graphical engine based on [ray tracing](https://en.wikipedia.org/wiki/Ray_tracing_(graphics)) method. Some rendered scenes below.
+# Sparkler
+##### Graphical engine based on [ray tracing](https://en.wikipedia.org/wiki/Ray_tracing_(graphics)) method. Some rendered scenes below.
  
 <br>
 ##### > Monte Carlo area light, reflections and refractions:
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;![CornellBox](/Resources/Imgs/Results/CornellBox1.png) 
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ![CornellBox](https://github.com/kell18/Sparkler/blob/master/Resources/Imgs/Results/CornellBox1.png) 
 ##### > Environment mapping:
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;![Environment mapping](/Resources/Imgs/Results/em1.png)
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;![Environment mapping](Resources/Imgs/Results/em1.png)
 ##### > Diffuse reflections:
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;![Diffuse reflections](/Resources/Imgs/Results/dr1.png) <br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;![Diffuse reflections](/Resources/Imgs/Results/dr2.png) <br>
