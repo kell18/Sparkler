@@ -2,7 +2,7 @@
 ##### Graphical engine based on [ray tracing](https://en.wikipedia.org/wiki/Ray_tracing_(graphics)) method. Some rendered scenes below.
  
 <br>
-##### Monte Carlo area light, reflections and refractions:
+##### > Monte Carlo area light, reflections and refractions:
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;![CB](https://github.com/kell18/Sparkler/blob/master/Resources/Imgs/Results/CornellBox1.png)
 
